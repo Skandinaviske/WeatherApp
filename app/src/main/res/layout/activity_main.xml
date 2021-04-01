@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.myweatherapp.viewmodel.MyViewModel"/>
+    </data>
+
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.MainActivity">
+
+        <com.rainy.weahter_bg_plug.WeatherBg
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:type="heavyRainy" />
+
+        <TextView
+            android:id="@+id/temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="360dp"
+            android:hint="23"
+            android:text="@={viewModel.repositoryforNow[0]}"
+            android:textColor="@color/black"
+            android:textSize="90sp" />
+
+        <TextView
+            android:id="@+id/Unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="370dp"
+            android:text="℃"
+            android:textColor="@color/black"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/weather_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="420dp"
+            android:hint="晴"
+            android:text="@={viewModel.repositoryforNow[2]}"
+            android:textColor="@color/black"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="470dp"
+            android:hint="3月31日"
+            android:text="@={viewModel.repositoryforNow[6]}"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+<!--        android:text="@={viewModel.repositoryforDate}"-->
+
+    </RelativeLayout>
+</layout>
