@@ -20,7 +20,7 @@ import kotlin.collections.ArrayList
 class Repository {
     private var repository: Repository? = null
     private var textLiveDataforNow = MutableLiveData<ArrayList<String>>()
-    private var textLiveDataforLocation = MutableLiveData<ArrayList<Any>>()
+    private var textLiveDataforLocation = MutableLiveData<ArrayList<String>>()
     private val TIANQI_API_SECRET_KEY = "S69J9uyzmkgblruE-"
     private val LANGUAGE_NAME = "zh-Hans"
     private val UNIT = "c"
@@ -90,7 +90,7 @@ class Repository {
         return textLiveDataforNow
     }
 
-    fun getLocationInfo(cityname: String): MutableLiveData<ArrayList<Any>> {
+    fun getLocationInfo(cityname: String): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> = connectService.getStringArrayList(
             TIANQI_API_SECRET_KEY,
             cityname,
@@ -113,12 +113,13 @@ class Repository {
                     val timezone = now?.timezone
                     val timezone_offset = now?.timezone_offset
 
-                    val arrayList = arrayListOf<Any>()
+                    val arrayList = arrayListOf<String>()
                     if (id != null && cityname != null && country != null &&
                         path != null && timezone != null && timezone_offset != null
                     ) {
                         arrayList.add(id)
                         arrayList.add(cityname)
+                        Log.d("CurrentCity",cityname)
                         arrayList.add(country)
                         arrayList.add(path)
                         arrayList.add(timezone)

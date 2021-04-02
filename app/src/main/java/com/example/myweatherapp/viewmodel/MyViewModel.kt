@@ -10,7 +10,7 @@ import com.example.myweatherapp.repository.Repository
 
 class MyViewModel : ViewModel() {
     private var textLiveDataforNow: MutableLiveData<ArrayList<String>>? = null
-    private var textLiveDataforLocation: MutableLiveData<ArrayList<Any>>? = null
+    private var textLiveDataforLocation: MutableLiveData<ArrayList<String>>? = null
 
     private var repository = Repository()
 
@@ -25,7 +25,7 @@ class MyViewModel : ViewModel() {
     val repositoryforNow: LiveData<ArrayList<String>>?
         get() = textLiveDataforNow
 
-    val repositoryforLocation: LiveData<ArrayList<Any>>?
+    val repositoryforLocation: LiveData<ArrayList<String>>?
         get() = textLiveDataforLocation
 
 }

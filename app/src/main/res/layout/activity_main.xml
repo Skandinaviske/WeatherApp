@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             app:setWeather="@{viewModel.repositoryforNow[1]}" />
 
+
         <TextView
             android:id="@+id/initText"
             android:layout_width="wrap_content"
@@ -32,6 +33,15 @@
             android:fontFamily="@font/initfont"
             android:visibility="@{viewModel.repositoryforNow[8]}"/>
 
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:text="@{viewModel.repositoryforLocation[1]}" />
 
         <TextView
             android:id="@+id/temperature"
