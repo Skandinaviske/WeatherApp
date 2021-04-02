@@ -13,14 +13,21 @@ class BindingAdapter {
         fun setWeather(weatherBg: WeatherBg, value: String?) {
             when (value) {
                 "sunny" -> weatherBg.changeWeather("sunny")
-                "heavyRainy" -> weatherBg.changeWeather("heavyRainy")
+                "sunnyNight" -> weatherBg.changeWeather("sunnyNight")
+                "cloudy" -> weatherBg.changeWeather("cloudy")
+                "cloudyNight" -> weatherBg.changeWeather("cloudyNight")
                 "overcast" -> weatherBg.changeWeather("overcast")
+                "lightRainy" -> weatherBg.changeWeather("lightRainy")
+                "thunder" -> weatherBg.changeWeather("thunder")
+                "middleRainy" -> weatherBg.changeWeather("middleRainy")
+                "heavyRainy" -> weatherBg.changeWeather("heavyRainy")
+                "lightSnow" -> weatherBg.changeWeather("lightSnow")
+                "middleSnow" -> weatherBg.changeWeather("middleSnow")
+                "heavySnow" -> weatherBg.changeWeather("heavySnow")
+                "dusty" -> weatherBg.changeWeather("dusty")
+                "foggy" -> weatherBg.changeWeather("foggy")
+                "hazy" -> weatherBg.changeWeather("hazy")
             }
-        }
-
-        @BindingAdapter("imageUrl")
-        fun ImageView.setImageUrl(url: String?) {
-            //Glide.with(context).load(url).into(this)
         }
     }
 }

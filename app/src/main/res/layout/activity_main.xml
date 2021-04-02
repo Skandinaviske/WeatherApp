@@ -18,11 +18,6 @@
             android:layout_height="match_parent"
             app:setWeather="@{viewModel.repositoryforNow[1]}"/>
 
-<!--        app:type="@{viewModel.repositoryforNow[1]}"-->
-        <!--            app:type="sunnyNight" />-->
-
-
-
         <TextView
             android:id="@+id/temperature"
             android:layout_width="wrap_content"
@@ -63,8 +58,6 @@
             android:text="@={viewModel.repositoryforNow[6]}"
             android:textColor="@color/black"
             android:textSize="25sp" />
-
-        <!--        android:text="@={viewModel.repositoryforDate}"-->
 
     </RelativeLayout>
 </layout>

@@ -1,5 +1,6 @@
 package com.example.myweatherapp.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,10 +13,10 @@ class MyViewModel : ViewModel() {
 
     private var repository = Repository()
 
-    fun init(){
+    fun init(cityname: String){
         repository = repository.instance
-        textLiveDataforNow = repository.getNowInfo()
-        textLiveDataforLocation = repository.getLocationInfo()
+        textLiveDataforNow = repository.getNowInfo(cityname)
+        textLiveDataforLocation = repository.getLocationInfo(cityname)
         //textDate = getCurrentDate()
     }
 

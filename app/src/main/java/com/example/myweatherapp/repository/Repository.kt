@@ -1,11 +1,14 @@
 package com.example.myweatherapp.repository
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.amap.api.location.AMapLocationClient
 import com.example.myweatherapp.data.Result
 import com.example.myweatherapp.retrofit.ConnectService
 import com.example.myweatherapp.retrofit.RetrofitService
+import com.example.myweatherapp.view.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,7 +21,9 @@ class Repository {
     private var repository: Repository? = null
     private var textLiveDataforNow = MutableLiveData<ArrayList<String>>()
     private var textLiveDataforLocation = MutableLiveData<ArrayList<Any>>()
-
+    private val TIANQI_API_SECRET_KEY = "S69J9uyzmkgblruE-"
+    private val LANGUAGE_NAME = "zh-Hans"
+    private val UNIT = "c"
     val instance: Repository
         get() {
             if (repository == null) {
@@ -30,8 +35,16 @@ class Repository {
     private val connectService: ConnectService =
         RetrofitService.createService(ConnectService::class.java)
 
-    fun getNowInfo(): MutableLiveData<ArrayList<String>> {
-        val call: Call<Result> = connectService.getStringArrayList()
+    fun getNowInfo(cityname: String): MutableLiveData<ArrayList<String>> {
+        val call: Call<Result> =
+            connectService.getStringArrayList(
+                TIANQI_API_SECRET_KEY,
+                cityname,
+                LANGUAGE_NAME,
+                UNIT,
+                "1",
+                "7"
+            )
         call.enqueue(object : Callback<Result> {
             override fun onResponse(call: Call<Result>, response: Response<Result>) {
                 val response: Result? = response.body()
@@ -49,11 +62,9 @@ class Repository {
 
                     val arrayList = arrayListOf<String>()
                     if (temperature != null && code != null && weathertype != null &&
-                        feels_like != null && humidity != null && wind_direction != null &&
-                        date != null
+                        feels_like != null && humidity != null && wind_direction != null
                     ) {
                         val weatherBackground = judgeWeatherType(Integer.parseInt(code))
-                        Log.d("CurrentWeather", weatherBackground)
                         arrayList.add(temperature)
                         arrayList.add(weatherBackground)
                         arrayList.add(weathertype)
@@ -61,6 +72,7 @@ class Repository {
                         arrayList.add(humidity)
                         arrayList.add(wind_direction)
                         arrayList.add(date)
+                        Log.d("CurrentWeather", temperature + weatherBackground + weathertype)
                     }
 
                     textLiveDataforNow.postValue(arrayList)
@@ -76,8 +88,15 @@ class Repository {
         return textLiveDataforNow
     }
 
-    fun getLocationInfo(): MutableLiveData<ArrayList<Any>> {
-        val call: Call<Result> = connectService.getStringArrayList()
+    fun getLocationInfo(cityname: String): MutableLiveData<ArrayList<Any>> {
+        val call: Call<Result> = connectService.getStringArrayList(
+            TIANQI_API_SECRET_KEY,
+            cityname,
+            LANGUAGE_NAME,
+            UNIT,
+            "1",
+            "7"
+        )
         call.enqueue(object : Callback<Result> {
             override fun onResponse(call: Call<Result>, response: Response<Result>) {
                 val response: Result? = response.body()
@@ -118,31 +137,32 @@ class Repository {
     }
 
     @SuppressLint("SimpleDateFormat")
-    fun getCurrentDate(): String{
+    fun getCurrentDate(): String {
         var dateFormat: DateFormat = SimpleDateFormat("MMM d日")
         return dateFormat.format(Calendar.getInstance().time)
         //textDate?.postValue(dateFormat.format(Calendar.getInstance().time))
     }
 
-    fun judgeWeatherType(weatherCode: Int): String{
-        var result:String = "sunny"
-        when(weatherCode){
-            0,2 -> result = "sunny"
-            1,3 -> result = "sunnyNight"
-            4,5,7 -> result = "cloudy"
-            6,8 -> result = "cloudyNight"
-            9,32,33,34,35,36 -> result = "overcast"
-            10,13,19 -> result = "lightRainy"
-            11,12 -> result = "thunder"
+    fun judgeWeatherType(weatherCode: Int): String {
+        var result: String = "sunny"
+        when (weatherCode) {
+            0, 2 -> result = "sunny"
+            1, 3 -> result = "sunnyNight"
+            4, 5, 7 -> result = "cloudy"
+            6, 8 -> result = "cloudyNight"
+            9, 32, 33, 34, 35, 36 -> result = "overcast"
+            10, 13, 19 -> result = "lightRainy"
+            11, 12 -> result = "thunder"
             14 -> result = "middleRainy"
-            15,16,17,18 -> result = "heavyRainy"
-            20,21,22 -> result ="lightSnow"
+            15, 16, 17, 18 -> result = "heavyRainy"
+            20, 21, 22 -> result = "lightSnow"
             23 -> result = "middleSnow"
-            24,25 -> result = "heavySnow"
-            26,27,28,29 -> result = "dusty"
+            24, 25 -> result = "heavySnow"
+            26, 27, 28, 29 -> result = "dusty"
             30 -> result = "foggy"
             31 -> result = "hazy"
         }
         return result
     }
+
 }

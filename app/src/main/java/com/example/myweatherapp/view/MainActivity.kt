@@ -1,20 +1,30 @@
 package com.example.myweatherapp.view
 
+import android.content.Context
 import android.content.res.Configuration
+import android.location.Address
+import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import com.amap.api.location.AMapLocation
+import com.amap.api.location.AMapLocationClient
+import com.amap.api.location.AMapLocationClientOption
+import com.amap.api.location.AMapLocationListener
 import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.ActivityMainBinding
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.jaeger.library.StatusBarUtil
 import com.rainy.weahter_bg_plug.WeatherBg
 import com.rainy.weahter_bg_plug.utils.WeatherUtil
+import okhttp3.internal.notifyAll
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,12 +33,17 @@ class MainActivity : AppCompatActivity() {
     private var textViewDate: TextView? = null
     private var myViewModel: MyViewModel? = null
     private var binding: ActivityMainBinding? = null
+    lateinit var amapLocationClient: AMapLocationClient
+    lateinit var mLocationOption: AMapLocationClientOption
+    private var cityname: String = "shanghai"
+    private var lastcityname: String = ""
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this,
+        binding = DataBindingUtil.setContentView(
+            this,
             R.layout.activity_main
         )
 
@@ -38,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_main)
 
         val window = this.window
-        when(resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK){
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_YES -> window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_VISIBLE
             Configuration.UI_MODE_NIGHT_NO -> window.decorView.systemUiVisibility =
@@ -50,15 +65,76 @@ class MainActivity : AppCompatActivity() {
 //        textViewDate = findViewById(R.id.date)
 
         myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        myViewModel!!.init()
 
-        binding?.viewModel = myViewModel
+        doLocation()
 
-//        myViewModel!!.repositoryforText?.observe(this,
-//            Observer<ArrayList<Any>> { t ->
-//                if (t != null) {
-//                    textViewTemperature?.text = t[0] as String?
-//                }
-//            })
+        amapLocationClient.setLocationListener { aMapLocation ->
+            //onLocationChanged 就是如果服务器给客户端返回数据，调用的回调函数
+            // aMapLocation 就是服务器给客户端返回的定位数据
+            if (aMapLocation != null) {
+                //服务器是有响应的
+                if (aMapLocation.errorCode == 0) {
+                    //定位成功，aMapLocation获取数据
+                    Log.d(
+                        "Amap",
+                        "location succ address = " + aMapLocation.address
+                    )
+                    //Log.d("Amap", "city = " + aMapLocation.city)
+                    cityname = aMapLocation.city.toLowerCase()
+
+                    Log.d("Amap", "cityname = $cityname")
+                    if (cityname != lastcityname) {
+                        Log.d("Amap", "执行了吗")
+                        myViewModel!!.init(cityname)
+                        binding?.viewModel = myViewModel
+                    }
+                    lastcityname = cityname
+                    Log.d("Amap", "longtitude = " + aMapLocation.longitude)
+                    Log.d("Amap", "latitude = " + aMapLocation.latitude)
+                } else {
+                    //定位失败，
+                    Log.e(
+                        "Amap",
+                        "location error, code = " + aMapLocation.errorCode + ", info = " + aMapLocation.errorInfo
+                    )
+                }
+            }
+        }
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (amapLocationClient != null) {
+            amapLocationClient.startLocation()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (amapLocationClient != null) {
+            amapLocationClient.startLocation()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (amapLocationClient != null) {
+            amapLocationClient.onDestroy()
+        }
+    }
+
+    private fun doLocation() {
+        //1 创建一个客户端定位句柄
+        cityname = "shanghai"
+        amapLocationClient = AMapLocationClient(this)
+        //2 给客户端句柄设置一个listenner来处理服务器返回的定位数据
+
+
+        mLocationOption = AMapLocationClientOption()
+        mLocationOption.geoLanguage = AMapLocationClientOption.GeoLanguage.EN
+        mLocationOption.interval = 10000
+        amapLocationClient.setLocationOption(mLocationOption)
+        amapLocationClient.startLocation()
     }
 }
