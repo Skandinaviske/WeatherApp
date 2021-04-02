@@ -1,10 +1,8 @@
 package com.example.myweatherapp
 
-import android.widget.ImageView
-import com.rainy.weahter_bg_plug.WeatherBg
+import android.view.View
 import androidx.databinding.BindingAdapter
-import androidx.databinding.BindingMethod
-import androidx.databinding.BindingMethods
+import com.rainy.weahter_bg_plug.WeatherBg
 
 class BindingAdapter {
     companion object {
@@ -28,6 +26,12 @@ class BindingAdapter {
                 "foggy" -> weatherBg.changeWeather("foggy")
                 "hazy" -> weatherBg.changeWeather("hazy")
             }
+        }
+
+        @BindingAdapter("android:visibility")
+        @JvmStatic
+        fun setVisibility(view: View, value: String?) {
+            view.visibility = if (value == "gone") View.GONE else View.VISIBLE
         }
     }
 }

@@ -72,7 +72,9 @@ class Repository {
                         arrayList.add(humidity)
                         arrayList.add(wind_direction)
                         arrayList.add(date)
-                        Log.d("CurrentWeather", temperature + weatherBackground + weathertype)
+                        arrayList.add("℃")
+                        arrayList.add("gone")
+                        //Log.d("CurrentWeather", temperature + weatherBackground + weathertype)
                     }
 
                     textLiveDataforNow.postValue(arrayList)

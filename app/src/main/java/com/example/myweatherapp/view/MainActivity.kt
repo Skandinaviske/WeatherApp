@@ -21,10 +21,6 @@ import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.ActivityMainBinding
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.jaeger.library.StatusBarUtil
-import com.rainy.weahter_bg_plug.WeatherBg
-import com.rainy.weahter_bg_plug.utils.WeatherUtil
-import okhttp3.internal.notifyAll
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -87,6 +83,7 @@ class MainActivity : AppCompatActivity() {
                         Log.d("Amap", "执行了吗")
                         myViewModel!!.init(cityname)
                         binding?.viewModel = myViewModel
+
                     }
                     lastcityname = cityname
                     Log.d("Amap", "longtitude = " + aMapLocation.longitude)
@@ -129,7 +126,6 @@ class MainActivity : AppCompatActivity() {
         cityname = "shanghai"
         amapLocationClient = AMapLocationClient(this)
         //2 给客户端句柄设置一个listenner来处理服务器返回的定位数据
-
 
         mLocationOption = AMapLocationClientOption()
         mLocationOption.geoLanguage = AMapLocationClientOption.GeoLanguage.EN

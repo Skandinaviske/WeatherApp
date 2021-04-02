@@ -1,11 +1,12 @@
 package com.example.myweatherapp.viewmodel
 
-import android.content.Context
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myweatherapp.repository.Repository
-import kotlin.collections.ArrayList
 
 class MyViewModel : ViewModel() {
     private var textLiveDataforNow: MutableLiveData<ArrayList<String>>? = null
