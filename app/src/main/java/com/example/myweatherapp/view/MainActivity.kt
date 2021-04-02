@@ -2,17 +2,19 @@ package com.example.myweatherapp.view
 
 import android.content.res.Configuration
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
-import com.example.myweatherapp.viewmodel.MyViewModel
 import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.ActivityMainBinding
+import com.example.myweatherapp.viewmodel.MyViewModel
 import com.jaeger.library.StatusBarUtil
+import com.rainy.weahter_bg_plug.WeatherBg
+import com.rainy.weahter_bg_plug.utils.WeatherUtil
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,
             R.layout.activity_main
         )
+
         binding?.lifecycleOwner = this
 
         StatusBarUtil.setTransparent(this)

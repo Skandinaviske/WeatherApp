@@ -7,7 +7,7 @@ import com.example.myweatherapp.repository.Repository
 import kotlin.collections.ArrayList
 
 class MyViewModel : ViewModel() {
-    private var textLiveDataforNow: MutableLiveData<ArrayList<Any>>? = null
+    private var textLiveDataforNow: MutableLiveData<ArrayList<String>>? = null
     private var textLiveDataforLocation: MutableLiveData<ArrayList<Any>>? = null
 
     private var repository = Repository()
@@ -20,7 +20,7 @@ class MyViewModel : ViewModel() {
     }
 
 
-    val repositoryforNow: LiveData<ArrayList<Any>>?
+    val repositoryforNow: LiveData<ArrayList<String>>?
         get() = textLiveDataforNow
 
     val repositoryforLocation: LiveData<ArrayList<Any>>?

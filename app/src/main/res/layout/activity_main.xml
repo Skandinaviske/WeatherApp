@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myweatherapp.viewmodel.MyViewModel"/>
+            type="com.example.myweatherapp.viewmodel.MyViewModel" />
     </data>
 
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
@@ -16,7 +16,12 @@
         <com.rainy.weahter_bg_plug.WeatherBg
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:type="heavyRainy" />
+            app:setWeather="@{viewModel.repositoryforNow[1]}"/>
+
+<!--        app:type="@{viewModel.repositoryforNow[1]}"-->
+        <!--            app:type="sunnyNight" />-->
+
+
 
         <TextView
             android:id="@+id/temperature"
@@ -59,7 +64,7 @@
             android:textColor="@color/black"
             android:textSize="25sp" />
 
-<!--        android:text="@={viewModel.repositoryforDate}"-->
+        <!--        android:text="@={viewModel.repositoryforDate}"-->
 
     </RelativeLayout>
 </layout>

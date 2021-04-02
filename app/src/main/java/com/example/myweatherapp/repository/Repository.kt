@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 class Repository {
     private var repository: Repository? = null
-    private var textLiveDataforNow = MutableLiveData<ArrayList<Any>>()
+    private var textLiveDataforNow = MutableLiveData<ArrayList<String>>()
     private var textLiveDataforLocation = MutableLiveData<ArrayList<Any>>()
 
     val instance: Repository
@@ -30,7 +30,7 @@ class Repository {
     private val connectService: ConnectService =
         RetrofitService.createService(ConnectService::class.java)
 
-    fun getNowInfo(): MutableLiveData<ArrayList<Any>> {
+    fun getNowInfo(): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> = connectService.getStringArrayList()
         call.enqueue(object : Callback<Result> {
             override fun onResponse(call: Call<Result>, response: Response<Result>) {
@@ -47,13 +47,15 @@ class Repository {
                     val wind_direction = now?.wind_direction
                     val date = getCurrentDate()
 
-                    val arrayList = arrayListOf<Any>()
+                    val arrayList = arrayListOf<String>()
                     if (temperature != null && code != null && weathertype != null &&
                         feels_like != null && humidity != null && wind_direction != null &&
                         date != null
                     ) {
+                        val weatherBackground = judgeWeatherType(Integer.parseInt(code))
+                        Log.d("CurrentWeather", weatherBackground)
                         arrayList.add(temperature)
-                        arrayList.add(code)
+                        arrayList.add(weatherBackground)
                         arrayList.add(weathertype)
                         arrayList.add(feels_like)
                         arrayList.add(humidity)
@@ -120,5 +122,27 @@ class Repository {
         var dateFormat: DateFormat = SimpleDateFormat("MMM d日")
         return dateFormat.format(Calendar.getInstance().time)
         //textDate?.postValue(dateFormat.format(Calendar.getInstance().time))
+    }
+
+    fun judgeWeatherType(weatherCode: Int): String{
+        var result:String = "sunny"
+        when(weatherCode){
+            0,2 -> result = "sunny"
+            1,3 -> result = "sunnyNight"
+            4,5,7 -> result = "cloudy"
+            6,8 -> result = "cloudyNight"
+            9,32,33,34,35,36 -> result = "overcast"
+            10,13,19 -> result = "lightRainy"
+            11,12 -> result = "thunder"
+            14 -> result = "middleRainy"
+            15,16,17,18 -> result = "heavyRainy"
+            20,21,22 -> result ="lightSnow"
+            23 -> result = "middleSnow"
+            24,25 -> result = "heavySnow"
+            26,27,28,29 -> result = "dusty"
+            30 -> result = "foggy"
+            31 -> result = "hazy"
+        }
+        return result
     }
 }
