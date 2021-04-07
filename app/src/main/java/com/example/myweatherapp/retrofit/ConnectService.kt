@@ -20,7 +20,16 @@ interface ConnectService {
 
     //"now.json?key=S69J9uyzmkgblruE-&location={city}&language=zh-Hans&unit=c&start=1&days=7/"
     @GET("now.json")
-    fun getStringArrayList(
+    fun getStringArrayListfornow(
+        @Query("key") key: String,
+        @Query("location") location: String,
+        @Query("language") language :String,
+        @Query("unit") unit:String
+    ): Call<Result>
+
+    //https://api.seniverse.com/v3/weather/daily.json?key=S69J9uyzmkgblruE-&location=chengdu&language=zh-Hans&unit=c&start=1&days=7
+    @GET("daily.json")
+    fun getStringArrayListfordaily(
         @Query("key") key: String,
         @Query("location") location: String,
         @Query("language") language :String,

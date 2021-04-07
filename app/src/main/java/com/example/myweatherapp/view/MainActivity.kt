@@ -1,9 +1,6 @@
 package com.example.myweatherapp.view
 
-import android.content.Context
 import android.content.res.Configuration
-import android.location.Address
-import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,15 +9,18 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.amap.api.location.AMapLocation
+import androidx.recyclerview.widget.RecyclerView
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
-import com.amap.api.location.AMapLocationListener
 import com.example.myweatherapp.R
+import com.example.myweatherapp.adapter.BasicModel
+import com.example.myweatherapp.adapter.WeekWeatherAdapter
 import com.example.myweatherapp.databinding.ActivityMainBinding
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.jaeger.library.StatusBarUtil
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var mLocationOption: AMapLocationClientOption
     private var cityname: String = "shanghai"
     private var lastcityname: String = ""
+    private lateinit var adapter: WeekWeatherAdapter
+    //lateinit var recyclerview: RecyclerView
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,6 +86,14 @@ class MainActivity : AppCompatActivity() {
                         myViewModel!!.init(cityname)
                         binding?.viewModel = myViewModel
 
+                        myViewModel!!.repositoryforDaily?.observe(this, Observer<ArrayList<BasicModel>>{
+                                t ->
+                            Log.d("TestLiang", t.size.toString())
+                            Log.d("TestLiang", "GGGGGGGGGGGG")
+                            adapter = WeekWeatherAdapter(t)
+                            binding?.recyclerview?.adapter = adapter
+                        })
+
                     }
                     lastcityname = cityname
                     Log.d("Amap", "longtitude = " + aMapLocation.longitude)
@@ -97,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
 
     }
 

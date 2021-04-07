@@ -1,14 +1,12 @@
 package com.example.myweatherapp.repository
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.amap.api.location.AMapLocationClient
+import com.example.myweatherapp.adapter.BasicModel
 import com.example.myweatherapp.data.Result
 import com.example.myweatherapp.retrofit.ConnectService
 import com.example.myweatherapp.retrofit.RetrofitService
-import com.example.myweatherapp.view.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +19,7 @@ class Repository {
     private var repository: Repository? = null
     private var textLiveDataforNow = MutableLiveData<ArrayList<String>>()
     private var textLiveDataforLocation = MutableLiveData<ArrayList<String>>()
+    private var textLiveDataforDaily = MutableLiveData<ArrayList<BasicModel>>()
     private val TIANQI_API_SECRET_KEY = "S69J9uyzmkgblruE-"
     private val LANGUAGE_NAME = "zh-Hans"
     private val UNIT = "c"
@@ -37,13 +36,11 @@ class Repository {
 
     fun getNowInfo(cityname: String): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> =
-            connectService.getStringArrayList(
+            connectService.getStringArrayListfornow(
                 TIANQI_API_SECRET_KEY,
                 cityname,
                 LANGUAGE_NAME,
-                UNIT,
-                "1",
-                "7"
+                UNIT
             )
         call.enqueue(object : Callback<Result> {
             override fun onResponse(call: Call<Result>, response: Response<Result>) {
@@ -74,6 +71,7 @@ class Repository {
                         arrayList.add(date)
                         arrayList.add("℃")
                         arrayList.add("gone")
+                        arrayList.add(getWeekOfDate())
                         //Log.d("CurrentWeather", temperature + weatherBackground + weathertype)
                     }
 
@@ -91,13 +89,11 @@ class Repository {
     }
 
     fun getLocationInfo(cityname: String): MutableLiveData<ArrayList<String>> {
-        val call: Call<Result> = connectService.getStringArrayList(
+        val call: Call<Result> = connectService.getStringArrayListfornow(
             TIANQI_API_SECRET_KEY,
             cityname,
             LANGUAGE_NAME,
-            UNIT,
-            "1",
-            "7"
+            UNIT
         )
         call.enqueue(object : Callback<Result> {
             override fun onResponse(call: Call<Result>, response: Response<Result>) {
@@ -139,11 +135,72 @@ class Repository {
         return textLiveDataforLocation
     }
 
+    fun getDailyInfo(cityname: String): MutableLiveData<ArrayList<BasicModel>> {
+        val call: Call<Result> = connectService.getStringArrayListfordaily(
+            TIANQI_API_SECRET_KEY,
+            cityname,
+            LANGUAGE_NAME,
+            UNIT,
+            "1",
+            "7"
+        )
+        call.enqueue(object : Callback<Result> {
+            override fun onResponse(call: Call<Result>, response: Response<Result>) {
+                val response: Result? = response.body()
+                Log.d("TestLiang","SXDS")
+                if (response?.result != null) {
+                    var i = 0
+                    val users = response.result;
+                    val model = users[0]
+                    val dailyModel = model.daily
+                    val result = ArrayList<BasicModel>()
+                    while (i < 7){
+                        val date = dailyModel?.get(i)?.date
+                        val type = dailyModel?.get(i)?.type
+                        val high = dailyModel?.get(i)?.high
+                        val low = dailyModel?.get(i)?.low
+                        Log.d("TestLiang","date = $date type = $type high = $high low = $low")
+                        if (date != null && type != null &&
+                                high != null && low != null) {
+                            val basicModel =
+                                BasicModel(
+                                    date,
+                                    type,
+                                    high,
+                                    low
+                                )
+                            result.add(basicModel)
+                        }
+                        i++
+                    }
+                    textLiveDataforDaily.postValue(result)
+                }
+            }
+
+            @SuppressLint("LongLogTag")
+            override fun onFailure(call: Call<Result>, t: Throwable) {
+                t.message?.let { Log.e("Print Error in Weather App:", it) }
+            }
+
+        })
+        return textLiveDataforDaily
+    }
+
     @SuppressLint("SimpleDateFormat")
     fun getCurrentDate(): String {
-        var dateFormat: DateFormat = SimpleDateFormat("MMM d日")
+        val dateFormat: DateFormat = SimpleDateFormat("MMM d日")
         return dateFormat.format(Calendar.getInstance().time)
         //textDate?.postValue(dateFormat.format(Calendar.getInstance().time))
+    }
+
+    fun getWeekOfDate(): String{
+        val weekDays = arrayListOf<String>("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
+        val calendar = Calendar.getInstance()
+        calendar.time = Calendar.getInstance().time
+        var week = calendar.get(Calendar.DAY_OF_WEEK) - 1
+        if(week < 0)
+            week = 0
+        return weekDays[week]
     }
 
     fun judgeWeatherType(weatherCode: Int): String {

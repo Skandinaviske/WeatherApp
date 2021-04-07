@@ -8,4 +8,7 @@ class Model{
 
     @SerializedName("now")
     val now: Now? = null
+
+    @SerializedName("daily")
+    val daily: List<DailyModel>? = null
 }
