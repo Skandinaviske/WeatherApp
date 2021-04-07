@@ -2,6 +2,7 @@ package com.example.myweatherapp.viewmodel
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -33,9 +34,11 @@ class MyViewModel : ViewModel() {
     val repositoryforDaily: LiveData<ArrayList<BasicModel>>?
         get() = textLiveDataforDaily
 
-    fun clicktoAddCity(view: View){
+    fun clicktoAddCity(view: View, cityname: String){
         val context: Context = view.context
+        Log.d("TestLiang", "Cityname is $cityname")
         val intent:Intent = Intent(context, AddCityActivity::class.java)
+        intent.putExtra("cityname",cityname)
         context.startActivity(intent)
     }
 }

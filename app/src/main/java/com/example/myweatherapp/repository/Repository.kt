@@ -77,6 +77,7 @@ class Repository {
                         arrayList.add("℃")
                         arrayList.add("gone")
                         arrayList.add(getWeekOfDate())
+                        arrayList.add("visible")
                         //Log.d("CurrentWeather", temperature + weatherBackground + weathertype)
                     }
 

@@ -39,42 +39,45 @@
                     tools:context=".view.MainActivity">
 
                     <ImageView
-                        android:layout_width="43dp"
-                        android:layout_height="47dp"
+                        android:layout_width="35dp"
+                        android:layout_height="40dp"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/city"
-                        android:onClick="@{(v) -> viewModel.clicktoAddCity(v)}"/>
+                        android:onClick="@{(v) -> viewModel.clicktoAddCity(v,viewModel.repositoryforLocation[1])}"/>
 
                     <TextView
                         android:id="@+id/city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:hint="上海"
                         android:text="@{viewModel.repositoryforLocation[1]}"
                         android:textColor="@color/white"
-                        android:textSize="30sp" />
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/temperature"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="360dp"
+                        android:layout_marginTop="330dp"
                         android:hint="23"
                         android:text="@={viewModel.repositoryforNow[0]}"
                         android:textColor="@color/black"
-                        android:textSize="90sp"
-                        android:visibility="visible" />
+                        android:textSize="90sp" />
+<!--                    android:visibility="@{viewModel.repositoryforNow[8]}"-->
 
                     <TextView
                         android:id="@+id/Unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="100dp"
-                        android:layout_marginTop="370dp"
+                        android:layout_marginTop="340dp"
                         android:hint="℃"
                         android:text="@={viewModel.repositoryforNow[7]}"
                         android:textColor="@color/black"
@@ -85,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="100dp"
-                        android:layout_marginTop="420dp"
+                        android:layout_marginTop="390dp"
                         android:hint="晴"
                         android:text="@={viewModel.repositoryforNow[2]}"
                         android:textColor="@color/black"
@@ -96,7 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginTop="470dp"
+                        android:layout_marginTop="440dp"
                         android:hint="4月10日"
                         android:text="@={viewModel.repositoryforNow[6]}"
                         android:textColor="@color/black"
@@ -107,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="100dp"
-                        android:layout_marginTop="470dp"
+                        android:layout_marginTop="440dp"
                         android:hint="星期五"
                         android:text="@={viewModel.repositoryforNow[9]}"
                         android:textColor="@color/black"
@@ -125,6 +128,13 @@
                         android:visibility="@{viewModel.repositoryforNow[8]}" />
 
                 </RelativeLayout>
+
+                <View
+                    android:layout_marginTop="20dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="@color/gray"
+                    android:layout_marginBottom="20dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview"
