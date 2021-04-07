@@ -38,9 +38,14 @@
                     android:layout_height="wrap_content"
                     tools:context=".view.MainActivity">
 
-                    <ImageView android:layout_height=""
-                        android:layout_width="" />
-
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="47dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:scaleType="fitEnd"
+                        android:src="@drawable/city"
+                        android:onClick="@{(v) -> viewModel.clicktoAddCity(v)}"/>
 
                     <TextView
                         android:id="@+id/city"

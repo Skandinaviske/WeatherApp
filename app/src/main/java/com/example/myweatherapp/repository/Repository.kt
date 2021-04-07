@@ -147,7 +147,6 @@ class Repository {
         call.enqueue(object : Callback<Result> {
             override fun onResponse(call: Call<Result>, response: Response<Result>) {
                 val response: Result? = response.body()
-                Log.d("TestLiang","SXDS")
                 if (response?.result != null) {
                     var i = 0
                     val users = response.result;

@@ -5,35 +5,34 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.BasicModel
 import com.example.myweatherapp.adapter.WeekWeatherAdapter
+//import com.example.myweatherapp.adapter.WeekWeatherAdapter
 import com.example.myweatherapp.databinding.ActivityMainBinding
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.jaeger.library.StatusBarUtil
 
 
 class MainActivity : AppCompatActivity() {
-
-    private var textViewType: TextView? = null
-    private var textViewTemperature: TextView? = null
-    private var textViewDate: TextView? = null
     private var myViewModel: MyViewModel? = null
     private var binding: ActivityMainBinding? = null
     lateinit var amapLocationClient: AMapLocationClient
     lateinit var mLocationOption: AMapLocationClientOption
     private var cityname: String = "shanghai"
     private var lastcityname: String = ""
-    private lateinit var adapter: WeekWeatherAdapter
+    //private lateinit var adapter: WeekWeatherAdapter
     //lateinit var recyclerview: RecyclerView
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -82,16 +81,16 @@ class MainActivity : AppCompatActivity() {
 
                     Log.d("Amap", "cityname = $cityname")
                     if (cityname != lastcityname) {
-                        Log.d("Amap", "执行了吗")
                         myViewModel!!.init(cityname)
                         binding?.viewModel = myViewModel
 
                         myViewModel!!.repositoryforDaily?.observe(this, Observer<ArrayList<BasicModel>>{
                                 t ->
                             Log.d("TestLiang", t.size.toString())
+                            t[0].high?.let { Log.d("TestLiang", it) }
                             Log.d("TestLiang", "GGGGGGGGGGGG")
-                            adapter = WeekWeatherAdapter(t)
-                            binding?.recyclerview?.adapter = adapter
+                            binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
+                            binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
                         })
 
                     }

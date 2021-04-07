@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".view.AddCityActivity"/>
+
         <service android:name="com.amap.api.location.APSService" />
         <meta-data android:name="com.amap.api.v2.apikey" android:value="3a3a2c32cddd721ed1a9e1cdd9605ad2">
         </meta-data>

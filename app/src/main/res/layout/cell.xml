@@ -7,9 +7,9 @@
             type="com.example.myweatherapp.adapter.BasicModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="30dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -18,20 +18,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="星期x"
-            android:text="@{basicModel.date}"/>
+            android:layout_alignParentStart="true"
+            android:text="@{basicModel.date}"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"/>
 
         <TextView
             android:id="@+id/weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="多云"
-            android:text="@{basicModel.type}"/>
+            android:layout_centerInParent="true"
+            android:text="@{basicModel.type}"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"/>
 
         <TextView
             android:id="@+id/high"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="34"
-            android:text="@{basicModel.high}"/>
-    </LinearLayout>
+            android:layout_alignParentEnd = "true"
+            android:text="@{basicModel.high}"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 </layout>
