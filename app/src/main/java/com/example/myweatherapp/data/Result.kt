@@ -1,6 +1,5 @@
 package com.example.myweatherapp.data
 
-import com.example.myweatherapp.data.Model
 import com.google.gson.annotations.SerializedName
 
 class Result {

@@ -5,25 +5,20 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.BasicModel
 import com.example.myweatherapp.adapter.WeekWeatherAdapter
-//import com.example.myweatherapp.adapter.WeekWeatherAdapter
 import com.example.myweatherapp.databinding.ActivityMainBinding
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.jaeger.library.StatusBarUtil
-
 
 class MainActivity : AppCompatActivity() {
     private var myViewModel: MyViewModel? = null
@@ -32,8 +27,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var mLocationOption: AMapLocationClientOption
     private var cityname: String = "shanghai"
     private var lastcityname: String = ""
-    //private lateinit var adapter: WeekWeatherAdapter
-    //lateinit var recyclerview: RecyclerView
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         binding?.lifecycleOwner = this
 
         StatusBarUtil.setTransparent(this)
-        //setContentView(R.layout.activity_main)
 
         val window = this.window
         when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
@@ -56,10 +48,6 @@ class MainActivity : AppCompatActivity() {
             Configuration.UI_MODE_NIGHT_NO -> window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-
-//        textViewType = findViewById(R.id.weather_type)
-//        textViewTemperature = findViewById(R.id.temperature)
-//        textViewDate = findViewById(R.id.date)
 
         myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
 
@@ -72,14 +60,7 @@ class MainActivity : AppCompatActivity() {
                 //服务器是有响应的
                 if (aMapLocation.errorCode == 0) {
                     //定位成功，aMapLocation获取数据
-                    Log.d(
-                        "Amap",
-                        "location succ address = " + aMapLocation.address
-                    )
-                    //Log.d("Amap", "city = " + aMapLocation.city)
                     cityname = aMapLocation.city.toLowerCase()
-
-                    Log.d("Amap", "cityname = $cityname")
                     if (cityname != lastcityname) {
                         myViewModel!!.init(cityname)
                         binding?.viewModel = myViewModel
@@ -92,8 +73,6 @@ class MainActivity : AppCompatActivity() {
 
                     }
                     lastcityname = cityname
-                    Log.d("Amap", "longtitude = " + aMapLocation.longitude)
-                    Log.d("Amap", "latitude = " + aMapLocation.latitude)
                 } else {
                     //定位失败，
                     Log.e(

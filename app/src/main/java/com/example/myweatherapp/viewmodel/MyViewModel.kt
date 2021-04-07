@@ -36,7 +36,6 @@ class MyViewModel : ViewModel() {
     fun clicktoAddCity(view: View){
         val context: Context = view.context
         val intent:Intent = Intent(context, AddCityActivity::class.java)
-        //intent.putExtra()
         context.startActivity(intent)
     }
 }

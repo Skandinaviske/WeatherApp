@@ -61,8 +61,7 @@ class GetData {
     ): String {
         val timestamp = Date().time.toString()
         val params = "ts=$timestamp&ttl=1800&uid=$TIANQI_API_USER_ID"
-        val signature =
-            URLEncoder.encode(generateSignature(params, TIANQI_API_SECRET_KEY), "UTF-8")
+        URLEncoder.encode(generateSignature(params, TIANQI_API_SECRET_KEY), "UTF-8")
         return "now.json?key=$TIANQI_API_SECRET_KEY&location=$location&language=$language&unit=$unit&start=$start&days=$days/"
     } //https://api.seniverse.com/v3/weather/now.json?key=S69J9uyzmkgblruE-&location=beijing&language=zh-Hans&unit=c
 }

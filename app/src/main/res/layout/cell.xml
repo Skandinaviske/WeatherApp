@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="晴天"
-            android:layout_marginLeft="183dp"
+            android:layout_marginStart="183dp"
             android:textSize="16sp"
             android:layout_centerVertical="true"
             android:text="@{basicModel.type}"/>
@@ -37,7 +37,7 @@
         <ImageView android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="146dp"
+            android:layout_marginStart="146dp"
             imageResource="@{basicModel.weatherIcon}" />
 
         <TextView

@@ -120,13 +120,11 @@ class Repository {
                     ) {
                         arrayList.add(id)
                         arrayList.add(cityname)
-                        Log.d("CurrentCity", cityname)
                         arrayList.add(country)
                         arrayList.add(path)
                         arrayList.add(timezone)
                         arrayList.add(timezone_offset)
                     }
-
                     textLiveDataforLocation.postValue(arrayList)
                 }
             }
