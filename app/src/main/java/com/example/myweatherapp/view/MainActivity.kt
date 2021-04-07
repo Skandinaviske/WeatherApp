@@ -86,9 +86,6 @@ class MainActivity : AppCompatActivity() {
 
                         myViewModel!!.repositoryforDaily?.observe(this, Observer<ArrayList<BasicModel>>{
                                 t ->
-                            Log.d("TestLiang", t.size.toString())
-                            t[0].high?.let { Log.d("TestLiang", it) }
-                            Log.d("TestLiang", "GGGGGGGGGGGG")
                             binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
                             binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
                         })

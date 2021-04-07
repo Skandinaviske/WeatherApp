@@ -1,8 +1,11 @@
 package com.example.myweatherapp.repository
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
+import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.BasicModel
 import com.example.myweatherapp.data.Result
 import com.example.myweatherapp.retrofit.ConnectService
@@ -12,6 +15,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
+import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -115,7 +120,7 @@ class Repository {
                     ) {
                         arrayList.add(id)
                         arrayList.add(cityname)
-                        Log.d("CurrentCity",cityname)
+                        Log.d("CurrentCity", cityname)
                         arrayList.add(country)
                         arrayList.add(path)
                         arrayList.add(timezone)
@@ -145,6 +150,7 @@ class Repository {
             "7"
         )
         call.enqueue(object : Callback<Result> {
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(call: Call<Result>, response: Response<Result>) {
                 val response: Result? = response.body()
                 if (response?.result != null) {
@@ -153,20 +159,29 @@ class Repository {
                     val model = users[0]
                     val dailyModel = model.daily
                     val result = ArrayList<BasicModel>()
-                    while (i < 7){
+                    while (i < 7) {
                         val date = dailyModel?.get(i)?.date
                         val type = dailyModel?.get(i)?.type
                         val high = dailyModel?.get(i)?.high
                         val low = dailyModel?.get(i)?.low
-                        Log.d("TestLiang","date = $date type = $type high = $high low = $low")
+                        val weekday: String? = date?.let { getWeekOfDate(it) }
+                        val weatherIcon: Int? = type?.let { judgeWeatherType(it) }
+                        Log.d(
+                            "TestLiang",
+                            "date = $date type = $type high = $high low = $low day = $weekday weatherIcon = $weatherIcon ${R.drawable.overcast}"
+                        )
                         if (date != null && type != null &&
-                                high != null && low != null) {
+                            high != null && low != null &&
+                            weekday != null && weatherIcon != null
+                        ) {
                             val basicModel =
                                 BasicModel(
                                     date,
                                     type,
                                     high,
-                                    low
+                                    low,
+                                    weekday,
+                                    weatherIcon
                                 )
                             result.add(basicModel)
                         }
@@ -192,12 +207,23 @@ class Repository {
         //textDate?.postValue(dateFormat.format(Calendar.getInstance().time))
     }
 
-    fun getWeekOfDate(): String{
+    fun getWeekOfDate(): String {
         val weekDays = arrayListOf<String>("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
         val calendar = Calendar.getInstance()
         calendar.time = Calendar.getInstance().time
         var week = calendar.get(Calendar.DAY_OF_WEEK) - 1
-        if(week < 0)
+        if (week < 0)
+            week = 0
+        return weekDays[week]
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getWeekOfDate(date: String): String {
+        val weekDays = arrayListOf<String>("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
+        val calendar = Calendar.getInstance()
+        calendar.time = SimpleDateFormat("yyyy-MM-dd").parse(date)
+        var week = calendar.get(Calendar.DAY_OF_WEEK) - 1
+        if (week < 0)
             week = 0
         return weekDays[week]
     }
@@ -220,6 +246,23 @@ class Repository {
             26, 27, 28, 29 -> result = "dusty"
             30 -> result = "foggy"
             31 -> result = "hazy"
+        }
+        return result
+    }
+
+    fun judgeWeatherType(weatherType: String): Int {
+        var result: Int = 0
+        when (weatherType) {
+            "小雨" -> result = R.drawable.lightrainy
+            "中雨" -> result = R.drawable.middlerainy
+            "大雨", "暴雨" -> result = R.drawable.heavyrainy
+            "小雪" -> result = R.drawable.lightsnow
+            "中雪" -> result = R.drawable.middlesnow
+            "大雪" -> result = R.drawable.heavysnow
+            "多云" -> result = R.drawable.cloudy
+            "晴" -> result = R.drawable.sunny
+            "阴" -> result = R.drawable.overcast
+            "雾" -> result = R.drawable.foggy
         }
         return result
     }

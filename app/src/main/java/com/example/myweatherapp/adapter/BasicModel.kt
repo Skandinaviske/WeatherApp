@@ -1,14 +1,12 @@
 package com.example.myweatherapp.adapter
 
 
-data class BasicModel(
+class BasicModel(
     val date: String,
     val type: String,
     val high: String?,
-    val low: String?
+    val low: String?,
+    val weekday: String?,
+    val weatherIcon: Int
 ) {
-//    val date = _date
-//    val type = _type
-//    val high = _high
-//    val low = _low
 }
