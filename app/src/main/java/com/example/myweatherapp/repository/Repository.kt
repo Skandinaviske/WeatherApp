@@ -1,6 +1,8 @@
 package com.example.myweatherapp.repository
 
 import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -8,16 +10,14 @@ import androidx.lifecycle.MutableLiveData
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.BasicModel
 import com.example.myweatherapp.data.Result
+import com.example.myweatherapp.database.AppDatabase
+import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.retrofit.ConnectService
 import com.example.myweatherapp.retrofit.RetrofitService
+import com.example.myweatherapp.util.Util
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.util.*
 import kotlin.collections.ArrayList
 
 class Repository {
@@ -39,7 +39,7 @@ class Repository {
     private val connectService: ConnectService =
         RetrofitService.createService(ConnectService::class.java)
 
-    fun getNowInfo(cityname: String): MutableLiveData<ArrayList<String>> {
+    fun getNowInfo(cityname: String, application: Application): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> =
             connectService.getStringArrayListfornow(
                 TIANQI_API_SECRET_KEY,
@@ -60,13 +60,12 @@ class Repository {
                     val feels_like = now?.feels_like
                     val humidity = now?.humidity
                     val wind_direction = now?.wind_direction
-                    val date = getCurrentDate()
-
+                    val date = Util.getCurrentDate()
                     val arrayList = arrayListOf<String>()
                     if (temperature != null && code != null && weathertype != null &&
                         feels_like != null && humidity != null && wind_direction != null
                     ) {
-                        val weatherBackground = judgeWeatherType(Integer.parseInt(code))
+                        val weatherBackground = Util.judgeWeatherType(Integer.parseInt(code))
                         arrayList.add(temperature)
                         arrayList.add(weatherBackground)
                         arrayList.add(weathertype)
@@ -76,8 +75,15 @@ class Repository {
                         arrayList.add(date)
                         arrayList.add("℃")
                         arrayList.add("gone")
-                        arrayList.add(getWeekOfDate())
+                        arrayList.add(Util.getWeekOfDate())
                         arrayList.add("visible")
+                        Log.d("TestLiang", "CITYNAME =${cityname}")
+                        var dataModel: DataModel = DataModel(cityname, temperature.toInt(), weathertype)
+                        val db = AppDatabase.getDatabase(application)
+                        db.DataDao().insert(dataModel)
+
+                        val basicModel1 = db.DataDao().getData("chengdu")
+                        Log.d("TestLiang", "result =${basicModel1.temperature}")
                         //Log.d("CurrentWeather", temperature + weatherBackground + weathertype)
                     }
 
@@ -163,8 +169,8 @@ class Repository {
                         val type = dailyModel?.get(i)?.type
                         val high = dailyModel?.get(i)?.high
                         val low = dailyModel?.get(i)?.low
-                        val weekday: String? = date?.let { getWeekOfDate(it) }
-                        val weatherIcon: Int? = type?.let { judgeWeatherType(it) }
+                        val weekday: String? = date?.let { Util.getWeekOfDate(it) }
+                        val weatherIcon: Int? = type?.let { Util.judgeWeatherType(it) }
                         Log.d(
                             "TestLiang",
                             "date = $date type = $type high = $high low = $low day = $weekday weatherIcon = $weatherIcon ${R.drawable.overcast}"
@@ -198,72 +204,4 @@ class Repository {
         })
         return textLiveDataforDaily
     }
-
-    @SuppressLint("SimpleDateFormat")
-    fun getCurrentDate(): String {
-        val dateFormat: DateFormat = SimpleDateFormat("MMM d日")
-        return dateFormat.format(Calendar.getInstance().time)
-        //textDate?.postValue(dateFormat.format(Calendar.getInstance().time))
-    }
-
-    fun getWeekOfDate(): String {
-        val weekDays = arrayListOf<String>("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
-        val calendar = Calendar.getInstance()
-        calendar.time = Calendar.getInstance().time
-        var week = calendar.get(Calendar.DAY_OF_WEEK) - 1
-        if (week < 0)
-            week = 0
-        return weekDays[week]
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    fun getWeekOfDate(date: String): String {
-        val weekDays = arrayListOf<String>("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
-        val calendar = Calendar.getInstance()
-        calendar.time = SimpleDateFormat("yyyy-MM-dd").parse(date)
-        var week = calendar.get(Calendar.DAY_OF_WEEK) - 1
-        if (week < 0)
-            week = 0
-        return weekDays[week]
-    }
-
-    fun judgeWeatherType(weatherCode: Int): String {
-        var result: String = "sunny"
-        when (weatherCode) {
-            0, 2 -> result = "sunny"
-            1, 3 -> result = "sunnyNight"
-            4, 5, 7 -> result = "cloudy"
-            6, 8 -> result = "cloudyNight"
-            9, 32, 33, 34, 35, 36 -> result = "overcast"
-            10, 13, 19 -> result = "lightRainy"
-            11, 12 -> result = "thunder"
-            14 -> result = "middleRainy"
-            15, 16, 17, 18 -> result = "heavyRainy"
-            20, 21, 22 -> result = "lightSnow"
-            23 -> result = "middleSnow"
-            24, 25 -> result = "heavySnow"
-            26, 27, 28, 29 -> result = "dusty"
-            30 -> result = "foggy"
-            31 -> result = "hazy"
-        }
-        return result
-    }
-
-    fun judgeWeatherType(weatherType: String): Int {
-        var result: Int = 0
-        when (weatherType) {
-            "小雨" -> result = R.drawable.lightrainy
-            "中雨" -> result = R.drawable.middlerainy
-            "大雨", "暴雨" -> result = R.drawable.heavyrainy
-            "小雪" -> result = R.drawable.lightsnow
-            "中雪" -> result = R.drawable.middlesnow
-            "大雪" -> result = R.drawable.heavysnow
-            "多云" -> result = R.drawable.cloudy
-            "晴" -> result = R.drawable.sunny
-            "阴" -> result = R.drawable.overcast
-            "雾" -> result = R.drawable.foggy
-        }
-        return result
-    }
-
 }

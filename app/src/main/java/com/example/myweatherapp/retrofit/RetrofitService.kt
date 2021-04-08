@@ -1,20 +1,19 @@
 package com.example.myweatherapp.retrofit
 
-import com.example.myweatherapp.util.GetData
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.Executors
 
 object RetrofitService {
-    var demo = GetData()
-
-    var url: String = demo.generateGetDiaryWeatherURL(
-        "shanghai",
-        "zh-Hans",
-        "c",
-        "1",
-        "7"
-    );
+//    var demo = GetData()
+//
+//    var url: String = demo.generateGetDiaryWeatherURL(
+//        "shanghai",
+//        "zh-Hans",
+//        "c",
+//        "1",
+//        "7"
+//    );
 
     private const val baseurl =
         "https://api.seniverse.com/v3/weather/"
