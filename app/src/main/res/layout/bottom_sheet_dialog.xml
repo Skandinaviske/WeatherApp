@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加城市"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:padding="8dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/GridLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
+        app:columnCount="4"
+        app:orientation="horizontal"
+        app:rowCount="5"
+        app:useDefaultMargins="true">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp"
+            >
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="成都"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="北京"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="上海"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="深圳"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="广州"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="武汉"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="长沙"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="南京"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="苏州"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="西安"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="青岛"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="沈阳"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="重庆"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="杭州"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="香港"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            app:layout_columnWeight="1"
+            android:layout_height="40dp">
+
+            <Button
+                android:gravity="center"
+                app:layout_rowWeight="1"
+                android:background="@drawable/selector_btn_click_text_color"
+                android:text="厦门"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
+        </LinearLayout>
+
+
+    </androidx.gridlayout.widget.GridLayout>
+
+</LinearLayout>

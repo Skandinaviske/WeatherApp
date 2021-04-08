@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shapeadditem">
+
+        <TextView
+            android:id="@+id/currentCity"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="15dp"
+            android:hint="雁塔区"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:drawablePadding="0dp"
+            />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="15dp"
+            android:textSize="20dp"
+            android:hint="20℃"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="20dp"
+            android:hint="多云"
+            android:textColor="@color/white"
+            />
+
+
+    </RelativeLayout>
+
+</layout>

@@ -1,13 +1,15 @@
 package com.example.myweatherapp.view
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.ActivityAddcityBinding
 import com.example.myweatherapp.viewmodel.MyViewModel
-import okhttp3.internal.notifyAll
+import com.google.android.material.bottomsheet.BottomSheetDialog
+
 
 class AddCityActivity: AppCompatActivity() {
 

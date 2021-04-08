@@ -40,5 +40,7 @@ class BindingAdapter {
         fun setImageResource(imageView: ImageView, resource: Int) {
             imageView.setImageResource(resource)
         }
+
+
     }
 }
