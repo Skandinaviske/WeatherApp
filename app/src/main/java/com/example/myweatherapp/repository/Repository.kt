@@ -77,7 +77,7 @@ class Repository {
                         arrayList.add(Util.getWeekOfDate())
                         arrayList.add("visible")
                         Log.d("TestLiang", "CITYNAME =${cityname}")
-                        var dataModel: DataModel = DataModel(cityname, temperature.toInt(), weathertype)
+                        var dataModel: DataModel = DataModel(cityname, temperature.toInt(), weathertype, Util.ENtoCN(cityname))
                         val db = AppDatabase.getDatabase(application)
                         db.DataDao().insert(dataModel)
 

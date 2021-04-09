@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="dataModel"
+            type="com.example.myweatherapp.database.DataModel" />
+    </data>
+
+
     <RelativeLayout
         android:layout_height="100dp"
         android:layout_width="match_parent"
@@ -15,6 +22,7 @@
             android:layout_marginTop="15dp"
             android:hint="雁塔区"
             android:textSize="20dp"
+            android:text="@{dataModel.cityCN}"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:drawablePadding="0dp"
@@ -26,6 +34,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="50dp"
             android:layout_marginTop="15dp"
+            android:text="@{Integer.toString(dataModel.temperature)}"
             android:textSize="20dp"
             android:hint="20℃"
             android:textColor="@color/white"
@@ -37,6 +46,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="15dp"
+            android:text="@{dataModel.type}"
             android:textSize="20dp"
             android:hint="多云"
             android:textColor="@color/white"

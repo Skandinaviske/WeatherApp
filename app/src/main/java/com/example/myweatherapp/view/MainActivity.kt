@@ -128,7 +128,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     override fun onClicktoAddCity(view: View, cityname: String) {
         val context: Context = view.context
         Log.d("TestLiang", "Cityname is $cityname")
-        val intent: Intent = Intent(context, AddCityActivityInterface::class.java)
+        val intent: Intent = Intent(context, AddCityActivity::class.java)
         intent.putExtra("cityname", cityname)
         context.startActivity(intent)
     }

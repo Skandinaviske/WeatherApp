@@ -50,7 +50,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="成都"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("chengdu")}'/>
             </LinearLayout>
 
             <LinearLayout

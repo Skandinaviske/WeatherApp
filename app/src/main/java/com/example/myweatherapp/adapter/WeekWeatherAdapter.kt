@@ -11,7 +11,6 @@ import com.example.myweatherapp.databinding.CellBinding
 class WeekWeatherAdapter(
     private val items: ArrayList<BasicModel>) :
     RecyclerView.Adapter<WeekWeatherAdapter.ViewHolder>() {
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

@@ -7,14 +7,19 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myweatherapp.R
+import com.example.myweatherapp.adapter.CityManagementAdapter
+import com.example.myweatherapp.adapter.WeekWeatherAdapter
+import com.example.myweatherapp.database.AppDatabase
+import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.ActivityAddcityBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogBinding
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
-class AddCityActivityInterface: OnClickHandlerInterface, AppCompatActivity() {
+class AddCityActivity: OnClickHandlerInterface, AppCompatActivity() {
 
     private var binding: ActivityAddcityBinding? = null
     private var myViewModel: MyViewModel? = null
@@ -37,6 +42,12 @@ class AddCityActivityInterface: OnClickHandlerInterface, AppCompatActivity() {
             myViewModel!!.init(cityName)
             binding?.viewModel = myViewModel
             binding?.clickHandler = this
+
+            val db = AppDatabase.getDatabase(this)
+            val arrListDatabase: List<DataModel> = db.DataDao().getAllData()
+
+            binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
+            binding?.recyclerview?.adapter = CityManagementAdapter(arrListDatabase as ArrayList<DataModel>)
         }
     }
 

@@ -73,4 +73,27 @@ object Util {
         return dateFormat.format(Calendar.getInstance().time)
         //textDate?.postValue(dateFormat.format(Calendar.getInstance().time))
     }
+
+    fun ENtoCN(EnglishName: String): String {
+        var result: String = ""
+        when (EnglishName) {
+            "chengdu" -> result = "成都"
+            "beijing" -> result = "北京"
+            "shanghai" -> result = "上海"
+            "shenzhen" -> result = "深圳"
+            "guangzhou" -> result = "广州"
+            "wuhan" -> result = "武汉"
+            "changsha" -> result = "长沙"
+            "nanjing" -> result = "南京"
+            "suzhou" -> result = "苏州"
+            "xian" -> result = "西安"
+            "qingdao" -> result = "青岛"
+            "shenyang" -> result = "沈阳"
+            "chongqing" -> result = "重庆"
+            "hangzhou" -> result = "杭州"
+            "hong kong" -> result = "香港"
+            "xiamen" -> result = "厦门"
+        }
+        return result
+    }
 }
