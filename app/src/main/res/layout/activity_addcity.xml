@@ -11,6 +11,10 @@
             type="com.example.myweatherapp.viewmodel.MyViewModel" />
 
         <variable
+            name="clickHandler"
+            type="com.example.myweatherapp.view.OnClickHandlerInterface" />
+
+        <variable
             name="activity"
             type="android.app.Activity" />
     </data>
@@ -35,7 +39,7 @@
                     android:layout_height="26dp"
                     android:layout_gravity="center_vertical"
                     android:background="@color/white"
-                    android:onClick="@{(v) -> viewModel.onFinish(v)}"
+                    android:onClick="@{(v) -> clickHandler.onFinish(v)}"
                     android:scaleType="fitStart"
                     android:src="@drawable/back" />
 
@@ -114,7 +118,7 @@
             android:layout_marginBottom="30dp"
             android:src="@drawable/add"
             app:backgroundTint="@color/white"
-            android:onClick="@{(v) -> viewModel.onClickFloatingActionButton(v)}"
+            android:onClick="@{(v) -> clickHandler.onClickFloatingActionButton(v)}"
             />
 
     </RelativeLayout>

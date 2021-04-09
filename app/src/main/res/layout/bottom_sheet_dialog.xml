@@ -66,7 +66,7 @@
                     android:gravity="center"
                     android:text="北京"
                     app:layout_rowWeight="1"
-                    android:onClick='@{(v) -> viewModel.test()}'/>
+                    android:onClick='@{(v) -> viewModel.addinDatabase("beijing")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -113,7 +113,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="广州"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("guangzhou")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -128,7 +129,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="武汉"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("wuhan")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -143,7 +145,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="长沙"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("changsha")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -158,7 +161,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="南京"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("nanjing")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -173,7 +177,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="苏州"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("suzhou")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -188,7 +193,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="西安"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("xian")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -203,7 +209,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="青岛"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("qingdao")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -218,7 +225,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="沈阳"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("shenyang")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -233,7 +241,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="重庆"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("chongqing")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -248,7 +257,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="杭州"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("hangzhou")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -263,7 +273,8 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="香港"
-                    app:layout_rowWeight="1" />
+                    app:layout_rowWeight="1"
+                    android:onClick='@{(v) -> viewModel.addinDatabase("hong kong")}'/>
             </LinearLayout>
 
             <LinearLayout
@@ -278,24 +289,25 @@
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
                     android:text="厦门"
-                    app:layout_rowWeight="1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:orientation="horizontal"
-                app:layout_columnWeight="1">
-
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@drawable/selector_btn_click_text_color"
-                    android:gravity="center"
-                    android:text="测试按钮"
                     app:layout_rowWeight="1"
-                    android:onClick='@{(v) -> viewModel.showDatabase()}'/>
+                    android:onClick='@{(v) -> viewModel.addinDatabase("xiamen")}'/>
             </LinearLayout>
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                app:layout_columnWeight="1">-->
+
+<!--                <Button-->
+<!--                    android:layout_width="fill_parent"-->
+<!--                    android:layout_height="fill_parent"-->
+<!--                    android:background="@drawable/selector_btn_click_text_color"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="测试按钮"-->
+<!--                    app:layout_rowWeight="1"-->
+<!--                    android:onClick='@{(v) -> viewModel.showDatabase()}'/>-->
+<!--            </LinearLayout>-->
 
         </androidx.gridlayout.widget.GridLayout>
 

@@ -1,5 +1,7 @@
 package com.example.myweatherapp.view
 
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -11,19 +13,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.BasicModel
 import com.example.myweatherapp.adapter.WeekWeatherAdapter
-import com.example.myweatherapp.database.AppDatabase
 import com.example.myweatherapp.databinding.ActivityMainBinding
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.jaeger.library.StatusBarUtil
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var myViewModel: MyViewModel? = null
     private var binding: ActivityMainBinding? = null
     lateinit var amapLocationClient: AMapLocationClient
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                     if (cityname != lastcityname) {
                         myViewModel!!.init(cityname)
                         binding?.viewModel = myViewModel
-
+                        binding?.clickHandler = this
                         myViewModel!!.repositoryforDaily?.observe(this, Observer<ArrayList<BasicModel>>{
                                 t ->
                             binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
@@ -123,5 +123,19 @@ class MainActivity : AppCompatActivity() {
         mLocationOption.interval = 10000
         amapLocationClient.setLocationOption(mLocationOption)
         amapLocationClient.startLocation()
+    }
+
+    override fun onClicktoAddCity(view: View, cityname: String) {
+        val context: Context = view.context
+        Log.d("TestLiang", "Cityname is $cityname")
+        val intent: Intent = Intent(context, AddCityActivityInterface::class.java)
+        intent.putExtra("cityname", cityname)
+        context.startActivity(intent)
+    }
+
+    override fun onFinish(view: View) {
+    }
+
+    override fun onClickFloatingActionButton(view: View) {
     }
 }
