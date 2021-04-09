@@ -2,7 +2,6 @@ package com.example.myweatherapp.repository
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -82,8 +81,8 @@ class Repository {
                         val db = AppDatabase.getDatabase(application)
                         db.DataDao().insert(dataModel)
 
-                        val basicModel1 = db.DataDao().getData("chengdu")
-                        Log.d("TestLiang", "result =${basicModel1.temperature}")
+//                        val basicModel1 = db.DataDao().getData("chengdu")
+//                        Log.d("TestLiang", "result =${basicModel1.temperature}")
                         //Log.d("CurrentWeather", temperature + weatherBackground + weathertype)
                     }
 
