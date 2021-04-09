@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.CityManagementAdapter
-import com.example.myweatherapp.adapter.WeekWeatherAdapter
 import com.example.myweatherapp.database.AppDatabase
 import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.ActivityAddcityBinding
@@ -19,7 +19,7 @@ import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
-class AddCityActivity: OnClickHandlerInterface, AppCompatActivity() {
+class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
     private var binding: ActivityAddcityBinding? = null
     private var myViewModel: MyViewModel? = null
@@ -43,11 +43,21 @@ class AddCityActivity: OnClickHandlerInterface, AppCompatActivity() {
             binding?.viewModel = myViewModel
             binding?.clickHandler = this
 
-            val db = AppDatabase.getDatabase(this)
-            val arrListDatabase: List<DataModel> = db.DataDao().getAllData()
+//            val db = AppDatabase.getDatabase(this)
+//            var arrListDatabase: ArrayList<DataModel> = db.DataDao().getAllData() as ArrayList<DataModel>
+//            var result = 0;
+//            for((start, i) in arrListDatabase.withIndex()){
+//                if(i.cityCN=="")
+//                    result = start
+//            }
+//            arrListDatabase.removeAt(result)
 
-            binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
-            binding?.recyclerview?.adapter = CityManagementAdapter(arrListDatabase as ArrayList<DataModel>)
+            myViewModel!!.repositoryfromDatabase?.observe(this,
+            Observer<ArrayList<DataModel>> { t ->
+                binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
+                val adapter = CityManagementAdapter(t)
+                binding?.recyclerview?.adapter = adapter
+            })
         }
     }
 

@@ -20,7 +20,6 @@
             android:layout_width="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="15dp"
-            android:hint="雁塔区"
             android:textSize="20dp"
             android:text="@{dataModel.cityCN}"
             android:textColor="@color/white"

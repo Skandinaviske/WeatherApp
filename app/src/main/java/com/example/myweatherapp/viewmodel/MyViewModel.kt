@@ -22,7 +22,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     private var textLiveDataforNow: MutableLiveData<ArrayList<String>>? = null
     private var textLiveDataforLocation: MutableLiveData<ArrayList<String>>? = null
     private var textLiveDataforDaily: MutableLiveData<ArrayList<BasicModel>>? = null
-
+    private var textLiveDatafromRoom: MutableLiveData<ArrayList<DataModel>>? = null
     private var repository = Repository()
 
     fun init(cityname: String) {
@@ -30,6 +30,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         textLiveDataforNow = repository.getNowInfo(cityname, getApplication())
         textLiveDataforLocation = repository.getLocationInfo(cityname)
         textLiveDataforDaily = repository.getDailyInfo(cityname)
+        textLiveDatafromRoom = repository.getData(getApplication())
     }
 
     fun addinDatabase(cityname: String) {
@@ -37,6 +38,11 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         Log.d("TestLiang", "Let us know that we r still rock n roll")
         textLiveDataforNow = repository.getNowInfo(cityname, getApplication())
     }
+
+//    fun getAllData(){
+//        repository = repository.instance
+//        textLiveDatafromRoom = repository.getData(getApplication())
+//    }
 
     fun test() {
         Log.d("TestLiang", "Let us know Winner")
@@ -58,5 +64,8 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
 
     val repositoryforDaily: LiveData<ArrayList<BasicModel>>?
         get() = textLiveDataforDaily
+
+    val repositoryfromDatabase: LiveData<ArrayList<DataModel>>?
+        get() = textLiveDatafromRoom
 
 }

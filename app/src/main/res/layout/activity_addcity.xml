@@ -68,7 +68,6 @@
                     android:layout_marginTop="15dp"
                     android:drawableRight="@drawable/position"
                     android:drawablePadding="0dp"
-                    android:hint="雁塔区"
                     android:text="@{viewModel.repositoryforLocation[1]}"
                     android:textColor="@color/white"
                     android:textSize="20dp"

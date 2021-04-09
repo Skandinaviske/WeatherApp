@@ -24,6 +24,7 @@ class Repository {
     private var textLiveDataforNow = MutableLiveData<ArrayList<String>>()
     private var textLiveDataforLocation = MutableLiveData<ArrayList<String>>()
     private var textLiveDataforDaily = MutableLiveData<ArrayList<BasicModel>>()
+    private var textLiveDatafromRoom = MutableLiveData<ArrayList<DataModel>>()
     private val TIANQI_API_SECRET_KEY = "S69J9uyzmkgblruE-"
     private val LANGUAGE_NAME = "zh-Hans"
     private val UNIT = "c"
@@ -77,10 +78,17 @@ class Repository {
                         arrayList.add(Util.getWeekOfDate())
                         arrayList.add("visible")
                         Log.d("TestLiang", "CITYNAME =${cityname}")
-                        var dataModel: DataModel = DataModel(cityname, temperature.toInt(), weathertype, Util.ENtoCN(cityname))
-                        val db = AppDatabase.getDatabase(application)
-                        db.DataDao().insert(dataModel)
-
+                        val dataModel: DataModel
+                        if (cityname != "雁塔区") {
+                            dataModel = DataModel(
+                                cityname,
+                                temperature.toInt(),
+                                weathertype,
+                                Util.ENtoCN(cityname)
+                            )
+                            val db = AppDatabase.getDatabase(application)
+                            db.DataDao().insert(dataModel)
+                        }
 //                        val basicModel1 = db.DataDao().getData("chengdu")
 //                        Log.d("TestLiang", "result =${basicModel1.temperature}")
                         //Log.d("CurrentWeather", temperature + weatherBackground + weathertype)
@@ -202,5 +210,19 @@ class Repository {
 
         })
         return textLiveDataforDaily
+    }
+
+    fun getData(application: Application) : MutableLiveData<ArrayList<DataModel>>{
+        val db = AppDatabase.getDatabase(application)
+        var arrListDatabase: ArrayList<DataModel> = db.DataDao().getAllData() as ArrayList<DataModel>
+
+        var result = 0;
+        for((start, i) in arrListDatabase.withIndex()){
+            if(i.cityCN=="")
+                result = start
+        }
+        arrListDatabase.removeAt(result)
+        textLiveDatafromRoom.postValue(arrListDatabase)
+        return textLiveDatafromRoom
     }
 }

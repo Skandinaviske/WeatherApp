@@ -1,6 +1,5 @@
 package com.example.myweatherapp.adapter
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.R
 import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.CellCitymanagementBinding
+import com.example.myweatherapp.util.Util
 
 class CityManagementAdapter(
     private val items: ArrayList<DataModel>
@@ -35,14 +35,17 @@ class CityManagementAdapter(
 
     override fun onBindViewHolder(holder: CityManagementAdapter.ViewHolder, position: Int) {
         holder.itemViewDataBinding.dataModel = items[position]
-        val type = holder.itemViewDataBinding?.dataModel?.type
-        val city = holder.itemViewDataBinding?.dataModel?.city
-        if(type!=null&&city!=null) {
-            Log.d("Mytype", "City = $city Type = $type")
-            if (type == "小雨" || type == "阴")
-                holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapeadditemgray)
+
+        val type = items[position].type
+        val city = items[position].city
+        Log.d("Mytype", "City = $city Type = $type")
+        when(Util.judgeWeatherColor(type)){
+            2 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgreen)
+            3 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgray)
+            4 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapeadditemgray)
         }
-            holder.itemViewDataBinding.executePendingBindings()
+
+        holder.itemViewDataBinding.executePendingBindings()
     }
 
     class ViewHolder(val itemViewDataBinding: CellCitymanagementBinding) :
