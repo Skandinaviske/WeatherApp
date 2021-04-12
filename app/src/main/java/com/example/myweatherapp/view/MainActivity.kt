@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
+import com.example.myweatherapp.MyApplication
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.BasicModel
 import com.example.myweatherapp.adapter.WeekWeatherAdapter
@@ -66,6 +67,10 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                 if (aMapLocation.errorCode == 0) {
                     //定位成功，aMapLocation获取数据
                     cityname = aMapLocation.city.toLowerCase()
+
+                    //var location = MyApplication
+                    MyApplication.currentLocation = cityname
+
                     if (cityname != lastcityname) {
                         myViewModel!!.init(cityname)
                         binding?.viewModel = myViewModel

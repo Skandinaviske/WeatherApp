@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
+import com.example.myweatherapp.MyApplication
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.BasicModel
 import com.example.myweatherapp.data.Result
@@ -212,25 +213,41 @@ class Repository {
         return textLiveDataforDaily
     }
 
-    fun getData(application: Application, cityname: String) : MutableLiveData<ArrayList<DataModel>>{
+    fun getData(application: Application): MutableLiveData<ArrayList<DataModel>> {
         val db = AppDatabase.getDatabase(application)
-        var arrListDatabase: ArrayList<DataModel> = db.DataDao().getAllData() as ArrayList<DataModel>
+        var arrListDatabase: ArrayList<DataModel> =
+            db.DataDao().getAllData() as ArrayList<DataModel>
 
-//        for(i in arrListDatabase){
-//            Log.d("TestData","------------------------------")
-//            Log.d("TestData","City=${i.city} 城市=${i.cityCN}")
-//        }
-
-        var result = 0;
-        var deleteCity = 0
-        for((start, i) in arrListDatabase.withIndex()){
-            if(i.cityCN=="")
-                result = start
-            if(i.city==cityname)
-                deleteCity = start
+        Log.d("TestData", "Before------------------------------")
+        for (i in arrListDatabase) {
+            Log.d("TestData", "City=${i.city} 城市=${i.cityCN}")
         }
-        arrListDatabase.removeAt(result)
-        arrListDatabase.removeAt(deleteCity)
+
+        Log.d("TestData", "Show:${MyApplication.currentLocation}")
+
+        var result = -1
+        for ((start, i) in arrListDatabase.withIndex()) {
+            if (i.cityCN == "")
+                result = start
+        }
+
+        if (result != -1)
+            arrListDatabase.removeAt(result)
+
+        var deleteCity = -1
+        for ((start, i) in arrListDatabase.withIndex()) {
+            if (i.city == MyApplication.currentLocation) {
+                deleteCity = start
+            }
+        }
+
+        if (deleteCity != -1)
+            arrListDatabase.removeAt(deleteCity)
+
+        for (i in arrListDatabase) {
+            Log.d("TestDataII", "City=${i.city} 城市=${i.cityCN}")
+        }
+
         textLiveDatafromRoom.postValue(arrListDatabase)
         return textLiveDatafromRoom
     }

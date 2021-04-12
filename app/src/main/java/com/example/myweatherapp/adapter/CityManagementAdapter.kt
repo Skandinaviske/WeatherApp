@@ -48,6 +48,7 @@ class CityManagementAdapter(
         val city = items[position].city
         Log.d("Mytype", "City = $city Type = $type")
         when(Util.judgeWeatherColor(type)){
+            1 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightblue)
             2 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgreen)
             3 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgray)
             4 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapeadditemgray)
