@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.CityManagementAdapter
-import com.example.myweatherapp.database.AppDatabase
 import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.ActivityAddcityBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogBinding
@@ -23,6 +22,8 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
     private var binding: ActivityAddcityBinding? = null
     private var myViewModel: MyViewModel? = null
+    private var arraylistDataModel: ArrayList<DataModel>? = null
+    private var adapter:CityManagementAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,15 +54,19 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 //            arrListDatabase.removeAt(result)
 
             myViewModel!!.repositoryfromDatabase?.observe(this,
-            Observer<ArrayList<DataModel>> { t ->
-                binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
-                val adapter = CityManagementAdapter(t)
-                binding?.recyclerview?.adapter = adapter
-            })
+                Observer<ArrayList<DataModel>> { t ->
+                    if(arraylistDataModel==null) {
+                        binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
+                        adapter = CityManagementAdapter(t, this)
+                        binding?.recyclerview?.adapter = adapter
+                    } else {
+                        adapter?.notifyDataSetChanged()
+                    }
+                })
         }
     }
 
-    override fun onClicktoAddCity(view: View, cityname: String) {
+    override fun onClicktoActivity(view: View, cityname: String) {
     }
 
     override fun onFinish(view: View) {
@@ -80,4 +85,5 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         bottomSheetDialog.setContentView(binding.root);
         bottomSheetDialog.show()
     }
+
 }

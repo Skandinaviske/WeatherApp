@@ -30,7 +30,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         textLiveDataforNow = repository.getNowInfo(cityname, getApplication())
         textLiveDataforLocation = repository.getLocationInfo(cityname)
         textLiveDataforDaily = repository.getDailyInfo(cityname)
-        textLiveDatafromRoom = repository.getData(getApplication())
+        textLiveDatafromRoom = repository.getData(getApplication(),cityname)
     }
 
     fun addinDatabase(cityname: String) {
