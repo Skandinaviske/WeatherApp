@@ -1,13 +1,17 @@
 package com.example.myweatherapp.viewmodel
 
 import android.app.Application
+import android.graphics.Color
 import android.util.Log
+import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myweatherapp.MyApplication
+import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.BasicModel
 import com.example.myweatherapp.database.AppDatabase
 import com.example.myweatherapp.database.DataModel
@@ -20,13 +24,12 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     private var textLiveDataforLocation: MutableLiveData<ArrayList<String>>? = null
     private var textLiveDataforDaily: MutableLiveData<ArrayList<BasicModel>>? = null
     private var textLiveDatafromRoom: MutableLiveData<ArrayList<DataModel>>? = null
-
     private var repository = Repository()
-    var isVisibility = "visible"
-    val isVisible : ObservableField<Boolean> = ObservableField();
+    private var imageRes: MutableLiveData<Int>? = null
+            //= R.drawable.add
 
     fun init(cityname: String) {
-        if(textLiveDatafromRoom != null){
+        if (textLiveDatafromRoom != null) {
             return
         }
         repository = repository.instance
@@ -34,14 +37,17 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         textLiveDataforLocation = repository.getLocationInfo(cityname)
         textLiveDataforDaily = repository.getDailyInfo(cityname)
         //textLiveDatafromRoom = repository.getData(getApplication())
-        isVisibility = "visible"
     }
 
-    fun getData(){
+    fun getData() {
         textLiveDatafromRoom = repository.getData(getApplication())
     }
 
-    fun updateData(){
+//    fun changeImage() {
+//        imageRes =
+//    }
+
+    fun updateData() {
         val db = AppDatabase.getDatabase(getApplication())
         val arrayListDataModel =
             db.DataDao().getAllData() as ArrayList<DataModel>
@@ -69,12 +75,12 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
-        val dataModel:DataModel
+        val dataModel: DataModel
 
         if (deleteCity != -1) {
             dataModel = arrayListDataModel[deleteCity]
             arrayListDataModel.removeAt(deleteCity)
-            arrayListDataModel.add(0,dataModel)
+            arrayListDataModel.add(0, dataModel)
         }
 
         for (i in arrayListDataModel) {
@@ -84,17 +90,29 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         textLiveDatafromRoom?.postValue(arrayListDataModel)
     }
 
-    fun addinDatabase(cityname: String) {
+    fun addinDatabase(cityname: String, view: View) {
+        view.setBackgroundResource(R.drawable.selector_btn_click_text_color_blue)
         repository = repository.instance
         textLiveDataforNow = repository.getNowInfo(cityname, getApplication())
     }
+
+//    fun clickTest(view: View) {
+////        isButtonClicked = if (isButtonClicked) {
+//        view.setBackgroundResource(R.drawable.selector_btn_click_text_color)
+////            false
+////        } else {
+////            view.setBackgroundResource(R.drawable.selector_btn_click_text_color_blue)
+////            true
+////        }
+//        addinDatabase
+//    }
 
 //    fun getAllData(){
 //        repository = repository.instance
 //        textLiveDatafromRoom = repository.getData(getApplication())
 //    }
 
-    fun test():String {
+    fun test(): String {
         return "visible"
     }
 
@@ -118,7 +136,4 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     val repositoryfromDatabase: LiveData<ArrayList<DataModel>>?
         get() = textLiveDatafromRoom
 
-    var getVisibility:String
-        set(value) {}
-        get() = isVisibility
 }

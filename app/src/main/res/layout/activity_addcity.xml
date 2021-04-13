@@ -30,6 +30,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/statusbar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal">
@@ -55,6 +56,7 @@
                     android:layout_marginStart="50dp"/>
 
                 <ImageButton
+                    android:id="@+id/edit"
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_centerVertical="true"
@@ -120,16 +122,18 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingactionbutton"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="30dp"
-            android:src="@drawable/add"
             app:backgroundTint="@color/white"
             android:onClick="@{(v) -> clickHandler.onClickFloatingActionButton(v)}"
             />
+
+<!--        android:src="@{viewModel.imageRes, default=@drawable/add}"-->
 
     </RelativeLayout>
 </layout>

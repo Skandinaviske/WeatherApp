@@ -4,7 +4,7 @@
     <data>
         <variable
             name="dataModel"
-            type="com.example.myweatherapp.database.DataModel" />
+            type="com.example.myweatherapp.viewmodel.DataModelWithVisible" />
 
         <variable
             name="viewModel"
@@ -57,10 +57,12 @@
 
 
         <CheckBox
+            android:id="@+id/checkbox"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:visibility="@{dataModel.isVisible}"/>
 
 <!--        android:visibility="@{dataModel.isVisible}"-->
     </RelativeLayout>

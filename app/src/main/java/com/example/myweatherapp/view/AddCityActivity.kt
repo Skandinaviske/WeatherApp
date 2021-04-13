@@ -1,7 +1,6 @@
 package com.example.myweatherapp.view
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,9 +15,11 @@ import com.example.myweatherapp.adapter.CityManagementAdapter
 import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.ActivityAddcityBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogBinding
+import com.example.myweatherapp.viewmodel.DataModelWithVisible
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
@@ -28,6 +29,8 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var arraylistDataModel: ArrayList<DataModel>? = null
     private var adapter: CityManagementAdapter? = null
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    private var isVisible = "gone"
+    private val arrayListDataModelWithVisible:ArrayList<DataModelWithVisible> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +63,18 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
             myViewModel!!.repositoryfromDatabase?.observe(this,
                 Observer<ArrayList<DataModel>> { t ->
-                    Log.d("CCCCCCCC", "Possible")
                     if (arraylistDataModel == null) {
+
+                        //val arrayListDataModelWithVisible:ArrayList<DataModelWithVisible> = ArrayList()
+                        var model: DataModelWithVisible
+                        for(i in t){
+                            model = DataModelWithVisible(i.city,i.temperature,i.type,i.cityCN,isVisible)
+                            arrayListDataModelWithVisible.add(model)
+                        }
+
                         binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
-                        adapter = CityManagementAdapter(t, this)
+                        adapter = CityManagementAdapter(arrayListDataModelWithVisible, this) {
+                        }
                         binding?.recyclerview?.adapter = adapter
                     } else {
                         adapter?.notifyDataSetChanged()
@@ -97,9 +108,16 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     }
 
     override fun showCheckBox(view: View) {
-        Log.d("KKKK","??????????????")
-        myViewModel?.getVisibility = "visible"
+        isVisible = if(isVisible == "gone")
+            "visible"
+        else
+            "gone"
+        for(i in arrayListDataModelWithVisible){
+            i.isVisible = isVisible
+        }
         adapter?.notifyDataSetChanged()
+        val floatingActionButton = binding?.root?.findViewById<FloatingActionButton>(R.id.floatingactionbutton)
+        floatingActionButton?.setImageResource(R.drawable.delete)
     }
 
 }

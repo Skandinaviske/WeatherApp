@@ -4,23 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.R
-import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.CellCitymanagementBinding
 import com.example.myweatherapp.util.Util
 import com.example.myweatherapp.view.OtherCityActivity
+import com.example.myweatherapp.viewmodel.DataModelWithVisible
 
 class CityManagementAdapter(
-    private val items: ArrayList<DataModel>,
-    context: Context
+    private val items: ArrayList<DataModelWithVisible>?,
+    private val context: Context,
+    private val clickListener: ((binding: CellCitymanagementBinding) -> Unit)
 ) :
     RecyclerView.Adapter<CityManagementAdapter.ViewHolder>() {
-
-    private val context: Context = context
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -33,21 +31,23 @@ class CityManagementAdapter(
                 R.layout.cell_citymanagement,
                 parent,
                 false
-            )
+            ), clickListener
         )
     }
 
     override fun getItemCount(): Int {
-        return items.size
+
+        return items?.size ?: 0
+
     }
 
     override fun onBindViewHolder(holder: CityManagementAdapter.ViewHolder, position: Int) {
-        holder.itemViewDataBinding.dataModel = items[position]
+        holder.itemViewDataBinding.dataModel = items?.get(position)
 
-        val type = items[position].type
-        val city = items[position].city
+        val type = items?.get(position)?.type
+        val city = items?.get(position)?.city
         Log.d("Mytype", "City = $city Type = $type")
-        when(Util.judgeWeatherColor(type)){
+        when(type?.let { Util.judgeWeatherColor(it) }){
             1 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightblue)
             2 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgreen)
             3 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgray)
@@ -63,6 +63,12 @@ class CityManagementAdapter(
         holder.itemViewDataBinding.executePendingBindings()
     }
 
-    class ViewHolder(val itemViewDataBinding: CellCitymanagementBinding) :
-        RecyclerView.ViewHolder(itemViewDataBinding.root)
+    class ViewHolder(val itemViewDataBinding: CellCitymanagementBinding, private val clickListener: ((binding: CellCitymanagementBinding) -> Unit)) :
+        RecyclerView.ViewHolder(itemViewDataBinding.root) {
+        init {
+            itemViewDataBinding.root.setOnClickListener {
+                clickListener(itemViewDataBinding)
+            }
+        }
+    }
 }

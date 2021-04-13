@@ -27,7 +27,7 @@ class Repository {
     private var textLiveDataforDaily = MutableLiveData<ArrayList<BasicModel>>()
     var textLiveDatafromRoom = MutableLiveData<ArrayList<DataModel>>()
     var arrayListDataModel:ArrayList<DataModel> = ArrayList<DataModel>()
-    private val TIANQI_API_SECRET_KEY = "S69J9uyzmkgblruE-"
+    private val TIANQI_API_SECRET_KEY = "SsWmmG_GwpNLboKR6"
     private val LANGUAGE_NAME = "zh-Hans"
     private val UNIT = "c"
     val instance: Repository

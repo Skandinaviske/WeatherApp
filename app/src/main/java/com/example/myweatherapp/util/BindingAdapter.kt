@@ -1,5 +1,6 @@
 package com.example.myweatherapp.util
 
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -43,6 +44,12 @@ class BindingAdapter {
             imageView.setImageResource(resource)
         }
 
+
+        @BindingAdapter("android:src")
+        @JvmStatic
+        fun setImageUri(imageView: ImageView, resource: Int) {
+            imageView.setImageResource(resource);
+        }
 //        @BindingAdapter("bottomSheetBehaviorState")
 //        @JvmStatic
 //        fun setState(v: View, bottomSheetBehaviorState: Int) {
@@ -50,5 +57,6 @@ class BindingAdapter {
 //                BottomSheetBehavior.from(v)
 //            viewBottomSheetBehavior.state = bottomSheetBehaviorState
 //        }
+
     }
 }
