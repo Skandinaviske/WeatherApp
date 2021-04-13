@@ -65,11 +65,19 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                 Observer<ArrayList<DataModel>> { t ->
                     if (arraylistDataModel == null) {
 
+                        for(i in t){
+                            Log.d("DDDDDDDDDDDDD","中文名：${i.cityCN}  英文名： ${i.cityCN}")
+                        }
+
                         //val arrayListDataModelWithVisible:ArrayList<DataModelWithVisible> = ArrayList()
                         var model: DataModelWithVisible
+                        var index = 0
+
+
                         for(i in t){
                             model = DataModelWithVisible(i.city,i.temperature,i.type,i.cityCN,isVisible)
-                            arrayListDataModelWithVisible.add(model)
+                            if(!arrayListDataModelWithVisible.contains(model))
+                                arrayListDataModelWithVisible.add(model)
                         }
 
                         binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
@@ -117,7 +125,9 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         }
         adapter?.notifyDataSetChanged()
         val floatingActionButton = binding?.root?.findViewById<FloatingActionButton>(R.id.floatingactionbutton)
-        floatingActionButton?.setImageResource(R.drawable.delete)
+        if(isVisible == "visible")
+            floatingActionButton?.setImageResource(R.drawable.delete)
+        else
+            floatingActionButton?.setImageResource(R.drawable.add)
     }
-
 }

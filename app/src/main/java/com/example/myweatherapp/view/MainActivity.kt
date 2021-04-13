@@ -1,5 +1,6 @@
 package com.example.myweatherapp.view
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -15,10 +16,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
-import com.example.myweatherapp.MyApplication
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.BasicModel
 import com.example.myweatherapp.adapter.WeekWeatherAdapter
+import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.databinding.ActivityMainBinding
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.jaeger.library.StatusBarUtil
@@ -35,6 +36,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_BACKGROUND_LOCATION), 100)
 
         binding = DataBindingUtil.setContentView(
             this,
@@ -145,4 +147,22 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     override fun showCheckBox(view: View) {
         TODO("Not yet implemented")
     }
+
+//    @TargetApi(30)
+//    private fun Context.checkBackgroundLocationPermissionAPI30(backgroundLocationRequestCode: Int) {
+//        if (checkSinglePermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) return
+//        AlertDialog.Builder(this)
+//            .setTitle(R.string.background_location_permission_title)
+//            .setMessage(R.string.background_location_permission_message)
+//            .setPositiveButton(R.string.yes) { _,_ ->
+//                // this request will take user to Application's Setting page
+//                requestPermissions(arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), backgroundLocationRequestCode)
+//            }
+//            .setNegativeButton(R.string.no) { dialog,_ ->
+//                dialog.dismiss()
+//            }
+//            .create()
+//            .show()
+//
+//    }
 }

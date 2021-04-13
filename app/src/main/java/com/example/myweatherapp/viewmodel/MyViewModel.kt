@@ -1,22 +1,17 @@
 package com.example.myweatherapp.viewmodel
 
 import android.app.Application
-import android.graphics.Color
 import android.util.Log
 import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.myweatherapp.MyApplication
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.BasicModel
+import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.database.AppDatabase
 import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.repository.Repository
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
 class MyViewModel(application: Application) : AndroidViewModel(application) {

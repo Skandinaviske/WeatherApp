@@ -45,11 +45,11 @@ class BindingAdapter {
         }
 
 
-        @BindingAdapter("android:src")
-        @JvmStatic
-        fun setImageUri(imageView: ImageView, resource: Int) {
-            imageView.setImageResource(resource);
-        }
+//        @BindingAdapter("android:src")
+//        @JvmStatic
+//        fun setImageUri(imageView: ImageView, resource: Int) {
+//            imageView.setImageResource(resource);
+//        }
 //        @BindingAdapter("bottomSheetBehaviorState")
 //        @JvmStatic
 //        fun setState(v: View, bottomSheetBehaviorState: Int) {

@@ -131,6 +131,7 @@
             android:layout_marginBottom="30dp"
             app:backgroundTint="@color/white"
             android:onClick="@{(v) -> clickHandler.onClickFloatingActionButton(v)}"
+            android:src = "@drawable/add"
             />
 
 <!--        android:src="@{viewModel.imageRes, default=@drawable/add}"-->

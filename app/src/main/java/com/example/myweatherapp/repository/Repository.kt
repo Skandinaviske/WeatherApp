@@ -6,9 +6,9 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
-import com.example.myweatherapp.MyApplication
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.BasicModel
+import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.data.Result
 import com.example.myweatherapp.database.AppDatabase
 import com.example.myweatherapp.database.DataModel
@@ -81,7 +81,6 @@ class Repository {
                         arrayList.add("visible")
                         Log.d("TestLiang", "CITYNAME =${cityname}")
                         val dataModel: DataModel
-                        if (cityname != "雁塔区") {
                             dataModel = DataModel(
                                 cityname,
                                 temperature.toInt(),
@@ -90,7 +89,6 @@ class Repository {
                             )
                             val db = AppDatabase.getDatabase(application)
                             db.DataDao().insert(dataModel)
-                        }
 //                        val basicModel1 = db.DataDao().getData("chengdu")
 //                        Log.d("TestLiang", "result =${basicModel1.temperature}")
                         //Log.d("CurrentWeather", temperature + weatherBackground + weathertype)
