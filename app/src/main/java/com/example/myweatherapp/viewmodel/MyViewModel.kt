@@ -1,21 +1,18 @@
 package com.example.myweatherapp.viewmodel
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.myweatherapp.R
+import com.example.myweatherapp.MyApplication
 import com.example.myweatherapp.adapter.BasicModel
 import com.example.myweatherapp.database.AppDatabase
 import com.example.myweatherapp.database.DataModel
-import com.example.myweatherapp.databinding.BottomSheetDialogBinding
 import com.example.myweatherapp.repository.Repository
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
 class MyViewModel(application: Application) : AndroidViewModel(application) {
@@ -23,20 +20,72 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     private var textLiveDataforLocation: MutableLiveData<ArrayList<String>>? = null
     private var textLiveDataforDaily: MutableLiveData<ArrayList<BasicModel>>? = null
     private var textLiveDatafromRoom: MutableLiveData<ArrayList<DataModel>>? = null
+
     private var repository = Repository()
+    var isVisibility = "visible"
+    val isVisible : ObservableField<Boolean> = ObservableField();
 
     fun init(cityname: String) {
+        if(textLiveDatafromRoom != null){
+            return
+        }
         repository = repository.instance
         textLiveDataforNow = repository.getNowInfo(cityname, getApplication())
         textLiveDataforLocation = repository.getLocationInfo(cityname)
         textLiveDataforDaily = repository.getDailyInfo(cityname)
+        //textLiveDatafromRoom = repository.getData(getApplication())
+        isVisibility = "visible"
+    }
 
+    fun getData(){
         textLiveDatafromRoom = repository.getData(getApplication())
+    }
+
+    fun updateData(){
+        val db = AppDatabase.getDatabase(getApplication())
+        val arrayListDataModel =
+            db.DataDao().getAllData() as ArrayList<DataModel>
+
+//        Log.d("TestData", "Before------------------------------")
+//        for (i in arrListDatabase) {
+//            Log.d("TestData", "City=${i.city} 城市=${i.cityCN}")
+//        }
+//
+//        Log.d("TestData", "Show:${MyApplication.currentLocation}")
+
+        var result = -1
+        for ((start, i) in arrayListDataModel.withIndex()) {
+            if (i.cityCN == "")
+                result = start
+        }
+
+        if (result != -1)
+            arrayListDataModel.removeAt(result)
+
+        var deleteCity = -1
+        for ((start, i) in arrayListDataModel.withIndex()) {
+            if (i.city == MyApplication.currentLocation) {
+                deleteCity = start
+            }
+        }
+
+        val dataModel:DataModel
+
+        if (deleteCity != -1) {
+            dataModel = arrayListDataModel[deleteCity]
+            arrayListDataModel.removeAt(deleteCity)
+            arrayListDataModel.add(0,dataModel)
+        }
+
+        for (i in arrayListDataModel) {
+            Log.d("TestDataII", "City=${i.city} 城市=${i.cityCN}")
+        }
+
+        textLiveDatafromRoom?.postValue(arrayListDataModel)
     }
 
     fun addinDatabase(cityname: String) {
         repository = repository.instance
-        Log.d("TestLiang", "Let us know that we r still rock n roll")
         textLiveDataforNow = repository.getNowInfo(cityname, getApplication())
     }
 
@@ -45,8 +94,8 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
 //        textLiveDatafromRoom = repository.getData(getApplication())
 //    }
 
-    fun test() {
-        Log.d("TestLiang", "Let us know Winner")
+    fun test():String {
+        return "visible"
     }
 
     fun showDatabase() {
@@ -69,4 +118,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     val repositoryfromDatabase: LiveData<ArrayList<DataModel>>?
         get() = textLiveDatafromRoom
 
+    var getVisibility:String
+        set(value) {}
+        get() = isVisibility
 }

@@ -141,4 +141,8 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
 
     override fun onClickFloatingActionButton(view: View) {
     }
+
+    override fun showCheckBox(view: View) {
+        TODO("Not yet implemented")
+    }
 }

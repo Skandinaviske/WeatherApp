@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal">
@@ -37,67 +37,78 @@
                 <ImageButton
                     android:layout_width="26dp"
                     android:layout_height="26dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_centerVertical="true"
+
                     android:background="@color/white"
                     android:onClick="@{(v) -> clickHandler.onFinish(v)}"
                     android:scaleType="fitStart"
                     android:src="@drawable/back" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="    城市管理"
+                    android:text="城市管理"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:layout_marginStart="50dp"/>
 
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/shapeadditem">
-
-                <TextView
-                    android:id="@+id/currentCity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="15dp"
-                    android:drawableRight="@drawable/position"
-                    android:drawablePadding="0dp"
-                    android:text="@{viewModel.repositoryforLocation[1]}"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="50dp"
-                    android:hint="20℃"
-                    android:text="@{viewModel.repositoryforNow[0]+'℃'}"
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="15dp"
-                    android:hint="多云"
-                    android:text="@={viewModel.repositoryforNow[2]}"
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
-
-
+                <ImageButton
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_centerVertical="true"
+                    android:background="@color/white"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/edit"
+                    android:onClick="@{(v) -> clickHandler.showCheckBox(v)}"
+                    android:layout_alignParentEnd="true"/>
             </RelativeLayout>
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:background="@drawable/shapeadditem">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/currentCity"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="50dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:drawableRight="@drawable/position"-->
+<!--                    android:drawablePadding="0dp"-->
+<!--                    android:text="@{viewModel.repositoryforLocation[1]}"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20dp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginEnd="50dp"-->
+<!--                    android:hint="20℃"-->
+<!--                    android:text="@{viewModel.repositoryforNow[0]+'℃'}"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20dp" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:layout_marginEnd="50dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:hint="多云"-->
+<!--                    android:text="@={viewModel.repositoryforNow[2]}"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20dp" />-->
+
+
+<!--            </RelativeLayout>-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview"

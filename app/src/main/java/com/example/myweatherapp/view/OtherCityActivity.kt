@@ -83,4 +83,7 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     override fun onClickFloatingActionButton(view: View) {
     }
 
+    override fun showCheckBox(view: View) {
+    }
+
 }

@@ -25,7 +25,8 @@ class Repository {
     private var textLiveDataforNow = MutableLiveData<ArrayList<String>>()
     private var textLiveDataforLocation = MutableLiveData<ArrayList<String>>()
     private var textLiveDataforDaily = MutableLiveData<ArrayList<BasicModel>>()
-    private var textLiveDatafromRoom = MutableLiveData<ArrayList<DataModel>>()
+    var textLiveDatafromRoom = MutableLiveData<ArrayList<DataModel>>()
+    var arrayListDataModel:ArrayList<DataModel> = ArrayList<DataModel>()
     private val TIANQI_API_SECRET_KEY = "S69J9uyzmkgblruE-"
     private val LANGUAGE_NAME = "zh-Hans"
     private val UNIT = "c"
@@ -215,40 +216,45 @@ class Repository {
 
     fun getData(application: Application): MutableLiveData<ArrayList<DataModel>> {
         val db = AppDatabase.getDatabase(application)
-        var arrListDatabase: ArrayList<DataModel> =
+        arrayListDataModel =
             db.DataDao().getAllData() as ArrayList<DataModel>
 
-        Log.d("TestData", "Before------------------------------")
-        for (i in arrListDatabase) {
-            Log.d("TestData", "City=${i.city} 城市=${i.cityCN}")
-        }
-
-        Log.d("TestData", "Show:${MyApplication.currentLocation}")
+//        Log.d("TestData", "Before------------------------------")
+//        for (i in arrListDatabase) {
+//            Log.d("TestData", "City=${i.city} 城市=${i.cityCN}")
+//        }
+//
+//        Log.d("TestData", "Show:${MyApplication.currentLocation}")
 
         var result = -1
-        for ((start, i) in arrListDatabase.withIndex()) {
+        for ((start, i) in arrayListDataModel.withIndex()) {
             if (i.cityCN == "")
                 result = start
         }
 
         if (result != -1)
-            arrListDatabase.removeAt(result)
+            arrayListDataModel.removeAt(result)
 
         var deleteCity = -1
-        for ((start, i) in arrListDatabase.withIndex()) {
+        for ((start, i) in arrayListDataModel.withIndex()) {
             if (i.city == MyApplication.currentLocation) {
                 deleteCity = start
             }
         }
 
-        if (deleteCity != -1)
-            arrListDatabase.removeAt(deleteCity)
+        val dataModel:DataModel
 
-        for (i in arrListDatabase) {
+        if (deleteCity != -1) {
+            dataModel = arrayListDataModel[deleteCity]
+            arrayListDataModel.removeAt(deleteCity)
+            arrayListDataModel.add(0,dataModel)
+        }
+        for (i in arrayListDataModel) {
             Log.d("TestDataII", "City=${i.city} 城市=${i.cityCN}")
         }
 
-        textLiveDatafromRoom.postValue(arrListDatabase)
+        textLiveDatafromRoom.postValue(arrayListDataModel)
         return textLiveDatafromRoom
     }
+
 }

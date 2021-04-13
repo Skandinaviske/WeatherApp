@@ -1,7 +1,9 @@
 package com.example.myweatherapp.view
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +17,7 @@ import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.ActivityAddcityBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogBinding
 import com.example.myweatherapp.viewmodel.MyViewModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
@@ -23,7 +26,8 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var binding: ActivityAddcityBinding? = null
     private var myViewModel: MyViewModel? = null
     private var arraylistDataModel: ArrayList<DataModel>? = null
-    private var adapter:CityManagementAdapter? = null
+    private var adapter: CityManagementAdapter? = null
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +45,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         val cityName = intent.getStringExtra("cityname")
         if (cityName != null) {
             myViewModel!!.init(cityName)
+            myViewModel!!.getData()
             binding?.viewModel = myViewModel
             binding?.clickHandler = this
 
@@ -55,7 +60,8 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
             myViewModel!!.repositoryfromDatabase?.observe(this,
                 Observer<ArrayList<DataModel>> { t ->
-                    if(arraylistDataModel==null) {
+                    Log.d("CCCCCCCC", "Possible")
+                    if (arraylistDataModel == null) {
                         binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
                         adapter = CityManagementAdapter(t, this)
                         binding?.recyclerview?.adapter = adapter
@@ -82,8 +88,18 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         )
         binding.viewModel = myViewModel
         val bottomSheetDialog = BottomSheetDialog(view.context)
-        bottomSheetDialog.setContentView(binding.root);
+        bottomSheetDialog.setContentView(binding.root)
+        bottomSheetDialog.setOnDismissListener {
+            myViewModel?.updateData()
+        }
+
         bottomSheetDialog.show()
+    }
+
+    override fun showCheckBox(view: View) {
+        Log.d("KKKK","??????????????")
+        myViewModel?.getVisibility = "visible"
+        adapter?.notifyDataSetChanged()
     }
 
 }

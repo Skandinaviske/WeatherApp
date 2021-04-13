@@ -3,7 +3,9 @@ package com.example.myweatherapp.util
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.rainy.weahter_bg_plug.WeatherBg
+
 
 class BindingAdapter {
     companion object {
@@ -32,7 +34,7 @@ class BindingAdapter {
         @BindingAdapter("android:visibility")
         @JvmStatic
         fun setVisibility(view: View, value: String?) {
-            view.visibility = if (value == "gone") View.GONE else View.VISIBLE
+            view.visibility = if (value == "visible") View.VISIBLE else View.GONE
         }
 
         @BindingAdapter("imageResource")
@@ -40,5 +42,13 @@ class BindingAdapter {
         fun setImageResource(imageView: ImageView, resource: Int) {
             imageView.setImageResource(resource)
         }
+
+//        @BindingAdapter("bottomSheetBehaviorState")
+//        @JvmStatic
+//        fun setState(v: View, bottomSheetBehaviorState: Int) {
+//            val viewBottomSheetBehavior =
+//                BottomSheetBehavior.from(v)
+//            viewBottomSheetBehavior.state = bottomSheetBehaviorState
+//        }
     }
 }
