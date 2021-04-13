@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.example.myweatherapp.R
-import com.example.myweatherapp.adapter.BasicModel
+import com.example.myweatherapp.datamodel.BasicModel
 import com.example.myweatherapp.adapter.WeekWeatherAdapter
 import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.databinding.ActivityMainBinding

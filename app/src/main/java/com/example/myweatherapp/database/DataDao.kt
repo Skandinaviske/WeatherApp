@@ -1,10 +1,7 @@
 package com.example.myweatherapp.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface DataDao {
@@ -22,4 +19,7 @@ interface DataDao {
 
     @Insert
     fun insertin(dataModel: DataModel)
+
+    @Query("DELETE FROM weatherdata WHERE city = :city")
+    fun deleteModel(city: String)
 }

@@ -11,14 +11,16 @@ import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.CellCitymanagementBinding
 import com.example.myweatherapp.util.Util
 import com.example.myweatherapp.view.OtherCityActivity
-import com.example.myweatherapp.viewmodel.DataModelWithVisible
+import com.example.myweatherapp.datamodel.DataModelWithVisible
 
 class CityManagementAdapter(
-    private val items: ArrayList<DataModelWithVisible>?,
-    private val context: Context,
-    private val clickListener: ((binding: CellCitymanagementBinding) -> Unit)
+    private val items: ArrayList<DataModelWithVisible>,
+    context: Context,
+    var onCheckBoxClickedListener: OnCheckBoxClickedListener
 ) :
     RecyclerView.Adapter<CityManagementAdapter.ViewHolder>() {
+
+    private val context: Context = context
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -31,23 +33,21 @@ class CityManagementAdapter(
                 R.layout.cell_citymanagement,
                 parent,
                 false
-            ), clickListener
+            )
         )
     }
 
     override fun getItemCount(): Int {
-
-        return items?.size ?: 0
-
+        return items.size
     }
 
     override fun onBindViewHolder(holder: CityManagementAdapter.ViewHolder, position: Int) {
-        holder.itemViewDataBinding.dataModel = items?.get(position)
+        holder.itemViewDataBinding.dataModel = items[position]
 
-        val type = items?.get(position)?.type
-        val city = items?.get(position)?.city
+        val type = items[position].type
+        val city = items[position].city
         Log.d("Mytype", "City = $city Type = $type")
-        when(type?.let { Util.judgeWeatherColor(it) }){
+        when(Util.judgeWeatherColor(type)){
             1 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightblue)
             2 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgreen)
             3 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgray)
@@ -60,15 +60,19 @@ class CityManagementAdapter(
             context.startActivity(intent)
         }
 
+        val checkBox = holder.itemViewDataBinding.checkbox
+        checkBox.setOnClickListener{
+            Log.d("----------------","cherryPick")
+            onCheckBoxClickedListener.OnCheckBoxClicked(city, checkBox.isChecked)
+        }
+
         holder.itemViewDataBinding.executePendingBindings()
     }
 
-    class ViewHolder(val itemViewDataBinding: CellCitymanagementBinding, private val clickListener: ((binding: CellCitymanagementBinding) -> Unit)) :
-        RecyclerView.ViewHolder(itemViewDataBinding.root) {
-        init {
-            itemViewDataBinding.root.setOnClickListener {
-                clickListener(itemViewDataBinding)
-            }
-        }
+    class ViewHolder(val itemViewDataBinding: CellCitymanagementBinding) :
+        RecyclerView.ViewHolder(itemViewDataBinding.root)
+
+    interface OnCheckBoxClickedListener {
+        fun OnCheckBoxClicked(city: String, needDelete: Boolean)
     }
 }

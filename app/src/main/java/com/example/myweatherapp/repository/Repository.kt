@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import com.example.myweatherapp.R
-import com.example.myweatherapp.adapter.BasicModel
+import com.example.myweatherapp.datamodel.BasicModel
 import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.data.Result
 import com.example.myweatherapp.database.AppDatabase
@@ -26,7 +26,7 @@ class Repository {
     private var textLiveDataforLocation = MutableLiveData<ArrayList<String>>()
     private var textLiveDataforDaily = MutableLiveData<ArrayList<BasicModel>>()
     var textLiveDatafromRoom = MutableLiveData<ArrayList<DataModel>>()
-    var arrayListDataModel:ArrayList<DataModel> = ArrayList<DataModel>()
+    var arrayListDataModel: ArrayList<DataModel> = ArrayList<DataModel>()
     private val TIANQI_API_SECRET_KEY = "SsWmmG_GwpNLboKR6"
     private val LANGUAGE_NAME = "zh-Hans"
     private val UNIT = "c"
@@ -81,14 +81,14 @@ class Repository {
                         arrayList.add("visible")
                         Log.d("TestLiang", "CITYNAME =${cityname}")
                         val dataModel: DataModel
-                            dataModel = DataModel(
-                                cityname,
-                                temperature.toInt(),
-                                weathertype,
-                                Util.ENtoCN(cityname)
-                            )
-                            val db = AppDatabase.getDatabase(application)
-                            db.DataDao().insert(dataModel)
+                        dataModel = DataModel(
+                            cityname,
+                            temperature.toInt(),
+                            weathertype,
+                            Util.ENtoCN(cityname)
+                        )
+                        val db = AppDatabase.getDatabase(application)
+                        db.DataDao().insert(dataModel)
 //                        val basicModel1 = db.DataDao().getData("chengdu")
 //                        Log.d("TestLiang", "result =${basicModel1.temperature}")
                         //Log.d("CurrentWeather", temperature + weatherBackground + weathertype)
@@ -240,12 +240,12 @@ class Repository {
             }
         }
 
-        val dataModel:DataModel
+        val dataModel: DataModel
 
         if (deleteCity != -1) {
             dataModel = arrayListDataModel[deleteCity]
             arrayListDataModel.removeAt(deleteCity)
-            arrayListDataModel.add(0,dataModel)
+            arrayListDataModel.add(0, dataModel)
         }
         for (i in arrayListDataModel) {
             Log.d("TestDataII", "City=${i.city} 城市=${i.cityCN}")
@@ -255,4 +255,12 @@ class Repository {
         return textLiveDatafromRoom
     }
 
+    fun deleteData(application: Application, arrayListDeleteItem: ArrayList<String>) {
+        val db = AppDatabase.getDatabase(application)
+
+        for (i in arrayListDeleteItem) {
+            if (i != MyApplication.currentLocation)
+                db.DataDao().deleteModel(i)
+        }
+    }
 }

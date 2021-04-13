@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myweatherapp.R
-import com.example.myweatherapp.adapter.BasicModel
+import com.example.myweatherapp.datamodel.BasicModel
 import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.database.AppDatabase
 import com.example.myweatherapp.database.DataModel
@@ -117,6 +117,10 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         for (i in arrListDatabase) {
             Log.d("DataItem", "城市=" + i.city + " 温度=" + i.temperature + " 天气" + i.type)
         }
+    }
+
+    fun deleteItemsforDatabase(arrayListDeleteItem : ArrayList<String>) {
+        repository.deleteData(getApplication(), arrayListDeleteItem)
     }
 
     val repositoryforNow: LiveData<ArrayList<String>>?

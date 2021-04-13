@@ -1,4 +1,4 @@
-package com.example.myweatherapp.viewmodel
+package com.example.myweatherapp.datamodel
 
 import androidx.room.PrimaryKey
 import io.reactivex.annotations.NonNull

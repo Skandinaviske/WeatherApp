@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.CellBinding
+import com.example.myweatherapp.datamodel.BasicModel
 
 
 class WeekWeatherAdapter(

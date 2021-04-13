@@ -15,7 +15,7 @@ import com.example.myweatherapp.adapter.CityManagementAdapter
 import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.ActivityAddcityBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogBinding
-import com.example.myweatherapp.viewmodel.DataModelWithVisible
+import com.example.myweatherapp.datamodel.DataModelWithVisible
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -30,7 +30,8 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var adapter: CityManagementAdapter? = null
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private var isVisible = "gone"
-    private val arrayListDataModelWithVisible:ArrayList<DataModelWithVisible> = ArrayList()
+    private val arrayListDataModelWithVisible: ArrayList<DataModelWithVisible> = ArrayList()
+    private val arrayListDeleteItem: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,24 +66,63 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                 Observer<ArrayList<DataModel>> { t ->
                     if (arraylistDataModel == null) {
 
-                        for(i in t){
-                            Log.d("DDDDDDDDDDDDD","中文名：${i.cityCN}  英文名： ${i.cityCN}")
+                        Log.d("DDDDDDDDDDDDD","------------------------")
+                        for (i in t) {
+                            Log.d("DDDDDDDDDDDDD", "中文名：${i.cityCN}  英文名： ${i.city}")
                         }
+                        Log.d("DDDDDDDDDDDDD","------------------------")
 
                         //val arrayListDataModelWithVisible:ArrayList<DataModelWithVisible> = ArrayList()
                         var model: DataModelWithVisible
-                        var index = 0
 
-
-                        for(i in t){
-                            model = DataModelWithVisible(i.city,i.temperature,i.type,i.cityCN,isVisible)
-                            if(!arrayListDataModelWithVisible.contains(model))
+                        //Start
+                        for (i in t) {
+                            model =
+                                DataModelWithVisible(
+                                    i.city,
+                                    i.temperature,
+                                    i.type,
+                                    i.cityCN,
+                                    isVisible
+                                )
+                            if (!arrayListDataModelWithVisible.contains(model))
                                 arrayListDataModelWithVisible.add(model)
                         }
+                        //End
+
+//                        var arrayListAdd: ArrayList<DataModelWithVisible> = ArrayList()
+//                        var index = 0
+//                        while(index < t.size){
+//                            var indexVisible = 0
+//                            while (indexVisible < arrayListDataModelWithVisible.size){
+//
+//
+//
+//                                index++
+//                            }
+//                            index++
+//                        }
+
 
                         binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
-                        adapter = CityManagementAdapter(arrayListDataModelWithVisible, this) {
-                        }
+                        adapter = CityManagementAdapter(arrayListDataModelWithVisible, this,
+                            object : CityManagementAdapter.OnCheckBoxClickedListener {
+                                override fun OnCheckBoxClicked(city: String, needDelete: Boolean) {
+                                    Log.d("cherryPick", "city = $city")
+                                    Log.d("cherryPicker", "needDelete = $needDelete")
+                                    if (needDelete) {
+                                        arrayListDeleteItem.add(city)
+                                    } else if (arrayListDeleteItem.contains(city) ){
+                                        arrayListDeleteItem.remove(city)
+                                    }
+
+                                    Log.d("NowItems", "-------------------")
+                                    for(i in arrayListDeleteItem){
+                                        Log.d("NowItems", "city = $i")
+                                    }
+                                    Log.d("NowItems", "-------------------")
+                                }
+                            })
                         binding?.recyclerview?.adapter = adapter
                     } else {
                         adapter?.notifyDataSetChanged()
@@ -99,33 +139,40 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     }
 
     override fun onClickFloatingActionButton(view: View) {
-        val binding: BottomSheetDialogBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(view.context),
-            R.layout.bottom_sheet_dialog,
-            null,
-            false
-        )
-        binding.viewModel = myViewModel
-        val bottomSheetDialog = BottomSheetDialog(view.context)
-        bottomSheetDialog.setContentView(binding.root)
-        bottomSheetDialog.setOnDismissListener {
-            myViewModel?.updateData()
-        }
+        if (isVisible == "gone") {
+            val binding: BottomSheetDialogBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(view.context),
+                R.layout.bottom_sheet_dialog,
+                null,
+                false
+            )
+            binding.viewModel = myViewModel
+            val bottomSheetDialog = BottomSheetDialog(view.context)
+            bottomSheetDialog.setContentView(binding.root)
+            bottomSheetDialog.setOnDismissListener {
+                myViewModel?.updateData()
+            }
 
-        bottomSheetDialog.show()
+            bottomSheetDialog.show()
+        } else {
+            myViewModel?.deleteItemsforDatabase(arrayListDeleteItem)
+            myViewModel?.updateData()
+            adapter?.notifyDataSetChanged()
+        }
     }
 
     override fun showCheckBox(view: View) {
-        isVisible = if(isVisible == "gone")
+        isVisible = if (isVisible == "gone")
             "visible"
         else
             "gone"
-        for(i in arrayListDataModelWithVisible){
+        for (i in arrayListDataModelWithVisible) {
             i.isVisible = isVisible
         }
         adapter?.notifyDataSetChanged()
-        val floatingActionButton = binding?.root?.findViewById<FloatingActionButton>(R.id.floatingactionbutton)
-        if(isVisible == "visible")
+        val floatingActionButton =
+            binding?.root?.findViewById<FloatingActionButton>(R.id.floatingactionbutton)
+        if (isVisible == "visible")
             floatingActionButton?.setImageResource(R.drawable.delete)
         else
             floatingActionButton?.setImageResource(R.drawable.add)

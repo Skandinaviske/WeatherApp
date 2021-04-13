@@ -5,7 +5,7 @@
     <data>
         <variable
             name="basicModel"
-            type="com.example.myweatherapp.adapter.BasicModel" />
+            type="com.example.myweatherapp.datamodel.BasicModel" />
     </data>
 
     <RelativeLayout
