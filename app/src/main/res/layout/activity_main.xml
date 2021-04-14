@@ -139,18 +139,35 @@
 
                 </RelativeLayout>
 
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/recyclerview_hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'>
+
+                </androidx.recyclerview.widget.RecyclerView>
+
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2px"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
                     android:background="@color/gray"
                     android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="20dp"
                     android:id="@+id/recyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="252dp"
+                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'>
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -317,7 +334,6 @@
                     </LinearLayout>
 
                 </androidx.gridlayout.widget.GridLayout>
-
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

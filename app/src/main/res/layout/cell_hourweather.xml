@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="hourModel"
+            type="com.example.myweatherapp.datamodel.HourDataModel" />
+    </data>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="100dp"
+            android:padding="2dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text='@{hourModel.hour+":00"}'
+                android:hint="16:00"/>
+
+            <ImageView
+                android:id="@+id/weather_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                imageResource="@{hourModel.weatherIcon}"
+                android:src="@drawable/sunny"/>
+
+            <TextView
+                android:id="@+id/temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:text='@{hourModel.temperature+"℃"}'
+                android:hint="17℃"
+                android:layout_alignParentBottom= "true"/>
+
+        </RelativeLayout>
+</layout>

@@ -12,9 +12,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myweatherapp.R
+import com.example.myweatherapp.adapter.HourWeatherAdapter
 import com.example.myweatherapp.datamodel.BasicModel
 import com.example.myweatherapp.adapter.WeekWeatherAdapter
 import com.example.myweatherapp.databinding.ActivityOthercityBinding
+import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.jaeger.library.StatusBarUtil
 
@@ -63,6 +65,15 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
             binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
             binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
         })
+
+        myViewModel!!.repositoryforHourDataModel?.observe(
+            this,
+            Observer<ArrayList<HourDataModel>> { t ->
+                val linearLayoutManager = LinearLayoutManager(this)
+                linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+                binding?.recyclerviewHour?.layoutManager = linearLayoutManager
+                binding?.recyclerviewHour?.adapter = HourWeatherAdapter(t)
+            })
     }
 
     override fun onClicktoActivity(view: View, cityname: String) {

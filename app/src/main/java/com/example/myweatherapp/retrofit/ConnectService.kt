@@ -26,4 +26,14 @@ interface ConnectService {
         @Query("start") start:String,
         @Query("days") days:String
     ): Call<Result>
+
+    @GET("hourly.json")
+    fun getStringArrayListforhourly(
+        @Query("key") key: String,
+        @Query("location") location: String,
+        @Query("language") language :String,
+        @Query("unit") unit:String,
+        @Query("start") start:String,
+        @Query("hours") hours:String
+    ): Call<Result>
 }

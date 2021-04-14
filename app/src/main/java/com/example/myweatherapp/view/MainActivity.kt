@@ -18,10 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.example.myweatherapp.R
+import com.example.myweatherapp.adapter.HourWeatherAdapter
 import com.example.myweatherapp.datamodel.BasicModel
 import com.example.myweatherapp.adapter.WeekWeatherAdapter
 import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.databinding.ActivityMainBinding
+import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.jaeger.library.StatusBarUtil
 
@@ -37,7 +39,12 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_BACKGROUND_LOCATION), 100)
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            ), 100
+        )
 
         binding = DataBindingUtil.setContentView(
             this,
@@ -79,17 +86,36 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                         binding?.viewModel = myViewModel
                         binding?.clickHandler = this
 
-                        myViewModel!!.repositoryforDaily?.observe(this, Observer<ArrayList<BasicModel>>{
-                                t ->
-                            binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
-                            binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
+                        myViewModel!!.repositoryforDaily?.observe(
+                            this,
+                            Observer<ArrayList<BasicModel>> { t ->
+                                binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
+                                binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
 
-                            val initText = binding?.root?.findViewById<TextView>(R.id.initText)
-                            if (initText != null) {
-                                initText.visibility = View.GONE
-                            }
-                        })
+                                val initText = binding?.root?.findViewById<TextView>(R.id.initText)
+                                if (initText != null) {
+                                    initText.visibility = View.GONE
+                                }
+                            })
 
+
+                        //
+                        myViewModel!!.repositoryforHourDataModel?.observe(
+                            this,
+                            Observer<ArrayList<HourDataModel>> { t ->
+
+                                val linearLayoutManager = LinearLayoutManager(this)
+                                linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+                                binding?.recyclerviewHour?.layoutManager = linearLayoutManager
+                                binding?.recyclerviewHour?.adapter = HourWeatherAdapter(t)
+
+//                            val initText = binding?.root?.findViewById<TextView>(R.id.initText)
+//                            if (initText != null) {
+//                                initText.visibility = View.GONE
+//                            }
+                            })
+
+                        //
                     }
                     lastcityname = cityname
                 } else {
