@@ -2,7 +2,7 @@ package com.example.myweatherapp.data
 
 import com.google.gson.annotations.SerializedName
 
-class Now (
+class Now(
     @SerializedName("text")
     val type: String = "",
 
@@ -19,5 +19,20 @@ class Now (
     val humidity: String = "",
 
     @SerializedName("wind_direction")
-    val wind_direction: String = ""
+    val wind_direction: String = "",
+
+    @SerializedName("pressure")
+    val pressure: String = "",
+
+    @SerializedName("visibility")
+    val visibility: String = "",
+
+    @SerializedName("wind_speed")
+    val wind_speed: String = "",
+
+    @SerializedName("wind_scale")
+    val wind_scale: String = "",
+
+    @SerializedName("clouds")
+    val clouds: String = ""
 )

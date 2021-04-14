@@ -64,24 +64,35 @@ class Repository {
                     val wind_direction = now?.wind_direction
                     val date = Util.getCurrentDate()
                     val arrayList = arrayListOf<String>()
+                    val pressure = now?.pressure
+                    val visibility = now?.visibility
+                    val wind_speed = now?.wind_speed
+                    val wind_scale = now?.wind_scale
+                    val clouds = now?.clouds
                     if (temperature != null && code != null && weathertype != null &&
-                        feels_like != null && humidity != null && wind_direction != null
+                        feels_like != null && humidity != null && wind_direction != null &&
+                        pressure != null && visibility != null && wind_speed != null &&
+                        wind_scale != null && clouds != null
                     ) {
                         val weatherBackground = Util.judgeWeatherType(Integer.parseInt(code))
-                        arrayList.add(temperature)
+                        arrayList.add(temperature)             //0
                         arrayList.add(weatherBackground)
                         arrayList.add(weathertype)
                         arrayList.add(feels_like)
                         arrayList.add(humidity)
-                        arrayList.add(wind_direction)
+                        arrayList.add(wind_direction)          //5
                         arrayList.add(date)
                         arrayList.add("℃")
                         arrayList.add("gone")
                         arrayList.add(Util.getWeekOfDate())
-                        arrayList.add("visible")
+                        arrayList.add("visible")               //10
+                        arrayList.add(pressure)
+                        arrayList.add(visibility)
+                        arrayList.add(wind_speed)
+                        arrayList.add(wind_scale)
+                        arrayList.add(clouds)                  //15
                         Log.d("TestLiang", "CITYNAME =${cityname}")
-                        val dataModel: DataModel
-                        dataModel = DataModel(
+                        val dataModel: DataModel = DataModel(
                             cityname,
                             temperature.toInt(),
                             weathertype,

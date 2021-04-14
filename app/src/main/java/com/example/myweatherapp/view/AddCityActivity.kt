@@ -17,10 +17,8 @@ import com.example.myweatherapp.databinding.ActivityAddcityBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogBinding
 import com.example.myweatherapp.datamodel.DataModelWithVisible
 import com.example.myweatherapp.viewmodel.MyViewModel
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
 
 class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
@@ -28,9 +26,8 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var myViewModel: MyViewModel? = null
     private var arraylistDataModel: ArrayList<DataModel>? = null
     private var adapter: CityManagementAdapter? = null
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private var isVisible = "gone"
-    private val arrayListDataModelWithVisible: ArrayList<DataModelWithVisible> = ArrayList()
+    private var arrayListDataModelWithVisible: ArrayList<DataModelWithVisible> = ArrayList()
     private val arrayListDeleteItem: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,27 +50,19 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
             binding?.viewModel = myViewModel
             binding?.clickHandler = this
 
-//            val db = AppDatabase.getDatabase(this)
-//            var arrListDatabase: ArrayList<DataModel> = db.DataDao().getAllData() as ArrayList<DataModel>
-//            var result = 0;
-//            for((start, i) in arrListDatabase.withIndex()){
-//                if(i.cityCN=="")
-//                    result = start
-//            }
-//            arrListDatabase.removeAt(result)
-
             myViewModel!!.repositoryfromDatabase?.observe(this,
                 Observer<ArrayList<DataModel>> { t ->
                     if (arraylistDataModel == null) {
 
-                        Log.d("DDDDDDDDDDDDD","------------------------")
-                        for (i in t) {
-                            Log.d("DDDDDDDDDDDDD", "中文名：${i.cityCN}  英文名： ${i.city}")
-                        }
-                        Log.d("DDDDDDDDDDDDD","------------------------")
+//                        Log.d("DDDDDDDDDDDDD","------------------------")
+//                        for (i in t) {
+//                            Log.d("DDDDDDDDDDDDD", "中文名：${i.cityCN}  英文名： ${i.city}")
+//                        }
+//                        Log.d("DDDDDDDDDDDDD","------------------------")
 
-                        //val arrayListDataModelWithVisible:ArrayList<DataModelWithVisible> = ArrayList()
                         var model: DataModelWithVisible
+
+                        arrayListDataModelWithVisible = ArrayList()
 
                         //Start
                         for (i in t) {
@@ -85,24 +74,9 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                                     i.cityCN,
                                     isVisible
                                 )
-                            if (!arrayListDataModelWithVisible.contains(model))
                                 arrayListDataModelWithVisible.add(model)
                         }
                         //End
-
-//                        var arrayListAdd: ArrayList<DataModelWithVisible> = ArrayList()
-//                        var index = 0
-//                        while(index < t.size){
-//                            var indexVisible = 0
-//                            while (indexVisible < arrayListDataModelWithVisible.size){
-//
-//
-//
-//                                index++
-//                            }
-//                            index++
-//                        }
-
 
                         binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
                         adapter = CityManagementAdapter(arrayListDataModelWithVisible, this,
@@ -117,7 +91,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                                     }
 
                                     Log.d("NowItems", "-------------------")
-                                    for(i in arrayListDeleteItem){
+                                    for(i in arrayListDeleteItem) {
                                         Log.d("NowItems", "city = $i")
                                     }
                                     Log.d("NowItems", "-------------------")

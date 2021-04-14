@@ -32,7 +32,7 @@ object Util {
     fun judgeWeatherType(weatherType: String): Int {
         var result: Int = 0
         when (weatherType) {
-            "小雨", "阵雨" -> result = R.drawable.lightrainy
+            "小雨", "阵雨", "雷阵雨" -> result = R.drawable.lightrainy
             "中雨" -> result = R.drawable.middlerainy
             "大雨", "暴雨" -> result = R.drawable.heavyrainy
             "小雪" -> result = R.drawable.lightsnow
@@ -102,7 +102,7 @@ object Util {
         when (weatherType) {
             "晴" -> result = 1
             "多云" -> result = 2
-            "小雨", "中雨", "大雨", "暴雨", "小雪", "中雪", "大雪", "阵雨" -> result = 3
+            "小雨", "中雨", "大雨", "暴雨", "小雪", "中雪", "大雪", "阵雨", "雷阵雨" -> result = 3
             "阴", "雾" -> result = 4
         }
         return result

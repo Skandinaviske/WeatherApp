@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -77,10 +78,16 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                         myViewModel!!.init(cityname)
                         binding?.viewModel = myViewModel
                         binding?.clickHandler = this
+
                         myViewModel!!.repositoryforDaily?.observe(this, Observer<ArrayList<BasicModel>>{
                                 t ->
                             binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
                             binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
+
+                            val initText = binding?.root?.findViewById<TextView>(R.id.initText)
+                            if (initText != null) {
+                                initText.visibility = View.GONE
+                            }
                         })
 
                     }

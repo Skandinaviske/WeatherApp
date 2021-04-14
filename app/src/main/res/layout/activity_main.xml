@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.example.myweatherapp.viewmodel.MyViewModel" />
@@ -47,9 +49,10 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="15dp"
+                        android:onClick="@{(v) -> clickHandler.onClicktoActivity(v,viewModel.repositoryforLocation[1])}"
                         android:scaleType="fitEnd"
                         android:src="@drawable/city"
-                        android:onClick="@{(v) -> clickHandler.onClicktoActivity(v,viewModel.repositoryforLocation[1])}"/>
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
 
                     <TextView
                         android:id="@+id/city"
@@ -61,7 +64,8 @@
                         android:text="@{viewModel.repositoryforLocation[1]}"
                         android:textColor="@color/white"
                         android:textSize="30sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
 
                     <TextView
                         android:id="@+id/temperature"
@@ -71,8 +75,8 @@
                         android:hint="23"
                         android:text="@={viewModel.repositoryforNow[0]}"
                         android:textColor="@color/black"
-                        android:textSize="90sp" />
-<!--                    android:visibility="@{viewModel.repositoryforNow[8]}"-->
+                        android:textSize="90sp"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                     <TextView
                         android:id="@+id/Unit"
@@ -82,6 +86,7 @@
                         android:layout_marginTop="340dp"
                         android:hint="℃"
                         android:text="@={viewModel.repositoryforNow[7]}"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'
                         android:textColor="@color/black"
                         android:textSize="40sp" />
 
@@ -93,6 +98,7 @@
                         android:layout_marginTop="390dp"
                         android:hint="晴"
                         android:text="@={viewModel.repositoryforNow[2]}"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'
                         android:textColor="@color/black"
                         android:textSize="40sp" />
 
@@ -104,6 +110,7 @@
                         android:layout_marginTop="440dp"
                         android:hint="4月10日"
                         android:text="@={viewModel.repositoryforNow[6]}"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -115,6 +122,7 @@
                         android:layout_marginTop="440dp"
                         android:hint="星期五"
                         android:text="@={viewModel.repositoryforNow[9]}"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -124,26 +132,191 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:fontFamily="@font/initfont"
+                        android:layout_marginTop="300dp"
                         android:text="心动天气"
                         android:textColor="@color/black"
-                        android:textSize="80sp"
-                        android:visibility="@{viewModel.repositoryforNow[8]}" />
+                        android:textSize="80sp" />
 
                 </RelativeLayout>
 
                 <View
-                    android:layout_marginTop="20dp"
                     android:layout_width="fill_parent"
                     android:layout_height="2px"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@color/gray"
-                    android:layout_marginBottom="20dp"/>
+                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                 </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="气象信息"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+
+                <androidx.gridlayout.widget.GridLayout
+                    android:id="@+id/GridLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="50dp"
+                    app:columnCount="2"
+                    app:orientation="horizontal"
+                    app:rowCount="3"
+                    app:useDefaultMargins="true"
+                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="体感温度"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@{viewModel.repositoryforNow[3]+'%'}"
+                            android:textSize="26sp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="湿度"
+                            android:textSize="14sp"
+                            />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@{viewModel.repositoryforNow[4]+'%'}"
+                            android:textSize="26sp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:gravity="center"
+                            android:text="@{viewModel.repositoryforNow[5]+'风'}"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@{viewModel.repositoryforNow[14]+'级'}"
+                            android:textSize="26sp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:gravity="center"
+                            android:text="云量"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@{viewModel.repositoryforNow[15]+'%'}"
+                            android:textSize="26sp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:gravity="center"
+                            android:text="能见度"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@{viewModel.repositoryforNow[12]+'千'+'米'}"
+                            android:textSize="26sp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:gravity="center"
+                            android:text="气压"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@{viewModel.repositoryforNow[11]+'百'+'帕'}"
+                            android:textSize="26sp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                </androidx.gridlayout.widget.GridLayout>
 
             </LinearLayout>
         </ScrollView>
