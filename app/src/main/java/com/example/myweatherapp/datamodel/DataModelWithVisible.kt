@@ -5,8 +5,8 @@ import io.reactivex.annotations.NonNull
 
 data class DataModelWithVisible (
     val city: String,
-    val temperature: Int,
-    val type: String,
+    var temperature: Int,
+    var type: String,
     val cityCN: String,
     var isVisible: String
 )

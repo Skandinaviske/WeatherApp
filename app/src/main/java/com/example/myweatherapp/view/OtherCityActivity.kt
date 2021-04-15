@@ -17,6 +17,7 @@ import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.HourWeatherAdapter
 import com.example.myweatherapp.datamodel.BasicModel
 import com.example.myweatherapp.adapter.WeekWeatherAdapter
+import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.ActivityOthercityBinding
 import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.viewmodel.MyViewModel
@@ -64,9 +65,15 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         binding?.viewModel = myViewModel
         binding?.clickHandler = this
         myViewModel!!.repositoryforDaily?.observe(this, Observer<ArrayList<BasicModel>> { t ->
+
+            val temBasicModel = t[0]
+            t.removeAt(0)
+            val textView = binding?.root?.findViewById<TextView>(R.id.highandlow)
+            textView?.text = "${temBasicModel.high}℃/${temBasicModel.low}℃"
+
             binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
             binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
-
+            binding?.recyclerview?.setHasFixedSize(false)
             val initProgressBar = binding?.root?.findViewById<ProgressBar>(R.id.progressbar)
             if (initProgressBar != null) {
                 initProgressBar.visibility = View.GONE
@@ -82,12 +89,21 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                 binding?.recyclerviewHour?.adapter = HourWeatherAdapter(t)
                 binding?.recyclerviewHour?.setHasFixedSize(false)
             })
+
+        val temperature = myViewModel!!.repositoryforNow?.value?.get(0)?.toInt()
+        val type = myViewModel!!.repositoryforNow?.value?.get(2)
+        val cityCN = myViewModel!!.repositoryforNow?.value?.get(1)
+            if (cityname != null&&temperature != null&&type != null&& cityCN != null) {
+                val dataModel = DataModel(cityname, temperature, type, cityCN)
+                myViewModel!!.updateItemsforDatabase(cityname, dataModel)
+            }
     }
 
     override fun onClicktoActivity(view: View, cityname: String) {
         val context: Context = view.context
-        Log.d("TestLiang", "Cityname is $cityname")
-        val intent: Intent = Intent(context, AddCityActivity::class.java)
+        val intent = Intent(context, AddCityActivity::class.java)
+        intent.putExtra("temperature",myViewModel!!.repositoryforNow?.value?.get(0))
+        intent.putExtra("weathertype",myViewModel!!.repositoryforNow?.value?.get(2))
         intent.putExtra("cityname", cityname)
         context.startActivity(intent)
     }
@@ -100,5 +116,4 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
     override fun showCheckBox(view: View) {
     }
-
 }

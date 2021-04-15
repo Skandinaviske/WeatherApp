@@ -1,6 +1,7 @@
 package com.example.myweatherapp.view
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -36,6 +37,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var cityname: String = "shanghai"
     private var lastcityname: String = ""
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +92,12 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                         myViewModel!!.repositoryforDaily?.observe(
                             this,
                             Observer<ArrayList<BasicModel>> { t ->
+
+                                val temBasicModel = t[0]
+                                t.removeAt(0)
+                                val textView = binding?.root?.findViewById<TextView>(R.id.highandlow)
+                                textView?.text = "${temBasicModel.high}℃/${temBasicModel.low}℃"
+
                                 binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
                                 binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
                                 binding?.recyclerview?.setHasFixedSize(false)

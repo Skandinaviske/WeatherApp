@@ -22,9 +22,9 @@
             android:launchMode ="singleTask"
             />
 
-        <activity android:name=".view.OtherCityActivity"
-            android:launchMode ="singleTask"
-            />
+        <activity android:name=".view.OtherCityActivity" />
+
+<!--        android:launchMode ="singleTask"-->
 
         <service android:name="com.amap.api.location.APSService" />
         <meta-data android:name="com.amap.api.v2.apikey" android:value="3a3a2c32cddd721ed1a9e1cdd9605ad2">

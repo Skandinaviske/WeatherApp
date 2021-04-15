@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface DataDao {
     @Query("SELECT * FROM weatherdata")
-    fun getAllData() : List<DataModel>
+    fun getAllData(): List<DataModel>
 
     @Query("SELECT * FROM weatherdata WHERE city IN (:city)")
     fun getData(city: String): DataModel
@@ -21,5 +21,8 @@ interface DataDao {
     fun insertin(dataModel: DataModel)
 
     @Query("DELETE FROM weatherdata WHERE city = :city")
-    fun deleteModel(city: String)
+    fun deleteData(city: String)
+
+    @Query("UPDATE weatherdata SET temperature = :temperature , type = :type WHERE city = :city")
+    fun updateData(city: String, temperature: Int, type: String)
 }

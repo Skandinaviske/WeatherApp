@@ -93,22 +93,6 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         textLiveDataforNow = repository.getNowInfo(cityname, getApplication())
     }
 
-//    fun clickTest(view: View) {
-////        isButtonClicked = if (isButtonClicked) {
-//        view.setBackgroundResource(R.drawable.selector_btn_click_text_color)
-////            false
-////        } else {
-////            view.setBackgroundResource(R.drawable.selector_btn_click_text_color_blue)
-////            true
-////        }
-//        addinDatabase
-//    }
-
-//    fun getAllData(){
-//        repository = repository.instance
-//        textLiveDatafromRoom = repository.getData(getApplication())
-//    }
-
     fun test(): String {
         return "visible"
     }
@@ -123,6 +107,10 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
 
     fun deleteItemsforDatabase(arrayListDeleteItem : ArrayList<String>) {
         repository.deleteData(getApplication(), arrayListDeleteItem)
+    }
+
+    fun updateItemsforDatabase(cityname: String, dataModel: DataModel) {
+        repository.updateData(getApplication(), cityname, dataModel)
     }
 
     val repositoryforNow: LiveData<ArrayList<String>>?

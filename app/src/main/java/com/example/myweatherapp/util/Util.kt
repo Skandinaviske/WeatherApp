@@ -114,6 +114,7 @@ object Util {
             "多云" -> result = 2
             "小雨", "中雨", "大雨", "暴雨", "小雪", "中雪", "大雪", "阵雨", "雷阵雨" -> result = 3
             "阴", "雾" -> result = 4
+            "扬沙" -> result = 5
         }
         return result
     }

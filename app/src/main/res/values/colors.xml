@@ -11,5 +11,6 @@
     <color name="gray">#666666</color>>
     <color name="skyBlue">#0066FF</color>
     <color name="lightBlue">#1E90FF</color>
-    <color name="lightGreen">#33cccc</color>
+    <color name="lightGreen">#00cccc</color>
+    <color name="dusty">#996600</color>
 </resources>

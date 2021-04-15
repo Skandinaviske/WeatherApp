@@ -1,6 +1,7 @@
 package com.example.myweatherapp.view
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -54,11 +55,11 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                 Observer<ArrayList<DataModel>> { t ->
                     if (arraylistDataModel == null) {
 
-//                        Log.d("DDDDDDDDDDDDD","------------------------")
+//                        Log.d("DDDDDDDDDDDDD", "------------------------")
 //                        for (i in t) {
 //                            Log.d("DDDDDDDDDDDDD", "中文名：${i.cityCN}  英文名： ${i.city}")
 //                        }
-//                        Log.d("DDDDDDDDDDDDD","------------------------")
+//                        Log.d("DDDDDDDDDDDDD", "------------------------")
 
                         var model: DataModelWithVisible
 
@@ -74,7 +75,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                                     i.cityCN,
                                     isVisible
                                 )
-                                arrayListDataModelWithVisible.add(model)
+                            arrayListDataModelWithVisible.add(model)
                         }
                         //End
 
@@ -86,12 +87,12 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                                     Log.d("cherryPicker", "needDelete = $needDelete")
                                     if (needDelete) {
                                         arrayListDeleteItem.add(city)
-                                    } else if (arrayListDeleteItem.contains(city) ){
+                                    } else if (arrayListDeleteItem.contains(city)) {
                                         arrayListDeleteItem.remove(city)
                                     }
 
                                     Log.d("NowItems", "-------------------")
-                                    for(i in arrayListDeleteItem) {
+                                    for (i in arrayListDeleteItem) {
                                         Log.d("NowItems", "city = $i")
                                     }
                                     Log.d("NowItems", "-------------------")
@@ -150,5 +151,32 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
             floatingActionButton?.setImageResource(R.drawable.delete)
         else
             floatingActionButton?.setImageResource(R.drawable.add)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        val weatherType = intent?.getStringExtra("weathertype")
+        val temperature = intent?.getStringExtra("temperature")
+        val cityname = intent?.getStringExtra("cityname")
+
+
+        var isChanged:Boolean = false
+        Log.d("GEGEGEGE", "weatherType:$weatherType, temperature:$temperature, cityname:$cityname ")
+        for (i in arrayListDataModelWithVisible) {
+            if (i.cityCN == cityname) {
+                if (temperature != null && i.temperature != temperature.toInt()) {
+                    i.temperature = temperature.toInt()
+                    Log.d("GEGEGEGE", "Changed")
+                    isChanged = true
+                }
+                if (weatherType != null && i.type != weatherType) {
+                    i.type = weatherType
+                    Log.d("GEGEGEGE", "Changed")
+                    isChanged = true
+                }
+            }
+        }
+        if(isChanged)
+            adapter?.notifyDataSetChanged()
+        super.onNewIntent(intent)
     }
 }

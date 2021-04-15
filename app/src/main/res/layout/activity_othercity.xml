@@ -327,9 +327,7 @@
                             android:textSize="26sp"
                             android:textColor="@color/black"/>
                     </LinearLayout>
-
                 </androidx.gridlayout.widget.GridLayout>
-
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

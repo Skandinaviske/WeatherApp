@@ -172,8 +172,8 @@ class Repository {
             cityname,
             LANGUAGE_NAME,
             UNIT,
-            "1",
-            "7"
+            "0",
+            "8"
         )
         call.enqueue(object : Callback<Result> {
             @RequiresApi(Build.VERSION_CODES.O)
@@ -185,7 +185,7 @@ class Repository {
                     val model = users[0]
                     val dailyModel = model.daily
                     val result = ArrayList<BasicModel>()
-                    while (i < 7) {
+                    while (i < 8) {
                         val date = dailyModel?.get(i)?.date
                         val type = dailyModel?.get(i)?.type
                         val high = dailyModel?.get(i)?.high
@@ -320,7 +320,12 @@ class Repository {
 
         for (i in arrayListDeleteItem) {
             if (i != MyApplication.currentLocation)
-                db.DataDao().deleteModel(i)
+                db.DataDao().deleteData(i)
         }
+    }
+
+    fun updateData(application: Application, cityname: String, dataModel: DataModel) {
+        val db = AppDatabase.getDatabase(application)
+        db.DataDao().updateData(dataModel.city, dataModel.temperature, dataModel.type)
     }
 }

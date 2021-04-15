@@ -52,6 +52,7 @@ class CityManagementAdapter(
             2 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgreen)
             3 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgray)
             4 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapeadditemgray)
+            5 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapeadditemdust)
         }
 
         holder.itemView.setOnClickListener {
@@ -62,7 +63,6 @@ class CityManagementAdapter(
 
         val checkBox = holder.itemViewDataBinding.checkbox
         checkBox.setOnClickListener{
-            Log.d("----------------","cherryPick")
             onCheckBoxClickedListener.OnCheckBoxClicked(city, checkBox.isChecked)
         }
 
