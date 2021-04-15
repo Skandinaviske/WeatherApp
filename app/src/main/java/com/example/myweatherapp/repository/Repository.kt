@@ -6,7 +6,6 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
-import com.example.myweatherapp.R
 import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.data.HourModel
 import com.example.myweatherapp.data.Result
@@ -29,6 +28,7 @@ class Repository {
     private var textLiveDataforLocation = MutableLiveData<ArrayList<String>>()
     private var textLiveDataforDaily = MutableLiveData<ArrayList<BasicModel>>()
     private var textLiveDataforHourDataModel = MutableLiveData<ArrayList<HourDataModel>>()
+    private var textLiveDataforAir = MutableLiveData<ArrayList<String>>()
     private var textLiveDatafromRoom = MutableLiveData<ArrayList<DataModel>>()
     private var arrayListDataModel: ArrayList<DataModel> = ArrayList<DataModel>()
     private val TIANQI_API_SECRET_KEY = "SsWmmG_GwpNLboKR6"
@@ -44,6 +44,9 @@ class Repository {
 
     private val connectService: ConnectService =
         RetrofitService.createService(ConnectService::class.java)
+
+    private val connectServiceforAir: ConnectService =
+        RetrofitService.createServiceAir(ConnectService::class.java)
 
     fun getNowInfo(cityname: String, application: Application): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> =
@@ -95,7 +98,7 @@ class Repository {
                         arrayList.add(wind_speed)
                         arrayList.add(wind_scale)
                         arrayList.add(clouds)                  //15
-                        val dataModel: DataModel = DataModel(
+                        val dataModel = DataModel(
                             cityname,
                             temperature.toInt(),
                             weathertype,
@@ -103,9 +106,6 @@ class Repository {
                         )
                         val db = AppDatabase.getDatabase(application)
                         db.DataDao().insert(dataModel)
-//                        val basicModel1 = db.DataDao().getData("chengdu")
-//                        Log.d("TestLiang", "result =${basicModel1.temperature}")
-                        //Log.d("CurrentWeather", temperature + weatherBackground + weathertype)
                     }
 
                     textLiveDataforNow.postValue(arrayList)
@@ -191,10 +191,11 @@ class Repository {
                         val high = dailyModel?.get(i)?.high
                         val low = dailyModel?.get(i)?.low
                         var weekday: String? = ""
-                        weekday = if(date?.let { Util.getWeekOfDate(it) } == Util.getWeekOfTomorrow())
-                            "明天"
-                        else
-                            date?.let { Util.getWeekOfDate(it) }
+                        weekday =
+                            if (date?.let { Util.getWeekOfDate(it) } == Util.getWeekOfTomorrow())
+                                "明天"
+                            else
+                                date?.let { Util.getWeekOfDate(it) }
                         val weatherIcon: Int? = type?.let { Util.judgeWeatherType(it) }
 //                        Log.d(
 //                            "TestLiang",
@@ -245,17 +246,17 @@ class Repository {
                 if (response?.result != null) {
                     val users = response?.result;
                     val model = users[0]
-                    val hourly:List<HourModel>? = model.hourly
+                    val hourly: List<HourModel>? = model.hourly
                     var i = 0
                     val result = ArrayList<HourDataModel>()
                     val rightNow: Calendar = Calendar.getInstance()
                     var currentTime = rightNow.get(Calendar.HOUR_OF_DAY)
-                    while (i < 24){
+                    while (i < 24) {
                         val temperature = hourly?.get(i)?.temperature
                         val type = hourly?.get(i)?.text
                         val weatherIcon: Int? = type?.let { Util.judgeWeatherType(it) }
 
-                        if(temperature!=null && type!= null && weatherIcon!= null){
+                        if (temperature != null && type != null && weatherIcon != null) {
                             val hourDataModel =
                                 HourDataModel(
                                     currentTime.toString(),
@@ -266,7 +267,7 @@ class Repository {
                             result.add(hourDataModel)
                         }
                         currentTime++
-                        if(currentTime==24)
+                        if (currentTime == 24)
                             currentTime = 0
                         i++
                     }
@@ -280,6 +281,52 @@ class Repository {
             }
         })
         return textLiveDataforHourDataModel
+    }
+
+    fun getAirInfo(cityname: String): MutableLiveData<ArrayList<String>> {
+        val call: Call<Result> = connectServiceforAir.getStringArrayListforAir(
+            TIANQI_API_SECRET_KEY,
+            cityname,
+            LANGUAGE_NAME,
+            "city"
+        )
+        call.enqueue(object : Callback<Result> {
+            override fun onResponse(call: Call<Result>, response: Response<Result>) {
+                val response: Result? = response.body()
+                if (response?.result != null) {
+                    val users = response?.result;
+                    val model = users[0]
+                    val air = model.air
+                    val city = air?.city
+                    val aqi = city?.aqi
+                    val pm25 = city?.pm25
+                    val pm10 = city?.pm10
+                    val so2 = city?.so2
+                    val no2 = city?.no2
+                    val co = city?.co
+                    val o3 = city?.o3
+                    val quality = city?.quality
+                    val airModel = ArrayList<String>()
+                    if (aqi != null && pm25 != null && pm10 != null && so2 != null && no2 != null && co != null && o3 != null && quality != null) {
+                        airModel.add(aqi)
+                        airModel.add(pm25)
+                        airModel.add(pm10)
+                        airModel.add(so2)
+                        airModel.add(no2)
+                        airModel.add(co)
+                        airModel.add(o3)
+                        airModel.add(quality)
+                    }
+
+                    textLiveDataforAir.postValue(airModel)
+                }
+            }
+            @SuppressLint("LongLogTag")
+            override fun onFailure(call: Call<Result>, t: Throwable) {
+                t.message?.let { Log.e("Print Error in Weather App:", it) }
+            }
+        })
+        return textLiveDataforAir
     }
 
     fun getData(application: Application): MutableLiveData<ArrayList<DataModel>> {

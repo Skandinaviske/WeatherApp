@@ -8,5 +8,6 @@ data class DataModelWithVisible (
     var temperature: Int,
     var type: String,
     val cityCN: String,
-    var isVisible: String
+    var isVisible: String,
+    var icon: String
 )

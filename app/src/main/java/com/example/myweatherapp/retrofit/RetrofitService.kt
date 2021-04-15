@@ -18,13 +18,26 @@ object RetrofitService {
     private const val baseurl =
         "https://api.seniverse.com/v3/weather/"
 
+    private const val baseurlAir =
+        "https://api.seniverse.com/v3/air/"
+
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseurl)
         .addConverterFactory(GsonConverterFactory.create())
         .callbackExecutor(Executors.newSingleThreadExecutor())
         .build()
 
+    private val retrofitAir: Retrofit = Retrofit.Builder()
+        .baseUrl(baseurlAir)
+        .addConverterFactory(GsonConverterFactory.create())
+        .callbackExecutor(Executors.newSingleThreadExecutor())
+        .build()
+
     fun <S> createService(serviceClass: Class<S>): S {
         return retrofit.create(serviceClass)
+    }
+
+    fun <S> createServiceAir(serviceClass: Class<S>): S {
+        return retrofitAir.create(serviceClass)
     }
 }

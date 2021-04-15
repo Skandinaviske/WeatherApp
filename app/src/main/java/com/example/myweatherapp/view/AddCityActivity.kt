@@ -28,6 +28,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var arraylistDataModel: ArrayList<DataModel>? = null
     private var adapter: CityManagementAdapter? = null
     private var isVisible = "gone"
+    private var icon = "gone"
     private var arrayListDataModelWithVisible: ArrayList<DataModelWithVisible> = ArrayList()
     private val arrayListDeleteItem: ArrayList<String> = ArrayList()
 
@@ -54,13 +55,6 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
             myViewModel!!.repositoryfromDatabase?.observe(this,
                 Observer<ArrayList<DataModel>> { t ->
                     if (arraylistDataModel == null) {
-
-//                        Log.d("DDDDDDDDDDDDD", "------------------------")
-//                        for (i in t) {
-//                            Log.d("DDDDDDDDDDDDD", "中文名：${i.cityCN}  英文名： ${i.city}")
-//                        }
-//                        Log.d("DDDDDDDDDDDDD", "------------------------")
-
                         var model: DataModelWithVisible
 
                         arrayListDataModelWithVisible = ArrayList()
@@ -73,29 +67,30 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                                     i.temperature,
                                     i.type,
                                     i.cityCN,
-                                    isVisible
+                                    isVisible,
+                                    icon
                                 )
                             arrayListDataModelWithVisible.add(model)
                         }
+                        arrayListDataModelWithVisible[0].icon = "visible"
+                        arrayListDataModelWithVisible[0].isVisible = "gone"
                         //End
 
                         binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
                         adapter = CityManagementAdapter(arrayListDataModelWithVisible, this,
                             object : CityManagementAdapter.OnCheckBoxClickedListener {
                                 override fun OnCheckBoxClicked(city: String, needDelete: Boolean) {
-                                    Log.d("cherryPick", "city = $city")
-                                    Log.d("cherryPicker", "needDelete = $needDelete")
                                     if (needDelete) {
                                         arrayListDeleteItem.add(city)
                                     } else if (arrayListDeleteItem.contains(city)) {
                                         arrayListDeleteItem.remove(city)
                                     }
 
-                                    Log.d("NowItems", "-------------------")
-                                    for (i in arrayListDeleteItem) {
-                                        Log.d("NowItems", "city = $i")
-                                    }
-                                    Log.d("NowItems", "-------------------")
+//                                    Log.d("NowItems", "-------------------")
+//                                    for (i in arrayListDeleteItem) {
+//                                        Log.d("NowItems", "city = $i")
+//                                    }
+//                                    Log.d("NowItems", "-------------------")
                                 }
                             })
                         binding?.recyclerview?.adapter = adapter
@@ -144,6 +139,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         for (i in arrayListDataModelWithVisible) {
             i.isVisible = isVisible
         }
+        arrayListDataModelWithVisible[0].isVisible = "gone"
         adapter?.notifyDataSetChanged()
         val floatingActionButton =
             binding?.root?.findViewById<FloatingActionButton>(R.id.floatingactionbutton)
@@ -160,17 +156,15 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
 
         var isChanged:Boolean = false
-        Log.d("GEGEGEGE", "weatherType:$weatherType, temperature:$temperature, cityname:$cityname ")
+        //Log.d("GEGEGEGE", "weatherType:$weatherType, temperature:$temperature, cityname:$cityname ")
         for (i in arrayListDataModelWithVisible) {
             if (i.cityCN == cityname) {
                 if (temperature != null && i.temperature != temperature.toInt()) {
                     i.temperature = temperature.toInt()
-                    Log.d("GEGEGEGE", "Changed")
                     isChanged = true
                 }
                 if (weatherType != null && i.type != weatherType) {
                     i.type = weatherType
-                    Log.d("GEGEGEGE", "Changed")
                     isChanged = true
                 }
             }

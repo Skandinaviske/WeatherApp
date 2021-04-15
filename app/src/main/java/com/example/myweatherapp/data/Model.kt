@@ -14,4 +14,7 @@ class Model{
 
     @SerializedName("hourly")
     val hourly: List<HourModel>? = null
+
+    @SerializedName("air")
+    val air: Air? = null
 }

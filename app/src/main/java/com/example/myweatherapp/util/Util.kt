@@ -42,6 +42,7 @@ object Util {
             "晴" -> result = R.drawable.sunny
             "阴" -> result = R.drawable.overcast
             "雾" -> result = R.drawable.foggy
+            "扬沙" -> result = R.drawable.dusty
         }
         return result
     }
@@ -79,7 +80,7 @@ object Util {
 
     @SuppressLint("SimpleDateFormat")
     fun getCurrentDate(): String {
-        val dateFormat: DateFormat = SimpleDateFormat("MMM d日")
+        val dateFormat: DateFormat = SimpleDateFormat("MMMdd日")
         return dateFormat.format(Calendar.getInstance().time)
         //textDate?.postValue(dateFormat.format(Calendar.getInstance().time))
     }

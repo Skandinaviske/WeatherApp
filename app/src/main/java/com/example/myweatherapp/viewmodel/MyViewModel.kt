@@ -21,6 +21,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     private var textLiveDataforDaily: MutableLiveData<ArrayList<BasicModel>>? = null
     private var textLiveDataforHour: MutableLiveData<ArrayList<HourDataModel>>? = null
     private var textLiveDatafromRoom: MutableLiveData<ArrayList<DataModel>>? = null
+    private var textLiveDataforAir : MutableLiveData<ArrayList<String>>? = null
     private var repository = Repository()
     private var imageRes: MutableLiveData<Int>? = null
             //= R.drawable.add
@@ -34,6 +35,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         textLiveDataforLocation = repository.getLocationInfo(cityname)
         textLiveDataforDaily = repository.getDailyInfo(cityname)
         textLiveDataforHour = repository.getHourlyInfo(cityname)
+        textLiveDataforAir = repository.getAirInfo(cityname)
     }
 
     fun getData() {
@@ -127,4 +129,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
 
     val repositoryforHourDataModel: LiveData<ArrayList<HourDataModel>>?
         get() = textLiveDataforHour
+
+    val repositoryforAir: LiveData<ArrayList<String>>?
+        get() = textLiveDataforAir
 }
