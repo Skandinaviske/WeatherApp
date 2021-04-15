@@ -57,11 +57,21 @@ object Util {
         return weekDays[week]
     }
 
-    fun getWeekOfDate(): String {
+    fun getWeekOfCurrentDate(): String {
         val weekDays = arrayListOf<String>("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
         val calendar = Calendar.getInstance()
         calendar.time = Calendar.getInstance().time
         var week = calendar.get(Calendar.DAY_OF_WEEK) - 1
+        if (week < 0)
+            week = 0
+        return weekDays[week]
+    }
+
+    fun getWeekOfTomorrow(): String {
+        val weekDays = arrayListOf<String>("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
+        val calendar = Calendar.getInstance()
+        calendar.time = Calendar.getInstance().time
+        var week = calendar.get(Calendar.DAY_OF_WEEK)
         if (week < 0)
             week = 0
         return weekDays[week]

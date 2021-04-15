@@ -21,7 +21,8 @@
         <com.rainy.weahter_bg_plug.WeatherBg
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:setWeather="@{viewModel.repositoryforNow[1]}" />
+            app:setWeather="@{viewModel.repositoryforNow[1]}"
+            android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -49,7 +50,8 @@
                         android:layout_marginEnd="15dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/city"
-                        android:onClick="@{(v) -> clickHandler.onClicktoActivity(v,viewModel.repositoryforLocation[1])}"/>
+                        android:onClick="@{(v) -> clickHandler.onClicktoActivity(v,viewModel.repositoryforLocation[1])}"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
 
                     <TextView
                         android:id="@+id/city"
@@ -61,7 +63,8 @@
                         android:text="@{viewModel.repositoryforLocation[1]}"
                         android:textColor="@color/white"
                         android:textSize="30sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
 
                     <TextView
                         android:id="@+id/temperature"
@@ -71,8 +74,8 @@
                         android:hint="23"
                         android:text="@={viewModel.repositoryforNow[0]}"
                         android:textColor="@color/black"
-                        android:textSize="90sp" />
-                    <!--                    android:visibility="@{viewModel.repositoryforNow[8]}"-->
+                        android:textSize="90sp"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
 
                     <TextView
                         android:id="@+id/Unit"
@@ -83,7 +86,8 @@
                         android:hint="℃"
                         android:text="@={viewModel.repositoryforNow[7]}"
                         android:textColor="@color/black"
-                        android:textSize="40sp" />
+                        android:textSize="40sp"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
 
                     <TextView
                         android:id="@+id/weather_type"
@@ -94,7 +98,8 @@
                         android:hint="晴"
                         android:text="@={viewModel.repositoryforNow[2]}"
                         android:textColor="@color/black"
-                        android:textSize="40sp" />
+                        android:textSize="40sp"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
 
                     <TextView
                         android:id="@+id/date"
@@ -105,7 +110,8 @@
                         android:hint="4月10日"
                         android:text="@={viewModel.repositoryforNow[6]}"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
 
                     <TextView
                         android:id="@+id/weekday"
@@ -116,7 +122,16 @@
                         android:hint="星期五"
                         android:text="@={viewModel.repositoryforNow[9]}"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:indeterminateTint="@color/black"
+                        android:layout_marginTop="320dp"
+                        android:layout_marginLeft="180dp"/>
 
                 </RelativeLayout>
 

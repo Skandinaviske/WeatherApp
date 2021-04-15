@@ -113,13 +113,13 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         return "visible"
     }
 
-    fun showDatabase() {
-        val db = AppDatabase.getDatabase(getApplication())
-        val arrListDatabase: List<DataModel> = db.DataDao().getAllData()
-        for (i in arrListDatabase) {
-            Log.d("DataItem", "城市=" + i.city + " 温度=" + i.temperature + " 天气" + i.type)
-        }
-    }
+//    fun showDatabase() {
+//        val db = AppDatabase.getDatabase(getApplication())
+//        val arrListDatabase: List<DataModel> = db.DataDao().getAllData().
+//        for (i in arrListDatabase) {
+//            Log.d("DataItem", "城市=" + i.city + " 温度=" + i.temperature + " 天气" + i.type)
+//        }
+//    }
 
     fun deleteItemsforDatabase(arrayListDeleteItem : ArrayList<String>) {
         repository.deleteData(getApplication(), arrayListDeleteItem)

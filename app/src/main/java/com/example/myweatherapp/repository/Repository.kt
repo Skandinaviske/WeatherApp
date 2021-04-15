@@ -88,14 +88,13 @@ class Repository {
                         arrayList.add(date)
                         arrayList.add("℃")
                         arrayList.add("gone")
-                        arrayList.add(Util.getWeekOfDate())
+                        arrayList.add(Util.getWeekOfCurrentDate())
                         arrayList.add("visible")               //10
                         arrayList.add(pressure)
                         arrayList.add(visibility)
                         arrayList.add(wind_speed)
                         arrayList.add(wind_scale)
                         arrayList.add(clouds)                  //15
-//                        Log.d("TestLiang", "CITYNAME =${cityname}")
                         val dataModel: DataModel = DataModel(
                             cityname,
                             temperature.toInt(),
@@ -191,7 +190,11 @@ class Repository {
                         val type = dailyModel?.get(i)?.type
                         val high = dailyModel?.get(i)?.high
                         val low = dailyModel?.get(i)?.low
-                        val weekday: String? = date?.let { Util.getWeekOfDate(it) }
+                        var weekday: String? = ""
+                        weekday = if(date?.let { Util.getWeekOfDate(it) } == Util.getWeekOfTomorrow())
+                            "明天"
+                        else
+                            date?.let { Util.getWeekOfDate(it) }
                         val weatherIcon: Int? = type?.let { Util.judgeWeatherType(it) }
 //                        Log.d(
 //                            "TestLiang",
@@ -251,10 +254,7 @@ class Repository {
                         val temperature = hourly?.get(i)?.temperature
                         val type = hourly?.get(i)?.text
                         val weatherIcon: Int? = type?.let { Util.judgeWeatherType(it) }
-                        Log.d(
-                            "TestLiang",
-                            "type = $type  temperature = $temperature currentTime = $currentTime"
-                        )
+
                         if(temperature!=null && type!= null && weatherIcon!= null){
                             val hourDataModel =
                                 HourDataModel(
@@ -287,13 +287,6 @@ class Repository {
         arrayListDataModel =
             db.DataDao().getAllData() as ArrayList<DataModel>
 
-//        Log.d("TestData", "Before------------------------------")
-//        for (i in arrListDatabase) {
-//            Log.d("TestData", "City=${i.city} 城市=${i.cityCN}")
-//        }
-//
-//        Log.d("TestData", "Show:${MyApplication.currentLocation}")
-
         var result = -1
         for ((start, i) in arrayListDataModel.withIndex()) {
             if (i.cityCN == "")
@@ -316,9 +309,6 @@ class Repository {
             dataModel = arrayListDataModel[deleteCity]
             arrayListDataModel.removeAt(deleteCity)
             arrayListDataModel.add(0, dataModel)
-        }
-        for (i in arrayListDataModel) {
-            Log.d("TestDataII", "City=${i.city} 城市=${i.cityCN}")
         }
 
         textLiveDatafromRoom.postValue(arrayListDataModel)

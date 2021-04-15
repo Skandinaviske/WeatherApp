@@ -6,6 +6,8 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -64,6 +66,11 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         myViewModel!!.repositoryforDaily?.observe(this, Observer<ArrayList<BasicModel>> { t ->
             binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
             binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
+
+            val initProgressBar = binding?.root?.findViewById<ProgressBar>(R.id.progressbar)
+            if (initProgressBar != null) {
+                initProgressBar.visibility = View.GONE
+            }
         })
 
         myViewModel!!.repositoryforHourDataModel?.observe(
@@ -73,6 +80,7 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                 linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
                 binding?.recyclerviewHour?.layoutManager = linearLayoutManager
                 binding?.recyclerviewHour?.adapter = HourWeatherAdapter(t)
+                binding?.recyclerviewHour?.setHasFixedSize(false)
             })
     }
 

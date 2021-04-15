@@ -39,12 +39,12 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestPermissions(
-            arrayOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION
-            ), 100
-        )
+//        requestPermissions(
+//            arrayOf(
+//                Manifest.permission.ACCESS_COARSE_LOCATION,
+//                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+//            ), 100
+//        )
 
         binding = DataBindingUtil.setContentView(
             this,
@@ -78,6 +78,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                     //定位成功，aMapLocation获取数据
                     cityname = aMapLocation.city.toLowerCase()
 
+                    cityname = "chengdu"
                     //var location = MyApplication
                     MyApplication.currentLocation = cityname
 
@@ -91,15 +92,13 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                             Observer<ArrayList<BasicModel>> { t ->
                                 binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
                                 binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
-
+                                binding?.recyclerview?.setHasFixedSize(false)
                                 val initText = binding?.root?.findViewById<TextView>(R.id.initText)
                                 if (initText != null) {
                                     initText.visibility = View.GONE
                                 }
                             })
 
-
-                        //
                         myViewModel!!.repositoryforHourDataModel?.observe(
                             this,
                             Observer<ArrayList<HourDataModel>> { t ->
@@ -108,14 +107,8 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                                 linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
                                 binding?.recyclerviewHour?.layoutManager = linearLayoutManager
                                 binding?.recyclerviewHour?.adapter = HourWeatherAdapter(t)
-
-//                            val initText = binding?.root?.findViewById<TextView>(R.id.initText)
-//                            if (initText != null) {
-//                                initText.visibility = View.GONE
-//                            }
+                                binding?.recyclerviewHour?.setHasFixedSize(false)
                             })
-
-                        //
                     }
                     lastcityname = cityname
                 } else {
@@ -158,7 +151,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
 
         mLocationOption = AMapLocationClientOption()
         mLocationOption.geoLanguage = AMapLocationClientOption.GeoLanguage.EN
-        mLocationOption.interval = 10000
+        mLocationOption.interval = 1000
         amapLocationClient.setLocationOption(mLocationOption)
         amapLocationClient.startLocation()
     }
