@@ -21,6 +21,9 @@ object RetrofitService {
     private const val baseurlAir =
         "https://api.seniverse.com/v3/air/"
 
+    private const val baseurlCity =
+        "https://api.seniverse.com/v3/location/"
+
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseurl)
         .addConverterFactory(GsonConverterFactory.create())
@@ -33,11 +36,21 @@ object RetrofitService {
         .callbackExecutor(Executors.newSingleThreadExecutor())
         .build()
 
+    private val retrofitCityList: Retrofit = Retrofit.Builder()
+        .baseUrl(baseurlCity)
+        .addConverterFactory(GsonConverterFactory.create())
+        .callbackExecutor(Executors.newSingleThreadExecutor())
+        .build()
+
     fun <S> createService(serviceClass: Class<S>): S {
         return retrofit.create(serviceClass)
     }
 
     fun <S> createServiceAir(serviceClass: Class<S>): S {
         return retrofitAir.create(serviceClass)
+    }
+
+    fun <S> createServiceCityList(serviceClass: Class<S>): S {
+        return retrofitCityList.create(serviceClass)
     }
 }

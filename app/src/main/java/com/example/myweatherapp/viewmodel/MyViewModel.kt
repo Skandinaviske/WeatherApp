@@ -11,6 +11,7 @@ import com.example.myweatherapp.datamodel.BasicModel
 import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.database.AppDatabase
 import com.example.myweatherapp.database.DataModel
+import com.example.myweatherapp.datamodel.CitySearchModel
 import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.repository.Repository
 
@@ -22,6 +23,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     private var textLiveDataforHour: MutableLiveData<ArrayList<HourDataModel>>? = null
     private var textLiveDatafromRoom: MutableLiveData<ArrayList<DataModel>>? = null
     private var textLiveDataforAir : MutableLiveData<ArrayList<String>>? = null
+    private var textLiveDataforCitySearch : MutableLiveData<ArrayList<CitySearchModel>>? = null
     private var repository = Repository()
     private var imageRes: MutableLiveData<Int>? = null
             //= R.drawable.add
@@ -36,6 +38,11 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         textLiveDataforDaily = repository.getDailyInfo(cityname)
         textLiveDataforHour = repository.getHourlyInfo(cityname)
         textLiveDataforAir = repository.getAirInfo(cityname)
+    }
+
+    fun getSearch(query: String) {
+        repository = repository.instance
+        textLiveDataforCitySearch = repository.getCityListInfo(query)
     }
 
     fun getData() {
@@ -132,4 +139,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
 
     val repositoryforAir: LiveData<ArrayList<String>>?
         get() = textLiveDataforAir
+
+    val repositoryforCitySearch: LiveData<ArrayList<CitySearchModel>>?
+        get() = textLiveDataforCitySearch
 }

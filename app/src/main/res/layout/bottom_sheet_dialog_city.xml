@@ -35,6 +35,33 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
+        <SearchView
+            android:id="@+id/searchview"
+            android:layout_height="35dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/shapesearchview">
+
+            <ListView
+                android:id="@+id/searchList"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </ListView>
+            <!--            app:defaultQueryHint="搜索城市"-->
+
+        </SearchView>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:text="热门城市"/>
 
         <androidx.gridlayout.widget.GridLayout
             android:id="@+id/GridLayout1"

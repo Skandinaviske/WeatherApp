@@ -10,9 +10,11 @@ import com.example.myweatherapp.R
 import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.data.HourModel
 import com.example.myweatherapp.data.Result
+import com.example.myweatherapp.data.Results
 import com.example.myweatherapp.database.AppDatabase
 import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.datamodel.BasicModel
+import com.example.myweatherapp.datamodel.CitySearchModel
 import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.retrofit.ConnectService
 import com.example.myweatherapp.retrofit.RetrofitService
@@ -31,6 +33,7 @@ class Repository {
     private var textLiveDataforDaily = MutableLiveData<ArrayList<BasicModel>>()
     private var textLiveDataforHourDataModel = MutableLiveData<ArrayList<HourDataModel>>()
     private var textLiveDataforAir = MutableLiveData<ArrayList<String>>()
+    private var textLiveDataforCitySearch = MutableLiveData<ArrayList<CitySearchModel>>()
     private var textLiveDatafromRoom = MutableLiveData<ArrayList<DataModel>>()
     private var arrayListDataModel: ArrayList<DataModel> = ArrayList<DataModel>()
     private val TIANQI_API_SECRET_KEY = "SsWmmG_GwpNLboKR6"
@@ -49,6 +52,9 @@ class Repository {
 
     private val connectServiceforAir: ConnectService =
         RetrofitService.createServiceAir(ConnectService::class.java)
+
+    private val connectServiceforCityList: ConnectService =
+        RetrofitService.createServiceCityList(ConnectService::class.java)
 
     fun getNowInfo(cityname: String, application: Application): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> =
@@ -78,6 +84,7 @@ class Repository {
                     val wind_speed = now?.wind_speed
                     val wind_scale = now?.wind_scale
                     val clouds = now?.clouds
+                    Log.d("DDD","城市：$cityname , 温度： $temperature")
                     if (temperature != null && code != null && weathertype != null &&
                         feels_like != null && humidity != null && wind_direction != null &&
                         pressure != null && visibility != null && wind_speed != null &&
@@ -330,6 +337,38 @@ class Repository {
             }
         })
         return textLiveDataforAir
+    }
+
+    fun getCityListInfo(query: String) : MutableLiveData<ArrayList<CitySearchModel>>{
+        val call: Call<Results> = connectServiceforCityList.getStringArraySearchCity(
+            TIANQI_API_SECRET_KEY,
+            query,
+            LANGUAGE_NAME
+        )
+        call.enqueue(object : Callback<Results> {
+            override fun onResponse(call: Call<Results>, response: Response<Results>) {
+                val response: Results? = response.body()
+                if (response?.result != null) {
+                    val users = response?.result;
+                    val arrayListCitySearch = ArrayList<CitySearchModel>()
+                    for(i in users){
+                        val name = i.name
+                        val path = i.path
+                        if(name!=null&&path!=null){
+                            val citySearchModel = CitySearchModel(name, path)
+                            arrayListCitySearch.add(citySearchModel)
+                        }
+                        //Log.d("ZZZZZZTTTT","名称：${i.name} from: ${i.path}")
+                    }
+                    textLiveDataforCitySearch.postValue(arrayListCitySearch)
+                }
+            }
+            @SuppressLint("LongLogTag")
+            override fun onFailure(call: Call<Results>, t: Throwable) {
+                t.message?.let { Log.e("Print Error in Weather App:", it) }
+            }
+        })
+        return textLiveDataforCitySearch
     }
 
     fun getData(application: Application): MutableLiveData<ArrayList<DataModel>> {

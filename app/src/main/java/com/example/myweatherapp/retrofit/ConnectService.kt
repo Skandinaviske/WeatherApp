@@ -1,6 +1,7 @@
 package com.example.myweatherapp.retrofit
 
 import com.example.myweatherapp.data.Result
+import com.example.myweatherapp.data.Results
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -45,4 +46,11 @@ interface ConnectService {
         @Query("scope") scope: String
     ): Call<Result>
 
+    //https://api.seniverse.com/v3/location/search.json?key=SsWmmG_GwpNLboKR6&q=san&limit=10&offset=10
+    @GET("search.json")
+    fun getStringArraySearchCity(
+        @Query("key") key: String,
+        @Query("q") query: String,
+        @Query("language") language: String
+    ): Call<Results>
 }
