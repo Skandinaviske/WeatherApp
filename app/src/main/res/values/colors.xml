@@ -15,4 +15,10 @@
     <color name="dusty">#996600</color>
     <color name="purple">#cc99ff</color>
     <color name="superLightGray">#D3D3D3</color>
+    <color name="green">#33ff66</color>
+    <color name="yellow">#FFC107</color>
+    <color name="red">#EC0404</color>
+    <color name="orange">#FF8C00</color>
+    <color name="brown">#653D00</color>
+    <color name="superbrown">#502800</color>
 </resources>

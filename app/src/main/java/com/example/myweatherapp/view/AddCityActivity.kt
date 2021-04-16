@@ -15,7 +15,7 @@ import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.CityManagementAdapter
 import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.ActivityAddcityBinding
-import com.example.myweatherapp.databinding.BottomSheetDialogBinding
+import com.example.myweatherapp.databinding.BottomSheetDialogCityBinding
 import com.example.myweatherapp.datamodel.DataModelWithVisible
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -110,9 +110,9 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
     override fun onClickFloatingActionButton(view: View) {
         if (isVisible == "gone") {
-            val binding: BottomSheetDialogBinding = DataBindingUtil.inflate(
+            val binding: BottomSheetDialogCityBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(view.context),
-                R.layout.bottom_sheet_dialog,
+                R.layout.bottom_sheet_dialog_city,
                 null,
                 false
             )

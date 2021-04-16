@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetAir"
+    >
+
+    <data>
+        <import type="androidx.core.content.ContextCompat"/>
+        <variable
+            name="viewModel"
+            type="com.example.myweatherapp.viewmodel.MyViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shapeseeaircondition"
+        >
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="空气质量"
+            android:layout_marginTop="30dp"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="30dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="30dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:hint="38"
+            android:textSize="80sp"
+            android:textColor="@{ContextCompat.getColor(context, Integer.parseInt(viewModel.repositoryforAir[8]))}"
+            android:text="@{viewModel.repositoryforAir[0]}" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:hint="优"
+            android:textSize="28sp"
+            android:text="@{viewModel.repositoryforAir[7]}"
+            android:textColor="@{ContextCompat.getColor(context, Integer.parseInt(viewModel.repositoryforAir[8]))}"
+            android:layout_marginLeft="5dp"/>
+
+        </LinearLayout>
+
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/GridLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="50dp"
+            app:columnCount="3"
+            app:orientation="horizontal"
+            app:rowCount="2"
+            app:useDefaultMargins="true">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_columnWeight="1">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PM2.5"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.repositoryforAir[1]}"
+                    android:textColor="@color/black"
+                    android:textSize="26sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_columnWeight="1">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="NO2"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{viewModel.repositoryforAir[4]}"
+                    android:textColor="@color/black"
+                    android:textSize="26sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_columnWeight="1">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="O3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@{viewModel.repositoryforAir[6]}"
+                    android:textColor="@color/black"
+                    android:textSize="26sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_columnWeight="1">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PM10"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.repositoryforAir[2]}"
+                    android:textColor="@color/black"
+                    android:textSize="26sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_columnWeight="1">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="CO"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{viewModel.repositoryforAir[5]}"
+                    android:textColor="@color/black"
+                    android:textSize="26sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_columnWeight="1">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="SO2"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@{viewModel.repositoryforAir[3]}"
+                    android:textColor="@color/black"
+                    android:textSize="26sp" />
+            </LinearLayout>
+
+        </androidx.gridlayout.widget.GridLayout>
+    </RelativeLayout>
+</layout>

@@ -8,6 +8,7 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -24,8 +25,10 @@ import com.example.myweatherapp.datamodel.BasicModel
 import com.example.myweatherapp.adapter.WeekWeatherAdapter
 import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.databinding.ActivityMainBinding
+import com.example.myweatherapp.databinding.BottomSheetDialogAirBinding
 import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.viewmodel.MyViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jaeger.library.StatusBarUtil
 
 
@@ -179,7 +182,16 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     }
 
     override fun showCheckBox(view: View) {
-        TODO("Not yet implemented")
+        val binding: BottomSheetDialogAirBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(view.context),
+            R.layout.bottom_sheet_dialog_air,
+            null,
+            false
+        )
+        binding.viewModel = myViewModel
+        val bottomSheetDialog = BottomSheetDialog(view.context)
+        bottomSheetDialog.setContentView(binding.root)
+        bottomSheetDialog.show()
     }
 
 //    @TargetApi(30)

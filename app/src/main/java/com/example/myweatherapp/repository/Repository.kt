@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
+import com.example.myweatherapp.R
 import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.data.HourModel
 import com.example.myweatherapp.data.Result
@@ -16,6 +17,7 @@ import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.retrofit.ConnectService
 import com.example.myweatherapp.retrofit.RetrofitService
 import com.example.myweatherapp.util.Util
+import com.example.myweatherapp.util.Util.judgeColor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -316,6 +318,7 @@ class Repository {
                         airModel.add(co)
                         airModel.add(o3)
                         airModel.add(quality)
+                        airModel.add(judgeColor(quality).toString())
                     }
 
                     textLiveDataforAir.postValue(airModel)

@@ -111,9 +111,8 @@
                         android:hint="4月10日"
                         android:text="@={viewModel.repositoryforNow[6]}"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-<!--                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'-->
+                        android:textSize="16sp"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                     <TextView
                         android:id="@+id/weekday"
@@ -157,6 +156,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:orientation="horizontal"
+                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'
                     >
                     <ImageView
                         android:layout_height="24dp"
@@ -166,8 +166,8 @@
                         android:layout_marginLeft="5dp"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:hint="AAAA"
                         android:text='@{viewModel.repositoryforAir[7] +" "+ viewModel.repositoryforAir[0]}'
+                        android:onClick="@{(v) -> clickHandler.showCheckBox(v)}"
                         android:textSize="18dp">
                     </TextView>
                 </LinearLayout>

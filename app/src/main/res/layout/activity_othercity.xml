@@ -155,6 +155,7 @@
                             android:layout_width="wrap_content"
                             android:hint="AAAA"
                             android:text='@{viewModel.repositoryforAir[7] +" "+ viewModel.repositoryforAir[0]}'
+                            android:onClick="@{(v) -> clickHandler.showCheckBox(v)}"
                             android:textSize="18dp">
                         </TextView>
                     </LinearLayout>

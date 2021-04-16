@@ -1,6 +1,7 @@
 package com.example.myweatherapp.util
 
 import android.annotation.SuppressLint
+import androidx.core.content.ContextCompat
 import com.example.myweatherapp.R
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -118,5 +119,19 @@ object Util {
             "扬沙" -> result = 5
         }
         return result
+    }
+
+    //优、良、轻度污染、中度污染、重度污染、严重污染
+    fun judgeColor(quality: String) : Int {
+        var colorCode = 0
+        when (quality) {
+            "优" -> colorCode = R.color.green
+            "良" -> colorCode = R.color.yellow
+            "轻度污染" -> colorCode = R.color.red
+            "中度污染" -> colorCode = R.color.orange
+            "重度污染" -> colorCode = R.color.brown
+            "严重污染" -> colorCode = R.color.superbrown
+        }
+        return colorCode
     }
 }
