@@ -17,4 +17,7 @@ class Model{
 
     @SerializedName("air")
     val air: Air? = null
+
+    @SerializedName("suggestion")
+    val suggestion: Suggestion? = null
 }

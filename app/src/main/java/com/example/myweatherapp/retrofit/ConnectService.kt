@@ -53,4 +53,11 @@ interface ConnectService {
         @Query("q") query: String,
         @Query("language") language: String
     ): Call<Results>
+
+    @GET("suggestion.json")
+    fun getStringArraySuggestion(
+        @Query("key") key: String,
+        @Query("location") query: String,
+        @Query("language") language: String
+    ): Call<Result>
 }

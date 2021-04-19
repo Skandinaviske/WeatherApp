@@ -11,7 +11,7 @@
             type="com.example.myweatherapp.viewmodel.MyViewModel" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -29,7 +29,7 @@
             android:layout_marginStart="30dp"/>
 
         <LinearLayout
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="30dp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -54,12 +54,18 @@
 
         </LinearLayout>
 
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="@{viewModel.repositoryforSuggestion[1]}"/>
+
         <androidx.gridlayout.widget.GridLayout
             android:id="@+id/GridLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="50dp"
             app:columnCount="3"
@@ -205,5 +211,5 @@
             </LinearLayout>
 
         </androidx.gridlayout.widget.GridLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

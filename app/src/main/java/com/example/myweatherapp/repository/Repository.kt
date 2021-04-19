@@ -34,6 +34,7 @@ class Repository {
     private var textLiveDataforHourDataModel = MutableLiveData<ArrayList<HourDataModel>>()
     private var textLiveDataforAir = MutableLiveData<ArrayList<String>>()
     private var textLiveDataforCitySearch = MutableLiveData<ArrayList<CitySearchModel>>()
+    private var textLiveDataforSuggestion = MutableLiveData<ArrayList<String>>()
     private var textLiveDatafromRoom = MutableLiveData<ArrayList<DataModel>>()
     private var arrayListDataModel: ArrayList<DataModel> = ArrayList<DataModel>()
     private val TIANQI_API_SECRET_KEY = "SsWmmG_GwpNLboKR6"
@@ -55,6 +56,9 @@ class Repository {
 
     private val connectServiceforCityList: ConnectService =
         RetrofitService.createServiceCityList(ConnectService::class.java)
+
+    private val createServiceSuggestion: ConnectService =
+        RetrofitService.createServiceSuggestion(ConnectService::class.java)
 
     fun getNowInfo(cityname: String, application: Application): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> =
@@ -369,6 +373,40 @@ class Repository {
             }
         })
         return textLiveDataforCitySearch
+    }
+
+    fun getSuggestion(cityname: String) : MutableLiveData<ArrayList<String>>{
+        val call: Call<Result> = createServiceSuggestion.getStringArraySuggestion(
+            TIANQI_API_SECRET_KEY,
+            cityname,
+            LANGUAGE_NAME
+        )
+        call.enqueue(object : Callback<Result> {
+            override fun onResponse(call: Call<Result>, response: Response<Result>) {
+                val response: Result? = response.body()
+                if (response?.result != null) {
+                    val arraylistSuggestion = ArrayList<String>()
+                    val users = response?.result
+                    val model = users[0]
+                    val suggestion = model.suggestion
+                    val airpollution = suggestion?.airpollution
+                    val brief = airpollution?.brief
+                    val details = airpollution?.details
+
+                    if (brief != null&&details!=null) {
+                        arraylistSuggestion.add(brief)
+                        arraylistSuggestion.add(details)
+                    }
+
+                    textLiveDataforSuggestion.postValue(arraylistSuggestion)
+                }
+            }
+            @SuppressLint("LongLogTag")
+            override fun onFailure(call: Call<Result>, t: Throwable) {
+                t.message?.let { Log.e("Print Error in Weather App:", it) }
+            }
+        })
+        return textLiveDataforSuggestion
     }
 
     fun getData(application: Application): MutableLiveData<ArrayList<DataModel>> {
