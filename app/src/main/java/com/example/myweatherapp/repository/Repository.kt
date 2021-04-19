@@ -114,8 +114,8 @@ class Repository {
                         val dataModel = DataModel(
                             cityname,
                             temperature.toInt(),
-                            weathertype,
-                            Util.ENtoCN(cityname)
+                            weathertype
+//                            Util.ENtoCN(cityname)
                         )
                         val db = AppDatabase.getDatabase(application)
                         db.DataDao().insert(dataModel)
@@ -414,14 +414,14 @@ class Repository {
         arrayListDataModel =
             db.DataDao().getAllData() as ArrayList<DataModel>
 
-        var result = -1
-        for ((start, i) in arrayListDataModel.withIndex()) {
-            if (i.cityCN == "")
-                result = start
-        }
-
-        if (result != -1)
-            arrayListDataModel.removeAt(result)
+//        var result = -1
+////        for ((start, i) in arrayListDataModel.withIndex()) {
+////            if (i.cityCN == "")
+////                result = start
+////        }
+//
+//        if (result != -1)
+//            arrayListDataModel.removeAt(result)
 
         var deleteCity = -1
         for ((start, i) in arrayListDataModel.withIndex()) {

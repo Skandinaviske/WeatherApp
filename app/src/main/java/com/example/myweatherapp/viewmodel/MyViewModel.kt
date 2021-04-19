@@ -67,14 +67,14 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
 //
 //        Log.d("TestData", "Show:${MyApplication.currentLocation}")
 
-        var result = -1
-        for ((start, i) in arrayListDataModel.withIndex()) {
-            if (i.cityCN == "")
-                result = start
-        }
-
-        if (result != -1)
-            arrayListDataModel.removeAt(result)
+//        var result = -1
+//        for ((start, i) in arrayListDataModel.withIndex()) {
+//            if (i.cityCN == "")
+//                result = start
+//        }
+//
+//        if (result != -1)
+//            arrayListDataModel.removeAt(result)
 
         var deleteCity = -1
         for ((start, i) in arrayListDataModel.withIndex()) {
@@ -92,7 +92,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         for (i in arrayListDataModel) {
-            Log.d("TestDataII", "City=${i.city} 城市=${i.cityCN}")
+            Log.d("TestDataII", "City=${i.city} 城市=")
         }
 
         textLiveDatafromRoom?.postValue(arrayListDataModel)

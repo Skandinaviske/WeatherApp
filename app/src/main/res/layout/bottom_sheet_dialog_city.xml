@@ -87,7 +87,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("chengdu", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("成都", v)}'
                     android:text="成都"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -103,7 +103,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("beijing", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("北京", v)}'
                     android:text="北京"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -119,7 +119,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("shanghai", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("上海", v)}'
                     android:text="上海"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -135,7 +135,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("shenzhen", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("深圳", v)}'
                     android:text="深圳"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -151,7 +151,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("guangzhou", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("广州", v)}'
                     android:text="广州"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -167,7 +167,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("wuhan", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("武汉", v)}'
                     android:text="武汉"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -183,7 +183,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("changsha", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("长沙", v)}'
                     android:text="长沙"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -199,7 +199,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("nanjing", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("南京", v)}'
                     android:text="南京"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -215,7 +215,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("suzhou", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("苏州", v)}'
                     android:text="苏州"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -231,7 +231,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("xian", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("西安", v)}'
                     android:text="西安"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -247,7 +247,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("qingdao", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("青岛", v)}'
                     android:text="青岛"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -263,7 +263,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("shenyang", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("沈阳", v)}'
                     android:text="沈阳"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -279,7 +279,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("chongqing", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("重庆", v)}'
                     android:text="重庆"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -295,7 +295,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("hangzhou", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("杭州", v)}'
                     android:text="杭州"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -311,7 +311,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("hong kong", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("香港", v)}'
                     android:text="香港"
                     app:layout_rowWeight="1" />
             </LinearLayout>
@@ -327,7 +327,7 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/selector_btn_click_text_color"
                     android:gravity="center"
-                    android:onClick='@{(v) -> viewModel.addinDatabase("xiamen", v)}'
+                    android:onClick='@{(v) -> viewModel.addinDatabase("厦门", v)}'
                     android:text="厦门"
                     app:layout_rowWeight="1" />
             </LinearLayout>

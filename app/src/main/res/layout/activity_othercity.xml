@@ -50,7 +50,7 @@
                         android:layout_marginEnd="15dp"
                         android:scaleType="fitEnd"
                         android:src="@drawable/city"
-                        android:onClick="@{(v) -> clickHandler.onClicktoActivity(v,viewModel.repositoryforLocation[1])}"
+                        android:onClick="@{(v) -> clickHandler.onClicktoActivity(v)}"
                         android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
 
                     <TextView
@@ -144,6 +144,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:orientation="horizontal"
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'
                         >
                         <ImageView
                             android:layout_height="24dp"

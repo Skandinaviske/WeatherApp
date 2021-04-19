@@ -72,7 +72,6 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                                     i.city,
                                     i.temperature,
                                     i.type,
-                                    i.cityCN,
                                     isVisible,
                                     icon
                                 )
@@ -101,7 +100,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         }
     }
 
-    override fun onClicktoActivity(view: View, cityname: String) {
+    override fun onClicktoActivity(view: View) {
     }
 
     override fun onFinish(view: View) {
@@ -223,7 +222,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         var isChanged: Boolean = false
 
         for (i in arrayListDataModelWithVisible) {
-            if (i.cityCN == cityname) {
+            if (i.city == cityname) {
                 if (temperature != null && i.temperature != temperature.toInt()) {
                     i.temperature = temperature.toInt()
                     isChanged = true

@@ -3,7 +3,7 @@ package com.example.myweatherapp.view
 import android.view.View
 
 interface OnClickHandlerInterface {
-    fun onClicktoActivity(view: View, cityname: String)
+    fun onClicktoActivity(view: View)
     fun onFinish(view: View)
     fun onClickFloatingActionButton(view: View)
     fun showCheckBox(view: View)

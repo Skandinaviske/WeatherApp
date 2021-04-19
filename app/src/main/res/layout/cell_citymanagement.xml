@@ -36,23 +36,22 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="20dp"
             android:textSize="20dp"
-            android:text="@{dataModel.cityCN}"
+            android:text="@{dataModel.city}"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:drawablePadding="0dp"
             />
 
         <TextView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="50dp"
             android:layout_marginTop="15dp"
-            android:text="@{Integer.toString(dataModel.temperature)+'℃'}"
-            android:textSize="20dp"
+            android:layout_marginEnd="50dp"
             android:hint="20℃"
+            android:text="@{Integer.toString(dataModel.temperature)+'℃'}"
             android:textColor="@color/white"
-            />
+            android:textSize="20dp" />
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"

@@ -9,7 +9,7 @@ data class DataModel (
     @PrimaryKey
     val city: String,
     val temperature: Int,
-    val type: String,
-    @NonNull
-    val cityCN: String
+    val type: String
+//    @NonNull
+//    val cityCN: String
 )

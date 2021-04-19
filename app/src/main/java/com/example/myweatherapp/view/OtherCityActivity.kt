@@ -30,7 +30,7 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
     private var myViewModel: MyViewModel? = null
     private var binding: ActivityOthercityBinding? = null
-
+    private var cityname: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -61,9 +61,9 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         //定位成功，aMapLocation获取数据
         val intent = intent
 
-        val cityname = intent.getStringExtra("cityname")
+        cityname = intent.getStringExtra("cityname")
         if (cityname != null) {
-            myViewModel!!.init(cityname)
+            myViewModel!!.init(cityname!!)
         }
         binding?.viewModel = myViewModel
         binding?.clickHandler = this
@@ -97,12 +97,12 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         val type = myViewModel!!.repositoryforNow?.value?.get(2)
         val cityCN = myViewModel!!.repositoryforNow?.value?.get(1)
             if (cityname != null&&temperature != null&&type != null&& cityCN != null) {
-                val dataModel = DataModel(cityname, temperature, type, cityCN)
-                myViewModel!!.updateItemsforDatabase(cityname, dataModel)
+                val dataModel = DataModel(cityname!!, temperature, type)
+                myViewModel!!.updateItemsforDatabase(cityname!!, dataModel)
             }
     }
 
-    override fun onClicktoActivity(view: View, cityname: String) {
+    override fun onClicktoActivity(view: View) {
         val context: Context = view.context
         val intent = Intent(context, AddCityActivity::class.java)
         intent.putExtra("temperature",myViewModel!!.repositoryforNow?.value?.get(0))

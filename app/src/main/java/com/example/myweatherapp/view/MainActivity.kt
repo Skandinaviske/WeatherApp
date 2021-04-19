@@ -37,7 +37,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var binding: ActivityMainBinding? = null
     lateinit var amapLocationClient: AMapLocationClient
     lateinit var mLocationOption: AMapLocationClientOption
-    private var cityname: String = "shanghai"
+    private var cityname: String = "上海"
     private var lastcityname: String = ""
 
     @SuppressLint("SetTextI18n")
@@ -81,9 +81,10 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                 //服务器是有响应的
                 if (aMapLocation.errorCode == 0) {
                     //定位成功，aMapLocation获取数据
-                    cityname = aMapLocation.city.toLowerCase()
+                    cityname = aMapLocation.city
 
-                    cityname = "chengdu"
+                    //Log.d("CurrentLiang",cityname)
+                    cityname = "成都"
                     //var location = MyApplication
                     MyApplication.currentLocation = cityname
 
@@ -91,7 +92,9 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                         myViewModel!!.init(cityname)
                         binding?.viewModel = myViewModel
                         binding?.clickHandler = this
+                        val city = binding?.root?.findViewById<TextView>(R.id.city)
 
+                        city?.text = cityname
                         myViewModel!!.repositoryforDaily?.observe(
                             this,
                             Observer<ArrayList<BasicModel>> { t ->
@@ -167,9 +170,9 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         amapLocationClient.startLocation()
     }
 
-    override fun onClicktoActivity(view: View, cityname: String) {
+    override fun onClicktoActivity(view: View) {
         val context: Context = view.context
-        Log.d("TestLiang", "Cityname is $cityname")
+        //Log.d("TestLiang", "Cityname is $cityname")
         val intent: Intent = Intent(context, AddCityActivity::class.java)
         intent.putExtra("cityname", cityname)
         context.startActivity(intent)
