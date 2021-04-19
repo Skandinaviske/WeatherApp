@@ -2,6 +2,7 @@ package com.example.myweatherapp.view
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,7 +28,7 @@ import com.example.myweatherapp.datamodel.DataModelWithVisible
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
+import com.jaeger.library.StatusBarUtil
 
 class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
@@ -42,6 +43,16 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        StatusBarUtil.setTransparent(this)
+
+        val window = this.window
+
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_YES -> window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_VISIBLE
+            Configuration.UI_MODE_NIGHT_NO -> window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         binding = DataBindingUtil.setContentView(
             this,
@@ -62,13 +73,10 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
             myViewModel!!.repositoryfromDatabase?.observe(this,
                 Observer<ArrayList<DataModel>> { t ->
-                    Log.d("Camehere", "TYYYYYYYYY")
                     if (arraylistDataModel == null) {
                         var model: DataModelWithVisible
 
                         arrayListDataModelWithVisible = ArrayList()
-
-                        //Start
                         for (i in t) {
                             model =
                                 DataModelWithVisible(
@@ -83,7 +91,6 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                         }
                         arrayListDataModelWithVisible[0].icon = "visible"
                         arrayListDataModelWithVisible[0].isVisible = "gone"
-                        //End
 
                         binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
                         adapter = CityManagementAdapter(arrayListDataModelWithVisible, this,
@@ -124,9 +131,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
             val bottomSheetDialog = BottomSheetDialog(view.context)
             bottomSheetDialog.setContentView(binding.root)
             bottomSheetDialog.setOnDismissListener {
-                Log.d("Goooooooo", "????????????")
                 myViewModel?.updateData()
-                Log.d("Goooooooo", "YYYYYYYYYYYY")
             }
 
             bottomSheetDialog.show()
@@ -153,9 +158,14 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                                 Observer<ArrayList<CitySearchModel>> { t ->
                                     t[0].name?.let { myViewModel!!.addinDatabase(it, view) }
                                 })
+                            Toast.makeText(
+                                this@AddCityActivity,
+                                "${query}已被添加到城市列表中",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
 
-                        return false
+                        return true
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
@@ -185,8 +195,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
                                     list?.onItemClickListener =
                                         OnItemClickListener { parent, view, position, id ->
-                                            myViewModel!!.addinDatabase(cityList[position], view)
-                                            bottomSheetDialog.dismiss()
+                                            searchView.setQuery(cityList[position], false)
                                         }
                                 })
                         }

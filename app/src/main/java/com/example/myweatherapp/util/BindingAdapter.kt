@@ -1,12 +1,9 @@
 package com.example.myweatherapp.util
 
-import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.rainy.weahter_bg_plug.WeatherBg
-
 
 class BindingAdapter {
     companion object {
@@ -43,20 +40,5 @@ class BindingAdapter {
         fun setImageResource(imageView: ImageView, resource: Int) {
             imageView.setImageResource(resource)
         }
-
-
-//        @BindingAdapter("android:src")
-//        @JvmStatic
-//        fun setImageUri(imageView: ImageView, resource: Int) {
-//            imageView.setImageResource(resource);
-//        }
-//        @BindingAdapter("bottomSheetBehaviorState")
-//        @JvmStatic
-//        fun setState(v: View, bottomSheetBehaviorState: Int) {
-//            val viewBottomSheetBehavior =
-//                BottomSheetBehavior.from(v)
-//            viewBottomSheetBehavior.state = bottomSheetBehaviorState
-//        }
-
     }
 }

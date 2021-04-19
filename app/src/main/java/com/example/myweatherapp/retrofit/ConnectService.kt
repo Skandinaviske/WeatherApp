@@ -17,7 +17,6 @@ interface ConnectService {
         @Query("unit") unit: String
     ): Call<Result>
 
-    //https://api.seniverse.com/v3/weather/daily.json?key=S69J9uyzmkgblruE-&location=chengdu&language=zh-Hans&unit=c&start=1&days=7
     @GET("daily.json")
     fun getStringArrayListfordaily(
         @Query("key") key: String,
@@ -46,7 +45,6 @@ interface ConnectService {
         @Query("scope") scope: String
     ): Call<Result>
 
-    //https://api.seniverse.com/v3/location/search.json?key=SsWmmG_GwpNLboKR6&q=san&limit=10&offset=10
     @GET("search.json")
     fun getStringArraySearchCity(
         @Query("key") key: String,

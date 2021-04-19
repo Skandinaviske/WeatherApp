@@ -2,7 +2,6 @@ package com.example.myweatherapp.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -46,8 +45,7 @@ class CityManagementAdapter(
 
         val type = items[position].type
         val city = items[position].city
-        Log.d("Mytype", "City = $city Type = $type")
-        when(Util.judgeWeatherColor(type)){
+        when (Util.judgeWeatherColor(type)) {
             1 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightblue)
             2 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgreen)
             3 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgray)
@@ -62,7 +60,7 @@ class CityManagementAdapter(
         }
 
         val checkBox = holder.itemViewDataBinding.checkbox
-        checkBox.setOnClickListener{
+        checkBox.setOnClickListener {
             onCheckBoxClickedListener.OnCheckBoxClicked(city, checkBox.isChecked)
         }
 

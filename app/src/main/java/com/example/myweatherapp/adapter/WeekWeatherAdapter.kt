@@ -8,15 +8,15 @@ import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.CellBinding
 import com.example.myweatherapp.datamodel.BasicModel
 
-
 class WeekWeatherAdapter(
-    private val items: ArrayList<BasicModel>) :
+    private val items: ArrayList<BasicModel>
+) :
     RecyclerView.Adapter<WeekWeatherAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        return  ViewHolder(
+        return ViewHolder(
             DataBindingUtil.inflate
                 (
                 LayoutInflater.from(parent.context),
@@ -36,5 +36,6 @@ class WeekWeatherAdapter(
         holder.itemViewDataBinding.executePendingBindings()
     }
 
-    class ViewHolder(val itemViewDataBinding: CellBinding) : RecyclerView.ViewHolder(itemViewDataBinding.root)
+    class ViewHolder(val itemViewDataBinding: CellBinding) :
+        RecyclerView.ViewHolder(itemViewDataBinding.root)
 }

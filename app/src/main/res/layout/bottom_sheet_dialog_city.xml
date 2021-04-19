@@ -11,13 +11,6 @@
             type="com.example.myweatherapp.viewmodel.MyViewModel" />
     </data>
 
-    <!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content">-->
-
-    <!--    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"-->
-    <!--    bottomSheetBehaviorState="@{viewModel.bottomSheetBehaviorState}"-->
-
     <LinearLayout
         android:id="@+id/bottomSheetLayout"
         android:layout_width="match_parent"
@@ -31,7 +24,7 @@
             android:padding="8dp"
             android:text="添加城市"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <SearchView
@@ -49,12 +42,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp" />
 
-        <!--            app:defaultQueryHint="搜索城市"-->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:text="热门城市" />
 
@@ -326,25 +317,6 @@
                     android:text="厦门"
                     app:layout_rowWeight="1" />
             </LinearLayout>
-
-            <!--            <LinearLayout-->
-            <!--                android:layout_width="0dp"-->
-            <!--                android:layout_height="40dp"-->
-            <!--                android:orientation="horizontal"-->
-            <!--                app:layout_columnWeight="1">-->
-
-            <!--                <Button-->
-            <!--                    android:layout_width="fill_parent"-->
-            <!--                    android:layout_height="fill_parent"-->
-            <!--                    android:background="@drawable/selector_btn_click_text_color"-->
-            <!--                    android:gravity="center"-->
-            <!--                    android:text="测试按钮"-->
-            <!--                    app:layout_rowWeight="1"-->
-            <!--                    android:onClick='@{(v) -> viewModel.showDatabase()}'/>-->
-            <!--            </LinearLayout>-->
-
         </androidx.gridlayout.widget.GridLayout>
-
     </LinearLayout>
-    <!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 </layout>

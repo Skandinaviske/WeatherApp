@@ -6,7 +6,6 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
-import com.example.myweatherapp.R
 import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.data.HourModel
 import com.example.myweatherapp.data.Result
@@ -88,7 +87,6 @@ class Repository {
                     val wind_speed = now?.wind_speed
                     val wind_scale = now?.wind_scale
                     val clouds = now?.clouds
-                    Log.d("DDD","城市：$cityname , 温度： $temperature")
                     if (temperature != null && code != null && weathertype != null &&
                         feels_like != null && humidity != null && wind_direction != null &&
                         pressure != null && visibility != null && wind_speed != null &&
@@ -115,12 +113,10 @@ class Repository {
                             cityname,
                             temperature.toInt(),
                             weathertype
-//                            Util.ENtoCN(cityname)
                         )
                         val db = AppDatabase.getDatabase(application)
                         db.DataDao().insert(dataModel)
                     }
-
                     textLiveDataforNow.postValue(arrayList)
                 }
             }
@@ -129,7 +125,6 @@ class Repository {
             override fun onFailure(call: Call<Result>, t: Throwable) {
                 t.message?.let { Log.e("Print Error in Weather App:", it) }
             }
-
         })
         return textLiveDataforNow
     }
@@ -210,10 +205,6 @@ class Repository {
                             else
                                 date?.let { Util.getWeekOfDate(it) }
                         val weatherIcon: Int? = type?.let { Util.judgeWeatherType(it) }
-//                        Log.d(
-//                            "TestLiang",
-//                            "date = $date type = $type high = $high low = $low day = $weekday weatherIcon = $weatherIcon ${R.drawable.overcast}"
-//                        )
                         if (date != null && type != null &&
                             high != null && low != null &&
                             weekday != null && weatherIcon != null
@@ -239,7 +230,6 @@ class Repository {
             override fun onFailure(call: Call<Result>, t: Throwable) {
                 t.message?.let { Log.e("Print Error in Weather App:", it) }
             }
-
         })
         return textLiveDataforDaily
     }
@@ -331,10 +321,10 @@ class Repository {
                         airModel.add(quality)
                         airModel.add(judgeColor(quality).toString())
                     }
-
                     textLiveDataforAir.postValue(airModel)
                 }
             }
+
             @SuppressLint("LongLogTag")
             override fun onFailure(call: Call<Result>, t: Throwable) {
                 t.message?.let { Log.e("Print Error in Weather App:", it) }
@@ -343,7 +333,7 @@ class Repository {
         return textLiveDataforAir
     }
 
-    fun getCityListInfo(query: String) : MutableLiveData<ArrayList<CitySearchModel>>{
+    fun getCityListInfo(query: String): MutableLiveData<ArrayList<CitySearchModel>> {
         val call: Call<Results> = connectServiceforCityList.getStringArraySearchCity(
             TIANQI_API_SECRET_KEY,
             query,
@@ -355,18 +345,18 @@ class Repository {
                 if (response?.result != null) {
                     val users = response?.result;
                     val arrayListCitySearch = ArrayList<CitySearchModel>()
-                    for(i in users){
+                    for (i in users) {
                         val name = i.name
                         val path = i.path
-                        if(name!=null&&path!=null){
+                        if (name != null && path != null) {
                             val citySearchModel = CitySearchModel(name, path)
                             arrayListCitySearch.add(citySearchModel)
                         }
-                        //Log.d("ZZZZZZTTTT","名称：${i.name} from: ${i.path}")
                     }
                     textLiveDataforCitySearch.postValue(arrayListCitySearch)
                 }
             }
+
             @SuppressLint("LongLogTag")
             override fun onFailure(call: Call<Results>, t: Throwable) {
                 t.message?.let { Log.e("Print Error in Weather App:", it) }
@@ -375,7 +365,7 @@ class Repository {
         return textLiveDataforCitySearch
     }
 
-    fun getSuggestion(cityname: String) : MutableLiveData<ArrayList<String>>{
+    fun getSuggestion(cityname: String): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> = createServiceSuggestion.getStringArraySuggestion(
             TIANQI_API_SECRET_KEY,
             cityname,
@@ -393,7 +383,7 @@ class Repository {
                     val brief = airpollution?.brief
                     val details = airpollution?.details
 
-                    if (brief != null&&details!=null) {
+                    if (brief != null && details != null) {
                         arraylistSuggestion.add(brief)
                         arraylistSuggestion.add(details)
                     }
@@ -401,6 +391,7 @@ class Repository {
                     textLiveDataforSuggestion.postValue(arraylistSuggestion)
                 }
             }
+
             @SuppressLint("LongLogTag")
             override fun onFailure(call: Call<Result>, t: Throwable) {
                 t.message?.let { Log.e("Print Error in Weather App:", it) }
@@ -413,15 +404,6 @@ class Repository {
         val db = AppDatabase.getDatabase(application)
         arrayListDataModel =
             db.DataDao().getAllData() as ArrayList<DataModel>
-
-//        var result = -1
-////        for ((start, i) in arrayListDataModel.withIndex()) {
-////            if (i.cityCN == "")
-////                result = start
-////        }
-//
-//        if (result != -1)
-//            arrayListDataModel.removeAt(result)
 
         var deleteCity = -1
         for ((start, i) in arrayListDataModel.withIndex()) {

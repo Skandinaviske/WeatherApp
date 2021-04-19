@@ -11,6 +11,6 @@
 
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/shapeseeaircondition</item>
+        <item name="android:background">@drawable/shapebottom</item>
     </style>
 </resources>

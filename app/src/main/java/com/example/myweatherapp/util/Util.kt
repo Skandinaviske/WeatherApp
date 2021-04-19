@@ -1,14 +1,10 @@
 package com.example.myweatherapp.util
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.res.Configuration
-import android.util.Log
 import com.example.myweatherapp.R
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 object Util {
     fun judgeWeatherType(weatherCode: Int): String {
@@ -89,29 +85,6 @@ object Util {
         //textDate?.postValue(dateFormat.format(Calendar.getInstance().time))
     }
 
-    fun ENtoCN(EnglishName: String): String {
-        var result: String = ""
-        when (EnglishName) {
-            "chengdu" -> result = "成都"
-            "beijing" -> result = "北京"
-            "shanghai" -> result = "上海"
-            "shenzhen" -> result = "深圳"
-            "guangzhou" -> result = "广州"
-            "wuhan" -> result = "武汉"
-            "changsha" -> result = "长沙"
-            "nanjing" -> result = "南京"
-            "suzhou" -> result = "苏州"
-            "xian" -> result = "西安"
-            "qingdao" -> result = "青岛"
-            "shenyang" -> result = "沈阳"
-            "chongqing" -> result = "重庆"
-            "hangzhou" -> result = "杭州"
-            "hong kong" -> result = "香港"
-            "xiamen" -> result = "厦门"
-        }
-        return result
-    }
-
     fun judgeWeatherColor(weatherType: String): Int {
         var result: Int = 0
         when (weatherType) {
@@ -125,7 +98,7 @@ object Util {
     }
 
     //优、良、轻度污染、中度污染、重度污染、严重污染
-    fun judgeColor(quality: String) : Int {
+    fun judgeColor(quality: String): Int {
         var colorCode = 0
         when (quality) {
             "优" -> colorCode = R.color.green
@@ -136,14 +109,5 @@ object Util {
             "严重污染" -> colorCode = R.color.superbrown
         }
         return colorCode
-    }
-
-    fun getScreenHeightDp(context: Context){
-
-        val configuration: Configuration = context.resources.configuration
-        val screenHeightDp: Int =
-            configuration.screenHeightDp//The current width of the available screen space, in dp units, corresponding to screen width resource qualifier.
-        Log.d("Resultiii", screenHeightDp.toString())
-
     }
 }

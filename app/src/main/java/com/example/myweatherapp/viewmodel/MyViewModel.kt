@@ -1,7 +1,6 @@
 package com.example.myweatherapp.viewmodel
 
 import android.app.Application
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -15,19 +14,16 @@ import com.example.myweatherapp.datamodel.CitySearchModel
 import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.repository.Repository
 
-
 class MyViewModel(application: Application) : AndroidViewModel(application) {
     private var textLiveDataforNow: MutableLiveData<ArrayList<String>>? = null
     private var textLiveDataforLocation: MutableLiveData<ArrayList<String>>? = null
     private var textLiveDataforDaily: MutableLiveData<ArrayList<BasicModel>>? = null
     private var textLiveDataforHour: MutableLiveData<ArrayList<HourDataModel>>? = null
     private var textLiveDatafromRoom: MutableLiveData<ArrayList<DataModel>>? = null
-    private var textLiveDataforAir : MutableLiveData<ArrayList<String>>? = null
-    private var textLiveDataforCitySearch : MutableLiveData<ArrayList<CitySearchModel>>? = null
-    private var textLiveDataforSuggestion : MutableLiveData<ArrayList<String>>? = null
+    private var textLiveDataforAir: MutableLiveData<ArrayList<String>>? = null
+    private var textLiveDataforCitySearch: MutableLiveData<ArrayList<CitySearchModel>>? = null
+    private var textLiveDataforSuggestion: MutableLiveData<ArrayList<String>>? = null
     private var repository = Repository()
-    private var imageRes: MutableLiveData<Int>? = null
-            //= R.drawable.add
 
     fun init(cityname: String) {
         if (textLiveDatafromRoom != null) {
@@ -51,10 +47,6 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         textLiveDatafromRoom = repository.getData(getApplication())
     }
 
-//    fun changeImage() {
-//        imageRes =
-//    }
-
     fun updateData() {
         val db = AppDatabase.getDatabase(getApplication())
         val arrayListDataModel =
@@ -75,10 +67,6 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
             arrayListDataModel.add(0, dataModel)
         }
 
-        for (i in arrayListDataModel) {
-            Log.d("TestDataII", "City=${i.city}")
-        }
-
         textLiveDatafromRoom?.postValue(arrayListDataModel)
     }
 
@@ -88,15 +76,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         textLiveDataforNow = repository.getNowInfo(cityname, getApplication())
     }
 
-//    fun showDatabase() {
-//        val db = AppDatabase.getDatabase(getApplication())
-//        val arrListDatabase: List<DataModel> = db.DataDao().getAllData().
-//        for (i in arrListDatabase) {
-//            Log.d("DataItem", "城市=" + i.city + " 温度=" + i.temperature + " 天气" + i.type)
-//        }
-//    }
-
-    fun deleteItemsforDatabase(arrayListDeleteItem : ArrayList<String>) {
+    fun deleteItemsforDatabase(arrayListDeleteItem: ArrayList<String>) {
         repository.deleteData(getApplication(), arrayListDeleteItem)
     }
 

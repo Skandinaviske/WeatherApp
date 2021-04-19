@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.example.myweatherapp.viewmodel.MyViewModel" />
@@ -21,8 +23,8 @@
         <com.rainy.weahter_bg_plug.WeatherBg
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:setWeather="@{viewModel.repositoryforNow[1]}"
-            android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+            android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'
+            app:setWeather="@{viewModel.repositoryforNow[1]}" />
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -42,29 +44,29 @@
                     tools:context=".view.MainActivity">
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="40dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="40dp"
                         android:layout_marginEnd="15dp"
+                        android:onClick="@{(v) -> clickHandler.onClicktoActivity(v)}"
                         android:scaleType="fitEnd"
                         android:src="@drawable/city"
-                        android:onClick="@{(v) -> clickHandler.onClicktoActivity(v)}"
-                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                     <TextView
                         android:id="@+id/city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="40dp"
                         android:hint="上海"
                         android:text="@{viewModel.repositoryforLocation[1]}"
                         android:textColor="@color/white"
                         android:textSize="30sp"
                         android:textStyle="bold"
-                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                     <TextView
                         android:id="@+id/temperature"
@@ -75,129 +77,129 @@
                         android:text="@={viewModel.repositoryforNow[0]}"
                         android:textColor="@color/black"
                         android:textSize="90sp"
-                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                     <TextView
                         android:id="@+id/Unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
+                        android:layout_marginStart="100dp"
                         android:layout_marginTop="340dp"
                         android:hint="℃"
                         android:text="@={viewModel.repositoryforNow[7]}"
                         android:textColor="@color/black"
                         android:textSize="40sp"
-                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                     <TextView
                         android:id="@+id/weather_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
+                        android:layout_marginStart="100dp"
                         android:layout_marginTop="390dp"
                         android:hint="晴"
                         android:text="@={viewModel.repositoryforNow[2]}"
                         android:textColor="@color/black"
                         android:textSize="40sp"
-                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                     <TextView
                         android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_marginTop="455dp"
                         android:hint="4月10日"
                         android:text="@={viewModel.repositoryforNow[6]}"
                         android:textColor="@color/black"
                         android:textSize="16sp"
-                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                     <TextView
                         android:id="@+id/weekday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="90dp"
+                        android:layout_marginStart="90dp"
                         android:layout_marginTop="455dp"
                         android:hint="星期五"
                         android:text="@={viewModel.repositoryforNow[9]}"
                         android:textColor="@color/black"
                         android:textSize="16sp"
-                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                     <TextView
                         android:id="@+id/highandlow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="150dp"
+                        android:layout_marginStart="150dp"
                         android:layout_marginTop="455dp"
                         android:hint="18℃/11℃"
                         android:textColor="@color/black"
                         android:textSize="16sp"
-                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                     <LinearLayout
-                        android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:layout_marginTop="505dp"
-                        android:background="@drawable/shapeadditemnormal"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
+                        android:layout_marginTop="505dp"
                         android:layout_marginEnd="20dp"
+                        android:background="@drawable/shapeadditemnormal"
                         android:orientation="horizontal"
-                        android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'
-                        >
+                        android:visibility='@{viewModel.repositoryforAir[7] != null ? "visible" : "gone", default="gone"}'>
+
                         <ImageView
-                            android:layout_height="24dp"
                             android:layout_width="24dp"
-                            android:src="@drawable/air"/>
+                            android:layout_height="24dp"
+                            android:src="@drawable/air" />
+
                         <TextView
-                            android:layout_marginLeft="5dp"
-                            android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
                             android:hint="AAAA"
-                            android:text='@{viewModel.repositoryforAir[7] +" "+ viewModel.repositoryforAir[0]}'
                             android:onClick="@{(v) -> clickHandler.showCheckBox(v)}"
-                            android:textSize="18dp">
-                        </TextView>
+                            android:text='@{viewModel.repositoryforAir[7] +" "+ viewModel.repositoryforAir[0]}'
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <ProgressBar
                         android:id="@+id/progressbar"
-                        android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:indeterminateTint="@color/black"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="180dp"
                         android:layout_marginTop="320dp"
-                        android:layout_marginLeft="180dp"/>
+                        android:indeterminateTint="@color/black" />
 
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="20dp"
                     android:id="@+id/recyclerview_hour"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'>
+                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2px"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@color/gray"
                     android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="20dp"
                     android:id="@+id/recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="252dp"
+                    android:layout_marginTop="20dp"
                     android:nestedScrollingEnabled="false"
                     android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'>
 
@@ -207,12 +209,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="气象信息"
                     android:layout_marginTop="30dp"
+                    android:text="气象信息"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'/>
+                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
 
                 <androidx.gridlayout.widget.GridLayout
                     android:id="@+id/GridLayout1"
@@ -222,11 +223,11 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="50dp"
+                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'
                     app:columnCount="2"
                     app:orientation="horizontal"
                     app:rowCount="3"
-                    app:useDefaultMargins="true"
-                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'>
+                    app:useDefaultMargins="true">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -246,8 +247,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@{viewModel.repositoryforNow[3]+'℃'}"
-                            android:textSize="26sp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:textSize="26sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -261,16 +262,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="湿度"
-                            android:textSize="14sp"
-                            />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@{viewModel.repositoryforNow[4]+'%'}"
-                            android:textSize="26sp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:textSize="26sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -292,8 +292,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@{viewModel.repositoryforNow[14]+'级'}"
-                            android:textSize="26sp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:textSize="26sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -315,8 +315,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@{viewModel.repositoryforNow[15]+'%'}"
-                            android:textSize="26sp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:textSize="26sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -338,8 +338,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@{viewModel.repositoryforNow[12]+'千'+'米'}"
-                            android:textSize="26sp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:textSize="26sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -361,12 +361,11 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@{viewModel.repositoryforNow[11]+'百'+'帕'}"
-                            android:textSize="26sp"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:textSize="26sp" />
                     </LinearLayout>
                 </androidx.gridlayout.widget.GridLayout>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
-
 </layout>

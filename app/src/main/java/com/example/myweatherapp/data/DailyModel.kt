@@ -2,16 +2,16 @@ package com.example.myweatherapp.data
 
 import com.google.gson.annotations.SerializedName
 
-class DailyModel (
+class DailyModel(
     @SerializedName("date")
-    var date: String = "",
+    var date: String? = null,
 
     @SerializedName("text_day")
-    val type: String = "",
+    val type: String? = null,
 
     @SerializedName("high")
-    val high: String = "",
+    val high: String? = null,
 
     @SerializedName("low")
-    val low: String = ""
+    val low: String? = null
 )

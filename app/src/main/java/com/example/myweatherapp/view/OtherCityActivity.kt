@@ -1,10 +1,10 @@
 package com.example.myweatherapp.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ProgressBar
@@ -31,15 +31,9 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var myViewModel: MyViewModel? = null
     private var binding: ActivityOthercityBinding? = null
     private var cityname: String? = null
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_othercity
-        )
-
-        binding?.lifecycleOwner = this
 
         StatusBarUtil.setTransparent(this)
 
@@ -51,7 +45,12 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
-        //val appDatabase = AppDatabase.getDatabase(this)
+        binding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_othercity
+        )
+
+        binding?.lifecycleOwner = this
 
         myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
 

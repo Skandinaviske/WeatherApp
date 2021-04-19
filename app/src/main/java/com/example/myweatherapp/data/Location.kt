@@ -2,22 +2,22 @@ package com.example.myweatherapp.data
 
 import com.google.gson.annotations.SerializedName
 
-class Location (
+class Location(
     @SerializedName("id")
-    val id: String = "",
+    val id: String? = null,
 
     @SerializedName("name")
-    val cityname: String = "",
+    val cityname: String? = null,
 
     @SerializedName("country")
-    val country: String = "",
+    val country: String? = null,
 
     @SerializedName("path")
-    val path: String = "",
+    val path: String? = null,
 
     @SerializedName("timezone")
-    val timezone: String = "",
+    val timezone: String? = null,
 
     @SerializedName("timezone_offset")
-    val timezone_offset: String = ""
+    val timezone_offset: String? = null
 )

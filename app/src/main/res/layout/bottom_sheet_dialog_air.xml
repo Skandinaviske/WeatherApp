@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottomSheetAir"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetAir">
 
     <data>
-        <import type="androidx.core.content.ContextCompat"/>
+
+        <import type="androidx.core.content.ContextCompat" />
+
         <variable
             name="viewModel"
             type="com.example.myweatherapp.viewmodel.MyViewModel" />
@@ -14,51 +16,51 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/shapeseeaircondition"
-        >
+        android:orientation="vertical">
 
         <TextView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="空气质量"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
-            android:textSize="24sp"
+            android:text="空气质量"
             android:textColor="@color/black"
-            android:layout_marginStart="30dp"/>
+            android:textSize="24sp" />
 
         <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="30dp"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:hint="38"
-            android:textSize="80sp"
-            android:textColor="@{ContextCompat.getColor(context, Integer.parseInt(viewModel.repositoryforAir[8]))}"
-            android:text="@{viewModel.repositoryforAir[0]}" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="38"
+                android:text="@{viewModel.repositoryforAir[0]}"
+                android:textColor="@{ContextCompat.getColor(context, Integer.parseInt(viewModel.repositoryforAir[8]))}"
+                android:textSize="80sp" />
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:hint="优"
-            android:textSize="28sp"
-            android:text="@{viewModel.repositoryforAir[7]}"
-            android:textColor="@{ContextCompat.getColor(context, Integer.parseInt(viewModel.repositoryforAir[8]))}"
-            android:layout_marginLeft="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:hint="优"
+                android:text="@{viewModel.repositoryforAir[7]}"
+                android:textColor="@{ContextCompat.getColor(context, Integer.parseInt(viewModel.repositoryforAir[8]))}"
+                android:textSize="28sp" />
 
         </LinearLayout>
 
-        <TextView android:layout_height="wrap_content"
+        <TextView
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:text="@{viewModel.repositoryforSuggestion[1]}"/>
+            android:text="@{viewModel.repositoryforSuggestion[1]}" />
 
         <androidx.gridlayout.widget.GridLayout
             android:id="@+id/GridLayout1"
@@ -86,9 +88,9 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:layout_marginTop="10dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="@{viewModel.repositoryforAir[1]}"
                     android:textColor="@color/black"
                     android:textSize="26sp" />
@@ -108,9 +110,9 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:layout_marginTop="10dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="@{viewModel.repositoryforAir[4]}"
                     android:textColor="@color/black"
@@ -128,22 +130,24 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="O3"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
-                    android:layout_marginTop="10dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="right"
                     android:text="@{viewModel.repositoryforAir[6]}"
                     android:textColor="@color/black"
-                    android:textSize="26sp" />
+                    android:textSize="26sp"
+                    tools:ignore="RtlHardcoded" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="40dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:orientation="vertical"
                 app:layout_columnWeight="1">
 
@@ -154,18 +158,18 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:layout_marginTop="10dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="@{viewModel.repositoryforAir[2]}"
                     android:textColor="@color/black"
                     android:textSize="26sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="40dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:orientation="vertical"
                 app:layout_columnWeight="1">
 
@@ -177,9 +181,9 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:layout_marginTop="10dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="@{viewModel.repositoryforAir[5]}"
                     android:textColor="@color/black"
@@ -187,9 +191,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="40dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:orientation="vertical"
                 app:layout_columnWeight="1">
 
@@ -198,16 +202,18 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="SO2"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
-                    android:layout_marginTop="10dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="right"
                     android:text="@{viewModel.repositoryforAir[3]}"
                     android:textColor="@color/black"
-                    android:textSize="26sp" />
+                    android:textSize="26sp"
+                    tools:ignore="RtlHardcoded" />
             </LinearLayout>
 
         </androidx.gridlayout.widget.GridLayout>

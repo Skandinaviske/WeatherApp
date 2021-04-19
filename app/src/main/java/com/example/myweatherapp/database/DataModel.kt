@@ -5,11 +5,9 @@ import androidx.room.PrimaryKey
 import io.reactivex.annotations.NonNull
 
 @Entity(tableName = "weatherdata")
-data class DataModel (
+data class DataModel(
     @PrimaryKey
     val city: String,
     val temperature: Int,
     val type: String
-//    @NonNull
-//    val cityCN: String
 )

@@ -1,6 +1,5 @@
 package com.example.myweatherapp.datamodel
 
-
 data class BasicModel(
     val date: String,
     val type: String,

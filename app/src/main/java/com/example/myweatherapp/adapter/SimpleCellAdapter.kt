@@ -6,16 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.R
-
 
 class SimpleCellAdapter(
     private val context: Context,
     private val arrayList: ArrayList<String>
-    ) : BaseAdapter() {
+) : BaseAdapter() {
 
     override fun getItem(position: Int): Any? {
         return arrayList[position]
@@ -31,11 +28,10 @@ class SimpleCellAdapter(
 
     @SuppressLint("InflateParams", "ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var retView: View
+        val retView: View
 
-        if(convertView == null){
-            retView = LayoutInflater.from(context).
-            inflate(R.layout.simple_cell, parent, false);
+        if (convertView == null) {
+            retView = LayoutInflater.from(context).inflate(R.layout.simple_cell, parent, false);
             val currentItem = arrayList[position]
             val text = retView?.findViewById<TextView>(R.id.path)
             text?.text = currentItem

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="basicModel"
             type="com.example.myweatherapp.datamodel.BasicModel" />
@@ -18,44 +18,44 @@
             android:id="@+id/weekday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="星期x"
-            android:layout_marginStart="20dp"
-            android:text="@{basicModel.weekday}"
-            android:textSize="16sp"
             android:layout_centerVertical="true"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:layout_marginStart="20dp"
+            android:hint="星期x"
+            android:text="@{basicModel.weekday}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/weatherSD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="晴天"
+            android:layout_centerVertical="true"
             android:layout_marginStart="183dp"
-            android:textSize="16sp"
-            android:layout_centerVertical="true"
+            android:hint="晴天"
             android:text="@{basicModel.type}"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        <ImageView android:layout_height="wrap_content"
+        <ImageView
+            imageResource="@{basicModel.weatherIcon}"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="146dp"
-            imageResource="@{basicModel.weatherIcon}" />
+            android:layout_marginStart="146dp" />
 
         <TextView
             android:id="@+id/high"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="34"
-            android:layout_alignParentEnd = "true"
-            android:layout_marginEnd="20dp"
-            android:text="@{basicModel.high + '/' + basicModel.low + '℃'}"
-            android:textSize="16sp"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:textStyle="bold"
+            android:layout_marginEnd="20dp"
+            android:hint="34"
+            android:text="@{basicModel.high + '/' + basicModel.low + '℃'}"
             android:textColor="@color/black"
-            />
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 </layout>

@@ -1,6 +1,5 @@
 package com.example.myweatherapp.view
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -31,7 +30,6 @@ import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jaeger.library.StatusBarUtil
 
-
 class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var myViewModel: MyViewModel? = null
     private var binding: ActivityMainBinding? = null
@@ -44,19 +42,6 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        requestPermissions(
-//            arrayOf(
-//                Manifest.permission.ACCESS_COARSE_LOCATION,
-//                Manifest.permission.ACCESS_BACKGROUND_LOCATION
-//            ), 100
-//        )
-
-        binding = DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_main
-        )
-
-        binding?.lifecycleOwner = this
 
         StatusBarUtil.setTransparent(this)
 
@@ -68,7 +53,12 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
-        //val appDatabase = AppDatabase.getDatabase(this)
+        binding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_main
+        )
+
+        binding?.lifecycleOwner = this
 
         myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
 
@@ -82,10 +72,8 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                 if (aMapLocation.errorCode == 0) {
                     //定位成功，aMapLocation获取数据
                     cityname = aMapLocation.city
-                    cityname = cityname.substring(0,cityname.length-1)
-//                    Log.d("CurrentLiang",cityname)
-//                    cityname = "成都"
-                    //var location = MyApplication
+                    cityname = cityname.substring(0, cityname.length - 1)
+
                     MyApplication.currentLocation = cityname
 
                     if (cityname != lastcityname) {
@@ -101,7 +89,8 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
 
                                 val temBasicModel = t[0]
                                 t.removeAt(0)
-                                val textView = binding?.root?.findViewById<TextView>(R.id.highandlow)
+                                val textView =
+                                    binding?.root?.findViewById<TextView>(R.id.highandlow)
                                 textView?.text = "${temBasicModel.high}℃/${temBasicModel.low}℃"
 
                                 binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
@@ -196,22 +185,4 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         bottomSheetDialog.setContentView(binding.root)
         bottomSheetDialog.show()
     }
-
-//    @TargetApi(30)
-//    private fun Context.checkBackgroundLocationPermissionAPI30(backgroundLocationRequestCode: Int) {
-//        if (checkSinglePermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) return
-//        AlertDialog.Builder(this)
-//            .setTitle(R.string.background_location_permission_title)
-//            .setMessage(R.string.background_location_permission_message)
-//            .setPositiveButton(R.string.yes) { _,_ ->
-//                // this request will take user to Application's Setting page
-//                requestPermissions(arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), backgroundLocationRequestCode)
-//            }
-//            .setNegativeButton(R.string.no) { dialog,_ ->
-//                dialog.dismiss()
-//            }
-//            .create()
-//            .show()
-//
-//    }
 }

@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="dataModel"
             type="com.example.myweatherapp.datamodel.DataModelWithVisible" />
@@ -11,36 +12,33 @@
             type="com.example.myweatherapp.viewmodel.MyViewModel" />
     </data>
 
-
     <RelativeLayout
-        android:layout_height="100dp"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/shapeadditem"
+        android:layout_height="100dp"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/shapeadditem">
 
         <ImageView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:src="@drawable/position"
-            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:visibility="@{dataModel.icon}"
-            />
+            android:layout_marginTop="20dp"
+            android:src="@drawable/position"
+            android:visibility="@{dataModel.icon}" />
 
         <TextView
             android:id="@+id/currentCity"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="20dp"
-            android:textSize="20dp"
+            android:drawablePadding="0dp"
             android:text="@{dataModel.city}"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:drawablePadding="0dp"
-            />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,30 +49,27 @@
             android:hint="20℃"
             android:text="@{Integer.toString(dataModel.temperature)+'℃'}"
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
+
         <TextView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="15dp"
-            android:text="@{dataModel.type}"
-            android:textSize="20dp"
             android:hint="多云"
+            android:text="@{dataModel.type}"
             android:textColor="@color/white"
-            />
-
+            android:textSize="20sp" />
 
         <CheckBox
             android:id="@+id/checkbox"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:visibility="@{dataModel.isVisible}"/>
+            android:visibility="@{dataModel.isVisible}" />
 
-<!--        android:visibility="@{dataModel.isVisible}"-->
     </RelativeLayout>
-
 </layout>

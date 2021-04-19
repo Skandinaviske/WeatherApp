@@ -5,9 +5,9 @@
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/weather"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/weather"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".view.MainActivity">
@@ -18,17 +18,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.AddCityActivity"
-            android:launchMode ="singleTask"
-            />
+        <activity
+            android:name=".view.AddCityActivity"
+            android:launchMode="singleTask" />
 
         <activity android:name=".view.OtherCityActivity" />
 
-<!--        android:launchMode ="singleTask"-->
-
         <service android:name="com.amap.api.location.APSService" />
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="3a3a2c32cddd721ed1a9e1cdd9605ad2">
-        </meta-data>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="3a3a2c32cddd721ed1a9e1cdd9605ad2" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
