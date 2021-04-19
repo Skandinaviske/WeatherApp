@@ -73,18 +73,18 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
 
         doLocation()
-
         amapLocationClient.setLocationListener { aMapLocation ->
             //onLocationChanged 就是如果服务器给客户端返回数据，调用的回调函数
             // aMapLocation 就是服务器给客户端返回的定位数据
+
             if (aMapLocation != null) {
                 //服务器是有响应的
                 if (aMapLocation.errorCode == 0) {
                     //定位成功，aMapLocation获取数据
                     cityname = aMapLocation.city
-
-                    //Log.d("CurrentLiang",cityname)
-                    cityname = "成都"
+                    cityname = cityname.substring(0,cityname.length-1)
+//                    Log.d("CurrentLiang",cityname)
+//                    cityname = "成都"
                     //var location = MyApplication
                     MyApplication.currentLocation = cityname
 
@@ -164,7 +164,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         //2 给客户端句柄设置一个listenner来处理服务器返回的定位数据
 
         mLocationOption = AMapLocationClientOption()
-        mLocationOption.geoLanguage = AMapLocationClientOption.GeoLanguage.EN
+        mLocationOption.geoLanguage = AMapLocationClientOption.GeoLanguage.ZH
         mLocationOption.interval = 1000
         amapLocationClient.setLocationOption(mLocationOption)
         amapLocationClient.startLocation()

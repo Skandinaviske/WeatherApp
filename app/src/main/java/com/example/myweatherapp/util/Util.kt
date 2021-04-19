@@ -1,11 +1,14 @@
 package com.example.myweatherapp.util
 
 import android.annotation.SuppressLint
-import androidx.core.content.ContextCompat
+import android.content.Context
+import android.content.res.Configuration
+import android.util.Log
 import com.example.myweatherapp.R
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 object Util {
     fun judgeWeatherType(weatherCode: Int): String {
@@ -133,5 +136,14 @@ object Util {
             "严重污染" -> colorCode = R.color.superbrown
         }
         return colorCode
+    }
+
+    fun getScreenHeightDp(context: Context){
+
+        val configuration: Configuration = context.resources.configuration
+        val screenHeightDp: Int =
+            configuration.screenHeightDp//The current width of the available screen space, in dp units, corresponding to screen width resource qualifier.
+        Log.d("Resultiii", screenHeightDp.toString())
+
     }
 }

@@ -60,22 +60,6 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         val arrayListDataModel =
             db.DataDao().getAllData() as ArrayList<DataModel>
 
-//        Log.d("TestData", "Before------------------------------")
-//        for (i in arrListDatabase) {
-//            Log.d("TestData", "City=${i.city} 城市=${i.cityCN}")
-//        }
-//
-//        Log.d("TestData", "Show:${MyApplication.currentLocation}")
-
-//        var result = -1
-//        for ((start, i) in arrayListDataModel.withIndex()) {
-//            if (i.cityCN == "")
-//                result = start
-//        }
-//
-//        if (result != -1)
-//            arrayListDataModel.removeAt(result)
-
         var deleteCity = -1
         for ((start, i) in arrayListDataModel.withIndex()) {
             if (i.city == MyApplication.currentLocation) {
@@ -92,7 +76,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         for (i in arrayListDataModel) {
-            Log.d("TestDataII", "City=${i.city} 城市=")
+            Log.d("TestDataII", "City=${i.city}")
         }
 
         textLiveDatafromRoom?.postValue(arrayListDataModel)
@@ -102,10 +86,6 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         view.setBackgroundResource(R.drawable.selector_btn_click_text_color_blue)
         repository = repository.instance
         textLiveDataforNow = repository.getNowInfo(cityname, getApplication())
-    }
-
-    fun test(): String {
-        return "visible"
     }
 
 //    fun showDatabase() {

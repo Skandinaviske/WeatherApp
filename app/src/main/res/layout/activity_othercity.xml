@@ -198,6 +198,7 @@
                     android:id="@+id/recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="252dp"
+                    android:nestedScrollingEnabled="false"
                     android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'>
 
                 </androidx.recyclerview.widget.RecyclerView>

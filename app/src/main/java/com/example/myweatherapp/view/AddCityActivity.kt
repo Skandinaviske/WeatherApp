@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.SearchView
-import android.widget.SimpleAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -16,16 +18,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.CityManagementAdapter
-import com.example.myweatherapp.adapter.HourWeatherAdapter
+import com.example.myweatherapp.adapter.SimpleCellAdapter
 import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.ActivityAddcityBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogCityBinding
 import com.example.myweatherapp.datamodel.CitySearchModel
 import com.example.myweatherapp.datamodel.DataModelWithVisible
-import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
@@ -60,6 +62,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
             myViewModel!!.repositoryfromDatabase?.observe(this,
                 Observer<ArrayList<DataModel>> { t ->
+                    Log.d("Camehere", "TYYYYYYYYY")
                     if (arraylistDataModel == null) {
                         var model: DataModelWithVisible
 
@@ -75,6 +78,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                                     isVisible,
                                     icon
                                 )
+                            Log.d("Camehere", i.city)
                             arrayListDataModelWithVisible.add(model)
                         }
                         arrayListDataModelWithVisible[0].icon = "visible"
@@ -120,75 +124,76 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
             val bottomSheetDialog = BottomSheetDialog(view.context)
             bottomSheetDialog.setContentView(binding.root)
             bottomSheetDialog.setOnDismissListener {
+                Log.d("Goooooooo", "????????????")
                 myViewModel?.updateData()
+                Log.d("Goooooooo", "YYYYYYYYYYYY")
             }
 
             bottomSheetDialog.show()
 
             val searchView = bottomSheetDialog.findViewById<SearchView>(R.id.searchview)
 
-            if (searchView != null) {
+            searchView?.setOnClickListener {
+                val linearLayout =
+                    bottomSheetDialog.findViewById<LinearLayout>(R.id.bottomSheetLayout)
+                val layoutParams = linearLayout?.layoutParams
+                //getScreenHeightDp(this)
+                layoutParams?.height = 2800
+                linearLayout?.requestLayout()
                 searchView.isIconified = false
                 searchView.queryHint = "搜索城市"
                 searchView.setOnQueryTextListener(object :
                     SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
 
-//                        if (query != null&&query != "") {
-//                            Log.d("ZZZZZZZZZZZ", "Search words")
-//                            val cityList = ArrayList<String>()
-//                            val pathList = ArrayList<String>()
-//                            myViewModel!!.getSearch(query)
-//                            myViewModel!!.repositoryforCitySearch?.observe(
-//                                this@AddCityActivity,
-//                                Observer<ArrayList<CitySearchModel>> { t ->
-//                                    t[0].name?.let { myViewModel!!.addinDatabase(it,view) }
-//                                    t[0].name?.let { Log.d("DDDDTT", it) }
-//                                })
-//                        }
+                        if (query != null && query != "") {
+                            myViewModel!!.getSearch(query)
+                            myViewModel!!.repositoryforCitySearch?.observe(
+                                this@AddCityActivity,
+                                Observer<ArrayList<CitySearchModel>> { t ->
+                                    t[0].name?.let { myViewModel!!.addinDatabase(it, view) }
+                                })
+                        }
 
                         return false
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        if (newText != null&&newText != "") {
-                            Log.d("ZZZZZZZZZZZ", "Search words")
+                        if (newText != null && newText != "") {
                             val cityList = ArrayList<String>()
                             val pathList = ArrayList<String>()
                             myViewModel!!.getSearch(newText)
                             myViewModel!!.repositoryforCitySearch?.observe(
                                 this@AddCityActivity,
                                 Observer<ArrayList<CitySearchModel>> { t ->
+                                    for (i in t) {
+                                        i.path?.let {
+                                            pathList.add(it)
+                                        }
+                                        i.name?.let { it1 ->
+                                            cityList.add(it1)
+                                        }
+                                    }
 
+                                    val adapter = SimpleCellAdapter(
+                                        this@AddCityActivity,
+                                        pathList
+                                    )
+                                    val list =
+                                        bottomSheetDialog.findViewById<ListView>(R.id.searchList)
+                                    list?.adapter = adapter
 
-//                                    for(i in t){
-//                                        i.name?.let {
-//                                            Log.d("DDDDTT", i.name)
-//                                            cityList.add(it) }
-//                                        i.path?.let { pathList.add(it)
-//                                            Log.d("DDDTTT", i.path)
-//                                        }
-//                                    }
-
-//                                    val listItems = ArrayList<Map<String, Any>>()
-//                                    for(i in cityList.indices){
-//                                        val listItem = HashMap<String, Any>()
-//                                        listItem["name"] = cityList[i]
-//                                        listItem["path"] = pathList[i]
-//                                        listItems.add(listItem)
-//                                    }
-//                                    val simpleAdapter = SimpleAdapter(this@AddCityActivity, listItems,
-//                                    R.layout.simple_cell, arrayOf("name", "path"), intArrayOf(R.id.name, R.id.path))
-//                                    val list = bottomSheetDialog.findViewById<ListView>(R.id.searchList)
-//                                    list?.adapter = simpleAdapter
+                                    list?.onItemClickListener =
+                                        OnItemClickListener { parent, view, position, id ->
+                                            myViewModel!!.addinDatabase(cityList[position], view)
+                                            bottomSheetDialog.dismiss()
+                                        }
                                 })
                         }
-
                         return true
                     }
                 })
             }
-
         } else {
             myViewModel?.deleteItemsforDatabase(arrayListDeleteItem)
             myViewModel?.updateData()
