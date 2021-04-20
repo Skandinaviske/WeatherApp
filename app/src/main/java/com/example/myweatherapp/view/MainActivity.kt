@@ -1,8 +1,11 @@
 package com.example.myweatherapp.view
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -10,8 +13,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,15 +26,16 @@ import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.HourWeatherAdapter
-import com.example.myweatherapp.datamodel.BasicModel
 import com.example.myweatherapp.adapter.WeekWeatherAdapter
 import com.example.myweatherapp.application.MyApplication
 import com.example.myweatherapp.databinding.ActivityMainBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogAirBinding
+import com.example.myweatherapp.datamodel.BasicModel
 import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jaeger.library.StatusBarUtil
+import com.permissionx.guolindev.PermissionX
 
 class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var myViewModel: MyViewModel? = null
@@ -38,11 +45,35 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var cityname: String = "上海"
     private var lastcityname: String = ""
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "CheckResult")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            PermissionX.init(this)
+                .permissions(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                )
+                .request { allGranted, grantedList, deniedList ->
+                    if (allGranted) {
+                        Toast.makeText(this, "所有权限已申请完成", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this, "这些权限被拒绝: $deniedList", Toast.LENGTH_LONG).show()
+                    }
+                }
+        }
         StatusBarUtil.setTransparent(this)
 
         val window = this.window
@@ -185,4 +216,35 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         bottomSheetDialog.setContentView(binding.root)
         bottomSheetDialog.show()
     }
+
+    private fun checkSinglePermission(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    @TargetApi(30)
+    private fun checkBackgroundLocationPermissionAPI30(backgroundLocationRequestCode: Int) {
+        if (checkSinglePermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) return
+        AlertDialog.Builder(this)
+            .setTitle("Location Access For This App")
+            .setMessage("While using app")
+            .setPositiveButton("OK") { _, _ ->
+                // this request will take user to Application's Setting page
+                Log.d("GEEGEE", "LLLLLLLLLLLL")
+                requestPermissions(
+                    arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),
+                    backgroundLocationRequestCode
+                )
+                Log.d("GEEGEE", "AAAAAAAAAAAA")
+            }
+            .setNegativeButton("Deny") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
 }

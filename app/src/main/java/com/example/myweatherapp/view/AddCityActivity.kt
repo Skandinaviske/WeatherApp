@@ -1,5 +1,6 @@
 package com.example.myweatherapp.view
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
@@ -29,6 +30,7 @@ import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jaeger.library.StatusBarUtil
+import com.permissionx.guolindev.PermissionX
 
 class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
@@ -43,6 +45,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         StatusBarUtil.setTransparent(this)
 
         val window = this.window

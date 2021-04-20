@@ -146,7 +146,7 @@
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/shapeadditemnormal"
                         android:orientation="horizontal"
-                        android:visibility='@{viewModel.repositoryforAir[7] != null ? "visible" : "gone", default="gone"}'>
+                        android:visibility='@{viewModel.repositoryforNow[10] == null ? "gone" : viewModel.repositoryforNow[10], default="gone"}'>
 
                         <ImageView
                             android:layout_width="24dp"
