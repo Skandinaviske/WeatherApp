@@ -216,35 +216,4 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         bottomSheetDialog.setContentView(binding.root)
         bottomSheetDialog.show()
     }
-
-    private fun checkSinglePermission(permission: String): Boolean {
-        return ContextCompat.checkSelfPermission(
-            this,
-            permission
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    @TargetApi(30)
-    private fun checkBackgroundLocationPermissionAPI30(backgroundLocationRequestCode: Int) {
-        if (checkSinglePermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) return
-        AlertDialog.Builder(this)
-            .setTitle("Location Access For This App")
-            .setMessage("While using app")
-            .setPositiveButton("OK") { _, _ ->
-                // this request will take user to Application's Setting page
-                Log.d("GEEGEE", "LLLLLLLLLLLL")
-                requestPermissions(
-                    arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),
-                    backgroundLocationRequestCode
-                )
-                Log.d("GEEGEE", "AAAAAAAAAAAA")
-            }
-            .setNegativeButton("Deny") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .create()
-            .show()
-    }
-
 }

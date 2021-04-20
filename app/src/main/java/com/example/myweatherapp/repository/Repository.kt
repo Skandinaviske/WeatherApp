@@ -380,12 +380,73 @@ class Repository {
                     val model = users[0]
                     val suggestion = model.suggestion
                     val airpollution = suggestion?.airpollution
-                    val brief = airpollution?.brief
-                    val details = airpollution?.details
+                    val airpollutionBrief = airpollution?.brief
+                    val airpollutionDetails = airpollution?.details
 
-                    if (brief != null && details != null) {
-                        arraylistSuggestion.add(brief)
-                        arraylistSuggestion.add(details)
+                    val sport = suggestion?.sport
+                    val sportBrief = sport?.brief
+                    val sportDetails = sport?.details
+
+                    val carWashing = suggestion?.carWashing
+                    val carWashingBrief = carWashing?.brief
+                    val carWashingDetails = carWashing?.details
+
+                    val makeup = suggestion?.makeup
+                    val makeupBrief = makeup?.brief
+                    val makeupDetails = makeup?.details
+
+                    val sunscreen = suggestion?.sunscreen
+                    val sunscreenBrief = sunscreen?.brief
+                    val sunscreenDetails = sunscreen?.details
+
+                    val travel = suggestion?.travel
+                    val travelBrief = travel?.brief
+                    val travelDetails = travel?.details
+
+                    val dressing = suggestion?.dressing
+                    val dressingBrief = dressing?.brief
+                    val dressingDetails = dressing?.details
+
+                    val traffic = suggestion?.traffic
+                    val trafficBrief = traffic?.brief
+                    val trafficDetails = traffic?.details
+
+                    val flu = suggestion?.flu
+                    val fluBrief = flu?.brief
+                    val fluDetails = flu?.details
+
+                    if (airpollutionBrief != null && airpollutionDetails != null && sportBrief != null && sportDetails != null &&
+                        carWashingBrief != null && carWashingDetails != null && makeupBrief != null && makeupDetails != null &&
+                        sunscreenBrief != null && sunscreenDetails != null && travelBrief != null && travelDetails != null &&
+                        dressingBrief != null && dressingDetails != null && trafficBrief != null && trafficDetails != null &&
+                        fluBrief != null && fluDetails != null
+                    ) {
+                        arraylistSuggestion.add(airpollutionBrief)
+                        arraylistSuggestion.add(airpollutionDetails)
+
+                        arraylistSuggestion.add(sportBrief)
+                        arraylistSuggestion.add(sportDetails)
+
+                        arraylistSuggestion.add(carWashingBrief)
+                        arraylistSuggestion.add(carWashingDetails)          //5
+
+                        arraylistSuggestion.add(makeupBrief)
+                        arraylistSuggestion.add(makeupDetails)
+
+                        arraylistSuggestion.add(sunscreenBrief)
+                        arraylistSuggestion.add(sunscreenDetails)
+
+                        arraylistSuggestion.add(travelBrief)                //10
+                        arraylistSuggestion.add(travelDetails)
+
+                        arraylistSuggestion.add(dressingBrief)
+                        arraylistSuggestion.add(dressingDetails)
+
+                        arraylistSuggestion.add(trafficBrief)
+                        arraylistSuggestion.add(trafficDetails)                //15
+
+                        arraylistSuggestion.add(fluBrief)
+                        arraylistSuggestion.add(fluDetails)
                     }
 
                     textLiveDataforSuggestion.postValue(arraylistSuggestion)

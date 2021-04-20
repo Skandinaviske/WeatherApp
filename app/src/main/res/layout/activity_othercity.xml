@@ -365,6 +365,215 @@
                             android:textSize="26sp" />
                     </LinearLayout>
                 </androidx.gridlayout.widget.GridLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:text="生活建议"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}' />
+
+                <androidx.gridlayout.widget.GridLayout
+                    android:id="@+id/GridLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="50dp"
+                    android:visibility='@{viewModel.repositoryforNow[10], default="gone"}'
+                    app:columnCount="2"
+                    app:orientation="horizontal"
+                    app:rowCount="4"
+                    app:useDefaultMargins="true">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <ImageView
+                            android:layout_marginTop="40dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/sport" />
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text='@{viewModel.repositoryforSuggestion[2] + "户外运动"}'
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <ImageView
+                            android:layout_marginTop="40dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/carwashing" />
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text='@{viewModel.repositoryforSuggestion[4] + "洗车"}'
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <ImageView
+                            android:layout_marginTop="40dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/makeup" />
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text='@{"面部" + viewModel.repositoryforSuggestion[6]}'
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <ImageView
+                            android:layout_marginTop="40dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/sunprevent" />
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text='@{"防晒指数：" + viewModel.repositoryforSuggestion[8]}'
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <ImageView
+                            android:layout_marginTop="40dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/travel" />
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text='@{viewModel.repositoryforSuggestion[10] + "旅游"}'
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <ImageView
+                            android:layout_marginTop="40dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/clothing" />
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text='@{"穿衣" + viewModel.repositoryforSuggestion[12]}'
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <ImageView
+                            android:layout_marginTop="40dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/traffic" />
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text='@{"交通状况"+viewModel.repositoryforSuggestion[14]}'
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_columnWeight="1">
+
+                        <ImageView
+                            android:layout_marginTop="40dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/health" />
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text='@{"感冒"+viewModel.repositoryforSuggestion[16]}'
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </androidx.gridlayout.widget.GridLayout>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
