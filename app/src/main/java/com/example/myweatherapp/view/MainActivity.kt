@@ -2,7 +2,6 @@ package com.example.myweatherapp.view
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,6 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -127,6 +127,8 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                                 binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
                                 binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
                                 binding?.recyclerview?.setHasFixedSize(false)
+                                binding?.root?.findViewById<RelativeLayout>(R.id.startupBackground)?.setBackgroundResource(0)
+
                                 val initText = binding?.root?.findViewById<TextView>(R.id.initText)
                                 if (initText != null) {
                                     initText.visibility = View.GONE

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.R
-import com.example.myweatherapp.databinding.CellBinding
+import com.example.myweatherapp.databinding.CellDailyWeatherBinding
 import com.example.myweatherapp.datamodel.BasicModel
 
 class WeekWeatherAdapter(
@@ -20,7 +20,7 @@ class WeekWeatherAdapter(
             DataBindingUtil.inflate
                 (
                 LayoutInflater.from(parent.context),
-                R.layout.cell,
+                R.layout.cell_daily_weather,
                 parent,
                 false
             )
@@ -36,6 +36,6 @@ class WeekWeatherAdapter(
         holder.itemViewDataBinding.executePendingBindings()
     }
 
-    class ViewHolder(val itemViewDataBinding: CellBinding) :
+    class ViewHolder(val itemViewDataBinding: CellDailyWeatherBinding) :
         RecyclerView.ViewHolder(itemViewDataBinding.root)
 }
