@@ -46,7 +46,6 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="50dp"
-            android:hint="20℃"
             android:text="@{Integer.toString(dataModel.temperature)+'℃'}"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -58,7 +57,6 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="15dp"
-            android:hint="多云"
             android:text="@{dataModel.type}"
             android:textColor="@color/white"
             android:textSize="20sp" />

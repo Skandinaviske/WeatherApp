@@ -1,4 +1,4 @@
-package com.example.myweatherapp.view
+package com.example.myweatherapp.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -15,8 +15,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -127,7 +127,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                                 binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
                                 binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
                                 binding?.recyclerview?.setHasFixedSize(false)
-                                binding?.root?.findViewById<RelativeLayout>(R.id.startupBackground)?.setBackgroundResource(0)
+                                binding?.root?.findViewById<CoordinatorLayout>(R.id.startupBackground)?.setBackgroundResource(0)
 
                                 val initText = binding?.root?.findViewById<TextView>(R.id.initText)
                                 if (initText != null) {

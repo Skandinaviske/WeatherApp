@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.CellCitymanagementBinding
 import com.example.myweatherapp.util.Util
-import com.example.myweatherapp.view.OtherCityActivity
+import com.example.myweatherapp.activity.OtherCityActivity
 import com.example.myweatherapp.datamodel.DataModelWithVisible
 
 class CityManagementAdapter(

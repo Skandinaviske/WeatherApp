@@ -18,6 +18,8 @@ import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.retrofit.ConnectService
 import com.example.myweatherapp.retrofit.RetrofitService
 import com.example.myweatherapp.util.Util
+import com.example.myweatherapp.util.Util.giveDressingBrief
+import com.example.myweatherapp.util.Util.giveSunscreenBrief
 import com.example.myweatherapp.util.Util.judgeColor
 import retrofit2.Call
 import retrofit2.Callback
@@ -396,7 +398,7 @@ class Repository {
                     val makeupDetails = makeup?.details
 
                     val sunscreen = suggestion?.sunscreen
-                    val sunscreenBrief = sunscreen?.brief
+                    val sunscreenBrief = sunscreen?.brief?.let { giveSunscreenBrief(it) }
                     val sunscreenDetails = sunscreen?.details
 
                     val travel = suggestion?.travel
@@ -404,7 +406,7 @@ class Repository {
                     val travelDetails = travel?.details
 
                     val dressing = suggestion?.dressing
-                    val dressingBrief = dressing?.brief
+                    val dressingBrief = dressing?.brief?.let { giveDressingBrief(it) }
                     val dressingDetails = dressing?.details
 
                     val traffic = suggestion?.traffic

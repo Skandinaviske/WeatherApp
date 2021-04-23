@@ -1,6 +1,7 @@
 package com.example.myweatherapp.util
 
 import android.annotation.SuppressLint
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.R
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -109,5 +110,36 @@ object Util {
             "严重污染" -> colorCode = R.color.superbrown
         }
         return colorCode
+    }
+
+    fun isSlideToBottom(recyclerView: RecyclerView?): Boolean {
+        if (recyclerView == null) return false
+        return recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange()
+    }
+
+    fun giveSunscreenBrief(brief: String): String{
+        var giveBrief = ""
+        when(brief){
+            "弱" -> giveBrief = "不需要防晒"
+            "较弱" -> giveBrief = "轻微防嗮"
+            "中等" -> giveBrief = "适当防晒"
+            "强" -> giveBrief = "注意防嗮"
+            "极强" -> giveBrief = "特别注意防晒"
+        }
+        return giveBrief
+    }
+
+    fun giveDressingBrief(brief: String): String{
+        var giveBrief = ""
+        when(brief){
+            "炎热" -> giveBrief = "穿薄衣服"
+            "热" -> giveBrief = "穿较薄衣服"
+            "舒适" -> giveBrief = "穿衣舒适"
+            "较舒适" -> giveBrief = "穿衣较舒适"
+            "较冷" -> giveBrief = "穿稍厚衣服"
+            "冷" -> giveBrief = "穿厚衣服"
+            "寒冷" -> giveBrief = "穿保暖棉衣"
+        }
+        return giveBrief
     }
 }

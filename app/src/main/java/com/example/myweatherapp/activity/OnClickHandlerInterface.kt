@@ -1,4 +1,4 @@
-package com.example.myweatherapp.view
+package com.example.myweatherapp.activity
 
 import android.view.View
 

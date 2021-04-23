@@ -13,7 +13,7 @@
 
         <variable
             name="clickHandler"
-            type="com.example.myweatherapp.view.OnClickHandlerInterface" />
+            type="com.example.myweatherapp.activity.OnClickHandlerInterface" />
     </data>
 
     <RelativeLayout
@@ -26,7 +26,7 @@
             android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}'
             app:setWeather="@{viewModel.repositoryforNow[1]}" />
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -41,7 +41,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:context=".view.MainActivity">
+                    tools:context=".activity.MainActivity">
 
                     <ImageView
                         android:layout_width="32dp"
@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="40dp"
-                        android:hint="上海"
+                        android:hint="@string/city_template"
                         android:text="@{viewModel.repositoryforLocation[1]}"
                         android:textColor="@color/white"
                         android:textSize="30sp"
@@ -73,9 +73,9 @@
                         android:layout_width="102dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="330dp"
-                        android:hint="3"
-                        android:text="@={viewModel.repositoryforNow[0]}"
                         android:gravity="center"
+                        android:hint="@string/temperature_template"
+                        android:text="@={viewModel.repositoryforNow[0]}"
                         android:textColor="@color/black"
                         android:textSize="90sp"
                         android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}'
@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="100dp"
                         android:layout_marginTop="340dp"
-                        android:hint="℃"
+                        android:hint="@string/unit_template"
                         android:text="@={viewModel.repositoryforNow[7]}"
                         android:textColor="@color/black"
                         android:textSize="40sp"
@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="100dp"
                         android:layout_marginTop="390dp"
-                        android:hint="晴"
+                        android:hint="@string/weathertype_template"
                         android:text="@={viewModel.repositoryforNow[2]}"
                         android:textColor="@color/black"
                         android:textSize="40sp"
@@ -111,7 +111,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="455dp"
-                        android:hint="4月10日"
+                        android:hint="@string/date_template"
                         android:text="@={viewModel.repositoryforNow[6]}"
                         android:textColor="@color/black"
                         android:textSize="16sp"
@@ -123,7 +123,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="90dp"
                         android:layout_marginTop="455dp"
-                        android:hint="星期五"
+                        android:hint="@string/weekday_template"
                         android:text="@={viewModel.repositoryforNow[9]}"
                         android:textColor="@color/black"
                         android:textSize="16sp"
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="150dp"
                         android:layout_marginTop="455dp"
-                        android:hint="18℃/11℃"
+                        android:hint="@string/high_low_temperature_template"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}' />
@@ -159,7 +159,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:hint="AAAA"
                             android:onClick="@{(v) -> clickHandler.showCheckBox(v)}"
                             android:text='@{viewModel.repositoryforAir[7] +" "+ viewModel.repositoryforAir[0]}'
                             android:textSize="18sp" />
@@ -190,7 +189,7 @@
 
                 <View
                     android:layout_width="fill_parent"
-                    android:layout_height="2px"
+                    android:layout_height="2dp"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="30dp"
@@ -213,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="30dp"
-                    android:text="气象信息"
+                    android:text="@string/weather_info"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}' />
@@ -243,7 +242,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:gravity="center"
-                            android:text="体感温度"
+                            android:text="@string/feels_like_temperature"
                             android:textSize="14sp" />
 
                         <TextView
@@ -266,7 +265,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:gravity="center"
-                            android:text="湿度"
+                            android:text="@string/wet"
                             android:textSize="14sp" />
 
                         <TextView
@@ -312,7 +311,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="40dp"
                             android:gravity="center"
-                            android:text="云量"
+                            android:text="@string/cloud_values"
                             android:textSize="14sp" />
 
                         <TextView
@@ -335,7 +334,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="40dp"
                             android:gravity="center"
-                            android:text="能见度"
+                            android:text="@string/air_visibility"
                             android:textSize="14sp" />
 
                         <TextView
@@ -358,7 +357,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="40dp"
                             android:gravity="center"
-                            android:text="气压"
+                            android:text="@string/air_pressure"
                             android:textSize="14sp" />
 
                         <TextView
@@ -376,7 +375,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="30dp"
-                    android:text="生活建议"
+                    android:text="@string/life_suggestion"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}' />
@@ -482,7 +481,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
                             android:gravity="center"
-                            android:text='@{"防晒指数：" + viewModel.repositoryforSuggestion[8]}'
+                            android:text='@{viewModel.repositoryforSuggestion[8]}'
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -528,7 +527,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
                             android:gravity="center"
-                            android:text='@{"穿衣" + viewModel.repositoryforSuggestion[12]}'
+                            android:text='@{viewModel.repositoryforSuggestion[12]}'
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -579,7 +578,18 @@
                             android:textSize="16sp" />
                     </LinearLayout>
                 </androidx.gridlayout.widget.GridLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/data_supplement"
+                    android:textColor="@color/gray_text"
+                    app:drawableStartCompat="@drawable/floatingcloud"
+                    android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}'/>
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 </layout>

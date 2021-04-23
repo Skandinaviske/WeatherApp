@@ -1,6 +1,5 @@
-package com.example.myweatherapp.view
+package com.example.myweatherapp.activity
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
@@ -14,10 +13,12 @@ import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.CityManagementAdapter
 import com.example.myweatherapp.adapter.SimpleCellAdapter
@@ -26,11 +27,11 @@ import com.example.myweatherapp.databinding.ActivityAddcityBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogCityBinding
 import com.example.myweatherapp.datamodel.CitySearchModel
 import com.example.myweatherapp.datamodel.DataModelWithVisible
+import com.example.myweatherapp.util.Util.isSlideToBottom
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jaeger.library.StatusBarUtil
-import com.permissionx.guolindev.PermissionX
 
 class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
@@ -63,6 +64,25 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         )
 
         binding?.lifecycleOwner = this
+
+        binding?.recyclerview?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(
+                recyclerView: RecyclerView,
+                newState: Int
+            ) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int
+            ) {
+                super.onScrolled(recyclerView, dx, dy)
+                binding!!.root.findViewById<FloatingActionButton>(R.id.floatingactionbutton).isVisible =
+                    !isSlideToBottom(recyclerView)
+            }
+        })
 
         myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
 

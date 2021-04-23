@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/weather"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,10 +19,10 @@
         </activity>
 
         <activity
-            android:name=".view.AddCityActivity"
+            android:name=".activity.AddCityActivity"
             android:launchMode="singleTask" />
 
-        <activity android:name=".view.OtherCityActivity" />
+        <activity android:name=".activity.OtherCityActivity" />
 
         <service android:name="com.amap.api.location.APSService" />
         <meta-data
