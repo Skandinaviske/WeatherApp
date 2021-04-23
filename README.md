@@ -25,9 +25,11 @@ The coding language of this app is Kotlin.
 
 
 #### Home Page:
-<center class="half">
-	<img width="200" src="https://github.com/Skandinaviske/WeatherApp/blob/master/IMG/Home 1.jpg" style="zoom:25%;" /><img width="200" src="https://github.com/Skandinaviske/WeatherApp/blob/master/IMG/Home 2.jpg" alt="Home 2" style="zoom:25%;" /><img  width="200" src="https://github.com/Skandinaviske/WeatherApp/blob/master/IMG/Air Condition.jpg" alt="Air Condition" style="zoom:25%;" /><img 
-</center>
+<p float="left">
+	<img width="200" src="https://github.com/Skandinaviske/WeatherApp/blob/master/IMG/Home 1.jpg"/>
+	<img width="200" src="https://github.com/Skandinaviske/WeatherApp/blob/master/IMG/Home 2.jpg"/>
+	<img  width="200" src="https://github.com/Skandinaviske/WeatherApp/blob/master/IMG/Air Condition.jpg"/><img 
+</p>
 
 #### City Management:
 
