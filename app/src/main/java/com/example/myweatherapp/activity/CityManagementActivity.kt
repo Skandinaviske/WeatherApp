@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView.OnItemClickListener
@@ -28,12 +27,22 @@ import com.example.myweatherapp.databinding.BottomSheetDialogCityBinding
 import com.example.myweatherapp.datamodel.CitySearchModel
 import com.example.myweatherapp.datamodel.DataModelWithVisible
 import com.example.myweatherapp.util.Util.isSlideToBottom
+import com.example.myweatherapp.view.OnClickHandlerInterface
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jaeger.library.StatusBarUtil
 
-class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
+
+/*
+* File         : CityManagementActivity
+* Description  : This class is the view of City Management, we can add city, delete city, call BottomsheetDialog here.
+*                All the city you want to see will display in this view.
+* Author       : Ailwyn Liang
+* Date         : 2021-4-23
+*/
+
+class CityManagementActivity : OnClickHandlerInterface, AppCompatActivity() {
 
     private var binding: ActivityAddcityBinding? = null
     private var myViewModel: MyViewModel? = null
@@ -47,6 +56,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //Set immersion view
         StatusBarUtil.setTransparent(this)
 
         val window = this.window
@@ -58,6 +68,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
+        //bind view
         binding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_addcity
@@ -65,6 +76,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
         binding?.lifecycleOwner = this
 
+        //Set scroll action, when we slide to the bottom, the floatingActionButton will disappear
         binding?.recyclerview?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(
                 recyclerView: RecyclerView,
@@ -94,6 +106,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
             binding?.viewModel = myViewModel
             binding?.clickHandler = this
 
+            //Observe data, when data changes, refresh the recyclerview
             myViewModel!!.repositoryfromDatabase?.observe(this,
                 Observer<ArrayList<DataModel>> { t ->
                     if (arraylistDataModel == null) {
@@ -109,7 +122,6 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                                     isVisible,
                                     icon
                                 )
-                            Log.d("Camehere", i.city)
                             arrayListDataModelWithVisible.add(model)
                         }
                         arrayListDataModelWithVisible[0].icon = "visible"
@@ -137,10 +149,12 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     override fun onClicktoActivity(view: View) {
     }
 
+    //when click on the back button, back to MainActivity
     override fun onFinish(view: View) {
         (view.context as Activity).finish()
     }
 
+    //when click on the floatingActionButton, you can pop up the bottomSheetDialog or delete city items
     override fun onClickFloatingActionButton(view: View) {
         if (isVisible == "gone") {
             val binding: BottomSheetDialogCityBinding = DataBindingUtil.inflate(
@@ -165,24 +179,27 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                 val linearLayout =
                     bottomSheetDialog.findViewById<LinearLayout>(R.id.bottomSheetLayout)
                 val layoutParams = linearLayout?.layoutParams
-                //getScreenHeightDp(this)
                 layoutParams?.height = 2800
                 linearLayout?.requestLayout()
                 searchView.isIconified = false
                 searchView.queryHint = "搜索城市"
+
+                //Set searchBox listener
                 searchView.setOnQueryTextListener(object :
                     SearchView.OnQueryTextListener {
+
+                    //When we click submit and the word will add in the database and display on the view
                     override fun onQueryTextSubmit(query: String?): Boolean {
 
                         if (query != null && query != "") {
                             myViewModel!!.getSearch(query)
                             myViewModel!!.repositoryforCitySearch?.observe(
-                                this@AddCityActivity,
+                                this@CityManagementActivity,
                                 Observer<ArrayList<CitySearchModel>> { t ->
                                     t[0].name?.let { myViewModel!!.addinDatabase(it, view) }
                                 })
                             Toast.makeText(
-                                this@AddCityActivity,
+                                this@CityManagementActivity,
                                 "${query}已被添加到城市列表中",
                                 Toast.LENGTH_SHORT
                             ).show()
@@ -191,13 +208,15 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                         return true
                     }
 
+                    /* When the search city content changes, it will display 10 relevant city words which is closed to
+                    what we type in the search box */
                     override fun onQueryTextChange(newText: String?): Boolean {
                         if (newText != null && newText != "") {
                             val cityList = ArrayList<String>()
                             val pathList = ArrayList<String>()
                             myViewModel!!.getSearch(newText)
                             myViewModel!!.repositoryforCitySearch?.observe(
-                                this@AddCityActivity,
+                                this@CityManagementActivity,
                                 Observer<ArrayList<CitySearchModel>> { t ->
                                     for (i in t) {
                                         i.path?.let {
@@ -209,7 +228,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                                     }
 
                                     val adapter = SimpleCellAdapter(
-                                        this@AddCityActivity,
+                                        this@CityManagementActivity,
                                         pathList
                                     )
                                     val list =
@@ -233,6 +252,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         }
     }
 
+    //show checkbox on the items to decide which one to delete
     override fun showCheckBox(view: View) {
         isVisible = if (isVisible == "gone")
             "visible"
@@ -251,6 +271,7 @@ class AddCityActivity : OnClickHandlerInterface, AppCompatActivity() {
             floatingActionButton?.setImageResource(R.drawable.add)
     }
 
+    //When back to the view, refresh the city item
     override fun onNewIntent(intent: Intent?) {
         val weatherType = intent?.getStringExtra("weathertype")
         val temperature = intent?.getStringExtra("temperature")

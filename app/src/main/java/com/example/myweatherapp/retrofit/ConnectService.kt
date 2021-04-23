@@ -8,7 +8,9 @@ import retrofit2.http.Query
 
 interface ConnectService {
 
-    //"now.json?key=S69J9uyzmkgblruE-&location={city}&language=zh-Hans&unit=c&start=1&days=7/"
+    //Template:"now.json?key=S69J9uyzmkgblruE-&location={city}&language=zh-Hans&unit=c&start=1&days=7/"
+
+    //Get current weather information
     @GET("now.json")
     fun getStringArrayListfornow(
         @Query("key") key: String,
@@ -17,6 +19,7 @@ interface ConnectService {
         @Query("unit") unit: String
     ): Call<Result>
 
+    //Get daily weather information
     @GET("daily.json")
     fun getStringArrayListfordaily(
         @Query("key") key: String,
@@ -27,6 +30,7 @@ interface ConnectService {
         @Query("days") days: String
     ): Call<Result>
 
+    //Get hourly weather information
     @GET("hourly.json")
     fun getStringArrayListforhourly(
         @Query("key") key: String,
@@ -45,6 +49,7 @@ interface ConnectService {
         @Query("scope") scope: String
     ): Call<Result>
 
+    //Get the search city result
     @GET("search.json")
     fun getStringArraySearchCity(
         @Query("key") key: String,
@@ -52,6 +57,7 @@ interface ConnectService {
         @Query("language") language: String
     ): Call<Results>
 
+    //Get the life suggestions
     @GET("suggestion.json")
     fun getStringArraySuggestion(
         @Query("key") key: String,

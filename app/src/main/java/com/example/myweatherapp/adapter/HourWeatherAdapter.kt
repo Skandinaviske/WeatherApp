@@ -8,6 +8,13 @@ import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.CellHourweatherBinding
 import com.example.myweatherapp.datamodel.HourDataModel
 
+
+/*
+* File         : HourWeatherAdapter
+* Description  : This adapter relates to the recyclerview ( weather and temperature per hour) on MainActivity and OtherCityActivity
+* Date         : 2021-4-23
+*/
+
 class HourWeatherAdapter(
     private val items: ArrayList<HourDataModel>
 ) :

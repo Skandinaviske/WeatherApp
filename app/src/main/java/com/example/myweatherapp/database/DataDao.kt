@@ -3,6 +3,13 @@ package com.example.myweatherapp.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
+/*
+* File         : AppDatabase
+* Description  : This class defines the basic database operating functions
+* Date         : 2021-4-23
+*/
+
+
 @Dao
 interface DataDao {
     @Query("SELECT * FROM weatherdata")

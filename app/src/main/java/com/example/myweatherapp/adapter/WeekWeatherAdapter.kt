@@ -8,6 +8,13 @@ import com.example.myweatherapp.R
 import com.example.myweatherapp.databinding.CellDailyWeatherBinding
 import com.example.myweatherapp.datamodel.BasicModel
 
+
+/*
+* File         : WeekWeatherAdapter
+* Description  : This adapter relates to the recyclerview ( weather and temperature in the next seven days ) on MainActivity and OtherCityActivity
+* Date         : 2021-4-23
+*/
+
 class WeekWeatherAdapter(
     private val items: ArrayList<BasicModel>
 ) :

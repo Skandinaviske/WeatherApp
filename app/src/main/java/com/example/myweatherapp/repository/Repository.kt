@@ -27,6 +27,15 @@ import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
+
+/*
+* File         : Repository
+* Description  : The repository layer. We can get the API data from the Internet or get data from
+*                the local database by this class.
+* Author       : Ailwyn Liang
+* Date         : 2021-4-23
+*/
+
 class Repository {
     private var repository: Repository? = null
     private var textLiveDataforNow = MutableLiveData<ArrayList<String>>()
@@ -38,6 +47,8 @@ class Repository {
     private var textLiveDataforSuggestion = MutableLiveData<ArrayList<String>>()
     private var textLiveDatafromRoom = MutableLiveData<ArrayList<DataModel>>()
     private var arrayListDataModel: ArrayList<DataModel> = ArrayList<DataModel>()
+
+    // the sercet key of Xin Zhi API
     private val TIANQI_API_SECRET_KEY = "SsWmmG_GwpNLboKR6"
     private val LANGUAGE_NAME = "zh-Hans"
     private val UNIT = "c"
@@ -61,6 +72,7 @@ class Repository {
     private val createServiceSuggestion: ConnectService =
         RetrofitService.createServiceSuggestion(ConnectService::class.java)
 
+    // get the current weather information
     fun getNowInfo(cityname: String, application: Application): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> =
             connectService.getStringArrayListfornow(
@@ -104,7 +116,7 @@ class Repository {
                         arrayList.add(date)
                         arrayList.add("℃")
                         arrayList.add("gone")
-                        arrayList.add(Util.getWeekOfCurrentDate())
+                        arrayList.add(Util.getWeekdayOfCurrentDate())
                         arrayList.add("visible")               //10
                         arrayList.add(pressure)
                         arrayList.add(visibility)
@@ -131,6 +143,7 @@ class Repository {
         return textLiveDataforNow
     }
 
+    // get the current location information
     fun getLocationInfo(cityname: String): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> = connectService.getStringArrayListfornow(
             TIANQI_API_SECRET_KEY,
@@ -176,6 +189,7 @@ class Repository {
         return textLiveDataforLocation
     }
 
+    // get weather information in 7 days
     fun getDailyInfo(cityname: String): MutableLiveData<ArrayList<BasicModel>> {
         val call: Call<Result> = connectService.getStringArrayListfordaily(
             TIANQI_API_SECRET_KEY,
@@ -202,10 +216,10 @@ class Repository {
                         val low = dailyModel?.get(i)?.low
                         var weekday: String? = ""
                         weekday =
-                            if (date?.let { Util.getWeekOfDate(it) } == Util.getWeekOfTomorrow())
+                            if (date?.let { Util.getWeekdayOfDate(it) } == Util.getWeekdayOfTomorrow())
                                 "明天"
                             else
-                                date?.let { Util.getWeekOfDate(it) }
+                                date?.let { Util.getWeekdayOfDate(it) }
                         val weatherIcon: Int? = type?.let { Util.judgeWeatherType(it) }
                         if (date != null && type != null &&
                             high != null && low != null &&
@@ -236,6 +250,7 @@ class Repository {
         return textLiveDataforDaily
     }
 
+    // get the weather information per hour today and the next day
     fun getHourlyInfo(cityname: String): MutableLiveData<ArrayList<HourDataModel>> {
         val call: Call<Result> = connectService.getStringArrayListforhourly(
             TIANQI_API_SECRET_KEY,
@@ -288,6 +303,7 @@ class Repository {
         return textLiveDataforHourDataModel
     }
 
+    // get the current air condition information
     fun getAirInfo(cityname: String): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> = connectServiceforAir.getStringArrayListforAir(
             TIANQI_API_SECRET_KEY,
@@ -335,6 +351,7 @@ class Repository {
         return textLiveDataforAir
     }
 
+    // get the ten related cities relates to the query we search
     fun getCityListInfo(query: String): MutableLiveData<ArrayList<CitySearchModel>> {
         val call: Call<Results> = connectServiceforCityList.getStringArraySearchCity(
             TIANQI_API_SECRET_KEY,
@@ -367,6 +384,7 @@ class Repository {
         return textLiveDataforCitySearch
     }
 
+    // get the current life suggestions
     fun getSuggestion(cityname: String): MutableLiveData<ArrayList<String>> {
         val call: Call<Result> = createServiceSuggestion.getStringArraySuggestion(
             TIANQI_API_SECRET_KEY,
@@ -463,6 +481,7 @@ class Repository {
         return textLiveDataforSuggestion
     }
 
+    // get data from the database
     fun getData(application: Application): MutableLiveData<ArrayList<DataModel>> {
         val db = AppDatabase.getDatabase(application)
         arrayListDataModel =
@@ -487,6 +506,7 @@ class Repository {
         return textLiveDatafromRoom
     }
 
+    // delete data in the database
     fun deleteData(application: Application, arrayListDeleteItem: ArrayList<String>) {
         val db = AppDatabase.getDatabase(application)
 
@@ -496,6 +516,7 @@ class Repository {
         }
     }
 
+    // update data in the database
     fun updateData(application: Application, cityname: String, dataModel: DataModel) {
         val db = AppDatabase.getDatabase(application)
         db.DataDao().updateData(dataModel.city, dataModel.temperature, dataModel.type)

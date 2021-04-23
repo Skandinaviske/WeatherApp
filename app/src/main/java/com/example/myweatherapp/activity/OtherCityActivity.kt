@@ -22,9 +22,19 @@ import com.example.myweatherapp.database.DataModel
 import com.example.myweatherapp.databinding.ActivityOthercityBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogAirBinding
 import com.example.myweatherapp.datamodel.HourDataModel
+import com.example.myweatherapp.view.OnClickHandlerInterface
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jaeger.library.StatusBarUtil
+
+
+/*
+* File         : OtherCityActivity
+* Description  : This class can show the weather information of other cities including the weather and the
+*                temperature per hour, the weather in 7 days, and some life suggestions
+* Author       : Ailwyn Liang
+* Date         : 2021-4-23
+*/
 
 class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
@@ -35,6 +45,7 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //Set immersion view
         StatusBarUtil.setTransparent(this)
 
         val window = this.window
@@ -45,6 +56,7 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
+        //bind view
         binding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_othercity
@@ -54,10 +66,6 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
         myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
 
-        //onLocationChanged 就是如果服务器给客户端返回数据，调用的回调函数
-        // aMapLocation 就是服务器给客户端返回的定位数据
-        //服务器是有响应的
-        //定位成功，aMapLocation获取数据
         val intent = intent
 
         cityname = intent.getStringExtra("cityname")
@@ -66,6 +74,8 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         }
         binding?.viewModel = myViewModel
         binding?.clickHandler = this
+
+        //Observe daily data, when data changes, refresh the recyclerview
         myViewModel!!.repositoryforDaily?.observe(this, Observer<ArrayList<BasicModel>> { t ->
 
             val temBasicModel = t[0]
@@ -82,6 +92,7 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
             }
         })
 
+        //Observe hourly weather information data, when data changes, refresh the recyclerview
         myViewModel!!.repositoryforHourDataModel?.observe(
             this,
             Observer<ArrayList<HourDataModel>> { t ->
@@ -103,7 +114,7 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
 
     override fun onClicktoActivity(view: View) {
         val context: Context = view.context
-        val intent = Intent(context, AddCityActivity::class.java)
+        val intent = Intent(context, CityManagementActivity::class.java)
         intent.putExtra("temperature",myViewModel!!.repositoryforNow?.value?.get(0))
         intent.putExtra("weathertype",myViewModel!!.repositoryforNow?.value?.get(2))
         intent.putExtra("cityname", cityname)
@@ -116,6 +127,7 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     override fun onClickFloatingActionButton(view: View) {
     }
 
+    //Pop up the bottomSheetDialog of the air condition
     override fun showCheckBox(view: View) {
         val binding: BottomSheetDialogAirBinding = DataBindingUtil.inflate(
             LayoutInflater.from(view.context),

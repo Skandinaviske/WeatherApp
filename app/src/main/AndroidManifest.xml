@@ -19,7 +19,7 @@
         </activity>
 
         <activity
-            android:name=".activity.AddCityActivity"
+            android:name=".activity.CityManagementActivity"
             android:launchMode="singleTask" />
 
         <activity android:name=".activity.OtherCityActivity" />

@@ -4,6 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import io.reactivex.annotations.NonNull
 
+//The database data model
+
 @Entity(tableName = "weatherdata")
 data class DataModel(
     @PrimaryKey

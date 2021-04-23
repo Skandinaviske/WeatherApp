@@ -1,4 +1,4 @@
-package com.example.myweatherapp
+package com.example.myweatherapp.util
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
+
+//Set over-scroll behavior
 
 class OverScrollBounceBehavior(context: Context, attrs: AttributeSet) :
     CoordinatorLayout.Behavior<View>() {

@@ -5,6 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+
+/*
+* File         : AppDatabase
+* Description  : This class defines the database operating
+* Date         : 2021-4-23
+*/
+
 @Database(entities = [DataModel::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 

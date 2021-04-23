@@ -5,6 +5,8 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.rainy.weahter_bg_plug.WeatherBg
 
+//Use BindingAdapter to bind other functions in layout files.
+
 class BindingAdapter {
     companion object {
         @BindingAdapter("app:setWeather")

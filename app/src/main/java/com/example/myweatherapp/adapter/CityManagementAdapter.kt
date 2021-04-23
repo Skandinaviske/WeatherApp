@@ -12,6 +12,13 @@ import com.example.myweatherapp.util.Util
 import com.example.myweatherapp.activity.OtherCityActivity
 import com.example.myweatherapp.datamodel.DataModelWithVisible
 
+
+/*
+* File         : CityManagementAdapter
+* Description  : This adapter relates to the recyclerview on CityManagementActivity
+* Date         : 2021-4-23
+*/
+
 class CityManagementAdapter(
     private val items: ArrayList<DataModelWithVisible>,
     context: Context,
@@ -45,6 +52,8 @@ class CityManagementAdapter(
 
         val type = items[position].type
         val city = items[position].city
+
+        //We can change the background color according to the different weather type
         when (Util.judgeWeatherColor(type)) {
             1 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightblue)
             2 -> holder.itemViewDataBinding.root.setBackgroundResource(R.drawable.shapelightgreen)

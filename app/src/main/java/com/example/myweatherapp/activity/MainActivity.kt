@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -32,10 +31,20 @@ import com.example.myweatherapp.databinding.ActivityMainBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogAirBinding
 import com.example.myweatherapp.datamodel.BasicModel
 import com.example.myweatherapp.datamodel.HourDataModel
+import com.example.myweatherapp.view.OnClickHandlerInterface
 import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jaeger.library.StatusBarUtil
 import com.permissionx.guolindev.PermissionX
+
+
+/*
+* File         : MainActivity
+* Description  : This class is the first view activity, it shows all the weather information including the weather
+*                and the temperature per hour, the weather in 7 days, and some life suggestions
+* Author       : Ailwyn Liang
+* Date         : 2021-4-23
+*/
 
 class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var myViewModel: MyViewModel? = null
@@ -49,13 +58,15 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Ask the location permission when the user first use this app
         if (ContextCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(
+            ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(
+            ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
@@ -74,6 +85,8 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                     }
                 }
         }
+
+        //Set immersion view
         StatusBarUtil.setTransparent(this)
 
         val window = this.window
@@ -84,6 +97,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
+        //bind view
         binding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_main
@@ -93,15 +107,17 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
 
         myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
 
+        //get current location
         doLocation()
+
+        //When the server gives data back, show specific information
         amapLocationClient.setLocationListener { aMapLocation ->
-            //onLocationChanged 就是如果服务器给客户端返回数据，调用的回调函数
-            // aMapLocation 就是服务器给客户端返回的定位数据
+            // aMapLocation is the position data
 
             if (aMapLocation != null) {
-                //服务器是有响应的
+                //The server has callback
                 if (aMapLocation.errorCode == 0) {
-                    //定位成功，aMapLocation获取数据
+                    //Position successfully
                     cityname = aMapLocation.city
                     cityname = cityname.substring(0, cityname.length - 1)
 
@@ -114,6 +130,8 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                         val city = binding?.root?.findViewById<TextView>(R.id.city)
 
                         city?.text = cityname
+
+                        //Observe daily data, when data changes, refresh the recyclerview
                         myViewModel!!.repositoryforDaily?.observe(
                             this,
                             Observer<ArrayList<BasicModel>> { t ->
@@ -127,7 +145,8 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                                 binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
                                 binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
                                 binding?.recyclerview?.setHasFixedSize(false)
-                                binding?.root?.findViewById<CoordinatorLayout>(R.id.startupBackground)?.setBackgroundResource(0)
+                                binding?.root?.findViewById<CoordinatorLayout>(R.id.startupBackground)
+                                    ?.setBackgroundResource(0)
 
                                 val initText = binding?.root?.findViewById<TextView>(R.id.initText)
                                 if (initText != null) {
@@ -135,6 +154,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                                 }
                             })
 
+                        //Observe hourly weather information data, when data changes, refresh the recyclerview
                         myViewModel!!.repositoryforHourDataModel?.observe(
                             this,
                             Observer<ArrayList<HourDataModel>> { t ->
@@ -148,7 +168,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                     }
                     lastcityname = cityname
                 } else {
-                    //定位失败，
+                    //Position failed
                     Log.e(
                         "Amap",
                         "location error, code = " + aMapLocation.errorCode + ", info = " + aMapLocation.errorInfo
@@ -179,12 +199,10 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         }
     }
 
+    //get current location
     private fun doLocation() {
-        //1 创建一个客户端定位句柄
         cityname = "shanghai"
         amapLocationClient = AMapLocationClient(this)
-        //2 给客户端句柄设置一个listenner来处理服务器返回的定位数据
-
         mLocationOption = AMapLocationClientOption()
         mLocationOption.geoLanguage = AMapLocationClientOption.GeoLanguage.ZH
         mLocationOption.interval = 1000
@@ -192,10 +210,10 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         amapLocationClient.startLocation()
     }
 
+    //click to go to the AddCityActivity
     override fun onClicktoActivity(view: View) {
         val context: Context = view.context
-        //Log.d("TestLiang", "Cityname is $cityname")
-        val intent: Intent = Intent(context, AddCityActivity::class.java)
+        val intent: Intent = Intent(context, CityManagementActivity::class.java)
         intent.putExtra("cityname", cityname)
         context.startActivity(intent)
     }
@@ -206,6 +224,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     override fun onClickFloatingActionButton(view: View) {
     }
 
+    //Pop up the bottomSheetDialog of the air condition
     override fun showCheckBox(view: View) {
         val binding: BottomSheetDialogAirBinding = DataBindingUtil.inflate(
             LayoutInflater.from(view.context),

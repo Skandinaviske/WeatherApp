@@ -9,6 +9,12 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.myweatherapp.R
 
+/*
+* File         : SimpleCellAdapter
+* Description  : This adapter relates to the search listview in bottom_sheet_dialog_city.xml
+* Date         : 2021-4-23
+*/
+
 class SimpleCellAdapter(
     private val context: Context,
     private val arrayList: ArrayList<String>

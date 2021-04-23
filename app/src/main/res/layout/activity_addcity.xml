@@ -12,7 +12,7 @@
 
         <variable
             name="clickHandler"
-            type="com.example.myweatherapp.activity.OnClickHandlerInterface" />
+            type="com.example.myweatherapp.view.OnClickHandlerInterface" />
 
         <variable
             name="activity"

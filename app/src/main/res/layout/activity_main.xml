@@ -13,7 +13,7 @@
 
         <variable
             name="clickHandler"
-            type="com.example.myweatherapp.activity.OnClickHandlerInterface" />
+            type="com.example.myweatherapp.view.OnClickHandlerInterface" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:scrollbars="vertical"
-            app:layout_behavior="com.example.myweatherapp.OverScrollBounceBehavior">
+            app:layout_behavior="com.example.myweatherapp.util.OverScrollBounceBehavior">
 
             <LinearLayout
                 android:layout_width="match_parent"

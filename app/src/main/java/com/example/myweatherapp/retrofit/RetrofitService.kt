@@ -4,6 +4,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.Executors
 
+//Build Retrofit service in this class
+
 object RetrofitService {
 
     private const val baseurl =

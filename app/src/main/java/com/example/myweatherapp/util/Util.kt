@@ -7,7 +7,15 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+
+/*
+* File         : Util
+* Description  : This class contains all the utils in this app, which can make coding more convenient.
+* Date         : 2021-4-23
+*/
+
 object Util {
+    //judge the weather type by the return codes
     fun judgeWeatherType(weatherCode: Int): String {
         var result: String = "sunny"
         when (weatherCode) {
@@ -30,6 +38,7 @@ object Util {
         return result
     }
 
+    //judge the weather type and return the weather icon
     fun judgeWeatherType(weatherType: String): Int {
         var result: Int = 0
         when (weatherType) {
@@ -48,8 +57,9 @@ object Util {
         return result
     }
 
+    //get the weekday of the given date
     @SuppressLint("SimpleDateFormat")
-    fun getWeekOfDate(date: String): String {
+    fun getWeekdayOfDate(date: String): String {
         val weekDays = arrayListOf<String>("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
         val calendar = Calendar.getInstance()
         calendar.time = SimpleDateFormat("yyyy-MM-dd").parse(date)
@@ -59,7 +69,8 @@ object Util {
         return weekDays[week]
     }
 
-    fun getWeekOfCurrentDate(): String {
+    //get the weekday of the given date
+    fun getWeekdayOfCurrentDate(): String {
         val weekDays = arrayListOf<String>("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
         val calendar = Calendar.getInstance()
         calendar.time = Calendar.getInstance().time
@@ -69,7 +80,8 @@ object Util {
         return weekDays[week]
     }
 
-    fun getWeekOfTomorrow(): String {
+    //get the weekday of tomorrow
+    fun getWeekdayOfTomorrow(): String {
         val weekDays = arrayListOf<String>("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
         val calendar = Calendar.getInstance()
         calendar.time = Calendar.getInstance().time
@@ -79,6 +91,7 @@ object Util {
         return weekDays[week]
     }
 
+    //get current date
     @SuppressLint("SimpleDateFormat")
     fun getCurrentDate(): String {
         val dateFormat: DateFormat = SimpleDateFormat("MMMdd日")
@@ -86,6 +99,7 @@ object Util {
         //textDate?.postValue(dateFormat.format(Calendar.getInstance().time))
     }
 
+    //judge weather and return color codes
     fun judgeWeatherColor(weatherType: String): Int {
         var result: Int = 0
         when (weatherType) {
@@ -98,7 +112,7 @@ object Util {
         return result
     }
 
-    //优、良、轻度污染、中度污染、重度污染、严重污染
+    //judge air quality and return color of the text
     fun judgeColor(quality: String): Int {
         var colorCode = 0
         when (quality) {
@@ -112,11 +126,13 @@ object Util {
         return colorCode
     }
 
+    //judge whether the recyclerview slides to the bottom
     fun isSlideToBottom(recyclerView: RecyclerView?): Boolean {
         if (recyclerView == null) return false
         return recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange()
     }
 
+    //give sun screen suggestions
     fun giveSunscreenBrief(brief: String): String{
         var giveBrief = ""
         when(brief){
@@ -129,6 +145,7 @@ object Util {
         return giveBrief
     }
 
+    //give sun dressing suggestions
     fun giveDressingBrief(brief: String): String{
         var giveBrief = ""
         when(brief){
