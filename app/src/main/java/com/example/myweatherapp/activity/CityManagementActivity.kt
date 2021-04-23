@@ -91,8 +91,8 @@ class CityManagementActivity : OnClickHandlerInterface, AppCompatActivity() {
                 dy: Int
             ) {
                 super.onScrolled(recyclerView, dx, dy)
-                binding!!.root.findViewById<FloatingActionButton>(R.id.floatingactionbutton).isVisible =
-                    !isSlideToBottom(recyclerView)
+//                binding!!.root.findViewById<FloatingActionButton>(R.id.floatingactionbutton).isVisible =
+//                    !isSlideToBottom(recyclerView)
             }
         })
 
