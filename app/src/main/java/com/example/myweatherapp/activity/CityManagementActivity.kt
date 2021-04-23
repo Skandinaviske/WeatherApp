@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView.OnItemClickListener
@@ -22,7 +23,7 @@ import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.CityManagementAdapter
 import com.example.myweatherapp.adapter.SimpleCellAdapter
 import com.example.myweatherapp.database.DataModel
-import com.example.myweatherapp.databinding.ActivityAddcityBinding
+import com.example.myweatherapp.databinding.ActivityCitymanagementBinding
 import com.example.myweatherapp.databinding.BottomSheetDialogCityBinding
 import com.example.myweatherapp.datamodel.CitySearchModel
 import com.example.myweatherapp.datamodel.DataModelWithVisible
@@ -44,7 +45,7 @@ import com.jaeger.library.StatusBarUtil
 
 class CityManagementActivity : OnClickHandlerInterface, AppCompatActivity() {
 
-    private var binding: ActivityAddcityBinding? = null
+    private var binding: ActivityCitymanagementBinding? = null
     private var myViewModel: MyViewModel? = null
     private var arraylistDataModel: ArrayList<DataModel>? = null
     private var adapter: CityManagementAdapter? = null
@@ -71,7 +72,7 @@ class CityManagementActivity : OnClickHandlerInterface, AppCompatActivity() {
         //bind view
         binding = DataBindingUtil.setContentView(
             this,
-            R.layout.activity_addcity
+            R.layout.activity_citymanagement
         )
 
         binding?.lifecycleOwner = this
@@ -91,8 +92,13 @@ class CityManagementActivity : OnClickHandlerInterface, AppCompatActivity() {
                 dy: Int
             ) {
                 super.onScrolled(recyclerView, dx, dy)
-//                binding!!.root.findViewById<FloatingActionButton>(R.id.floatingactionbutton).isVisible =
-//                    !isSlideToBottom(recyclerView)
+                if (recyclerView.computeVerticalScrollExtent() == recyclerView.computeVerticalScrollRange()) {
+                    binding!!.root.findViewById<FloatingActionButton>(R.id.floatingactionbutton).isVisible =
+                        true
+                } else {
+                    binding!!.root.findViewById<FloatingActionButton>(R.id.floatingactionbutton).isVisible =
+                        !isSlideToBottom(recyclerView)
+                }
             }
         })
 

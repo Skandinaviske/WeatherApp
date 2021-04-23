@@ -14,5 +14,6 @@ class MyApplication : Application() {
     companion object {
         @JvmField
         var currentLocation: String = "";
+        var currentBuilding: String = ""
     }
 }

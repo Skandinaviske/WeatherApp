@@ -65,8 +65,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="40dp"
                         android:hint="@string/city_template"
-                        android:text="@{viewModel.repositoryforLocation[1]}"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="26sp"
                         android:textStyle="bold"
                         android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}' />

@@ -128,14 +128,15 @@ object Util {
 
     //judge whether the recyclerview slides to the bottom
     fun isSlideToBottom(recyclerView: RecyclerView?): Boolean {
-        if (recyclerView == null) return false
+        if (recyclerView == null)
+            return false
         return recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange()
     }
 
     //give sun screen suggestions
-    fun giveSunscreenBrief(brief: String): String{
+    fun giveSunscreenBrief(brief: String): String {
         var giveBrief = ""
-        when(brief){
+        when (brief) {
             "弱" -> giveBrief = "不需要防晒"
             "较弱" -> giveBrief = "轻微防嗮"
             "中等" -> giveBrief = "适当防晒"
@@ -146,9 +147,9 @@ object Util {
     }
 
     //give sun dressing suggestions
-    fun giveDressingBrief(brief: String): String{
+    fun giveDressingBrief(brief: String): String {
         var giveBrief = ""
-        when(brief){
+        when (brief) {
             "炎热" -> giveBrief = "穿薄衣服"
             "热" -> giveBrief = "穿较薄衣服"
             "舒适" -> giveBrief = "穿衣舒适"

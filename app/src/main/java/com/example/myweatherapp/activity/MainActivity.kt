@@ -54,7 +54,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var cityname: String = "上海"
     private var lastcityname: String = ""
 
-    @SuppressLint("SetTextI18n", "CheckResult")
+    @SuppressLint("SetTextI18n", "CheckResult", "UseCompatLoadingForDrawables")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,6 +122,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                     cityname = cityname.substring(0, cityname.length - 1)
 
                     MyApplication.currentLocation = cityname
+                    MyApplication.currentBuilding = aMapLocation.aoiName
 
                     if (cityname != lastcityname) {
                         myViewModel!!.init(cityname)
@@ -151,6 +152,17 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
                                 val initText = binding?.root?.findViewById<TextView>(R.id.initText)
                                 if (initText != null) {
                                     initText.visibility = View.GONE
+                                }
+
+                                val textViewCity = binding?.root?.findViewById<TextView>(R.id.city)
+                                if (textViewCity != null) {
+                                    textViewCity.text = "$cityname  ${aMapLocation.aoiName}"
+                                    textViewCity.setCompoundDrawablesWithIntrinsicBounds(
+                                        null,
+                                        null,
+                                        this.resources.getDrawable(R.drawable.position_two),
+                                        null
+                                    )
                                 }
                             })
 
@@ -205,7 +217,7 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         amapLocationClient = AMapLocationClient(this)
         mLocationOption = AMapLocationClientOption()
         mLocationOption.geoLanguage = AMapLocationClientOption.GeoLanguage.ZH
-        mLocationOption.interval = 1000
+        mLocationOption.interval = 2000
         amapLocationClient.setLocationOption(mLocationOption)
         amapLocationClient.startLocation()
     }
