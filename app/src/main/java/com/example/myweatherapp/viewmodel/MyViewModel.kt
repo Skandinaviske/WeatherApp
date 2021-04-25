@@ -99,6 +99,31 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         repository.updateData(getApplication(), cityname, dataModel)
     }
 
+    //update data about now
+    fun updateNowInfo(cityname: String){
+        repository.getNowInfo(cityname, getApplication())
+    }
+
+    //update data about daily
+    fun updateDailyInfo(cityname: String){
+        repository.getDailyInfo(cityname)
+    }
+
+    //update data about hour
+    fun updateHourInfo(cityname: String){
+        repository.getHourlyInfo(cityname)
+    }
+
+    //update data about hour
+    fun updateAirInfo(cityname: String){
+        repository.getAirInfo(cityname)
+    }
+
+    //update data about hour
+    fun updateSuggestionInfo(cityname: String){
+        repository.getSuggestion(cityname)
+    }
+
     //return the livedata about the current weather information
     val repositoryforNow: LiveData<ArrayList<String>>?
         get() = textLiveDataforNow

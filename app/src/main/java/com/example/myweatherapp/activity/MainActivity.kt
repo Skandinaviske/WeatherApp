@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -21,6 +22,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.example.myweatherapp.R
@@ -54,7 +56,10 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var cityname: String = "上海"
     private var lastcityname: String = ""
 
-    @SuppressLint("SetTextI18n", "CheckResult", "UseCompatLoadingForDrawables")
+    @SuppressLint(
+        "SetTextI18n", "CheckResult", "UseCompatLoadingForDrawables",
+        "ClickableViewAccessibility"
+    )
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,6 +109,14 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         )
 
         binding?.lifecycleOwner = this
+
+        val mSwipeRefreshLayout =
+            binding?.root?.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+
+        mSwipeRefreshLayout?.setOnRefreshListener {
+            refreshData()
+            mSwipeRefreshLayout.isRefreshing = false
+        }
 
         myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
 
@@ -233,6 +246,11 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     override fun onFinish(view: View) {
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        refreshData()
+    }
+
     override fun onClickFloatingActionButton(view: View) {
     }
 
@@ -248,5 +266,13 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         val bottomSheetDialog = BottomSheetDialog(view.context)
         bottomSheetDialog.setContentView(binding.root)
         bottomSheetDialog.show()
+    }
+
+    fun refreshData(){
+        myViewModel!!.updateNowInfo(cityname!!)
+        myViewModel!!.updateDailyInfo(cityname!!)
+        myViewModel!!.updateHourInfo(cityname!!)
+        myViewModel!!.updateAirInfo(cityname!!)
+        myViewModel!!.updateSuggestionInfo(cityname!!)
     }
 }

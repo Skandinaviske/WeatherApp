@@ -86,4 +86,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'com.permissionx.guolindev:permissionx:1.2.2'
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }

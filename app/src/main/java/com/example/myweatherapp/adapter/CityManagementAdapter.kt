@@ -1,5 +1,6 @@
 package com.example.myweatherapp.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -63,9 +64,13 @@ class CityManagementAdapter(
         }
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, OtherCityActivity::class.java)
-            intent.putExtra("cityname", city)
-            context.startActivity(intent)
+            if (position == 0) {
+                (context as Activity).finish()
+            } else {
+                val intent = Intent(context, OtherCityActivity::class.java)
+                intent.putExtra("cityname", city)
+                context.startActivity(intent)
+            }
         }
 
         val checkBox = holder.itemViewDataBinding.checkbox

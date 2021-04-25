@@ -18,6 +18,7 @@ import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.retrofit.ConnectService
 import com.example.myweatherapp.retrofit.RetrofitService
 import com.example.myweatherapp.util.Util
+import com.example.myweatherapp.util.Util.getCurrentTime
 import com.example.myweatherapp.util.Util.giveDressingBrief
 import com.example.myweatherapp.util.Util.giveSunscreenBrief
 import com.example.myweatherapp.util.Util.judgeColor
@@ -101,10 +102,11 @@ class Repository {
                     val wind_speed = now?.wind_speed
                     val wind_scale = now?.wind_scale
                     val clouds = now?.clouds
+                    val updateTime = model.last_update
                     if (temperature != null && code != null && weathertype != null &&
                         feels_like != null && humidity != null && wind_direction != null &&
                         pressure != null && visibility != null && wind_speed != null &&
-                        wind_scale != null && clouds != null
+                        wind_scale != null && clouds != null &&updateTime != null
                     ) {
                         val weatherBackground = Util.judgeWeatherType(Integer.parseInt(code))
                         arrayList.add(temperature)             //0
@@ -123,6 +125,8 @@ class Repository {
                         arrayList.add(wind_speed)
                         arrayList.add(wind_scale)
                         arrayList.add(clouds)                  //15
+                        arrayList.add(updateTime)
+                        arrayList.add(getCurrentTime())
                         val dataModel = DataModel(
                             cityname,
                             temperature.toInt(),

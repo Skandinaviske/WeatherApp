@@ -20,4 +20,7 @@ class Model {
 
     @SerializedName("suggestion")
     val suggestion: Suggestion? = null
+
+    @SerializedName("last_update")
+    val last_update: String? = null
 }

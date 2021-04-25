@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ProgressBar
@@ -14,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.myweatherapp.R
 import com.example.myweatherapp.adapter.HourWeatherAdapter
 import com.example.myweatherapp.datamodel.BasicModel
@@ -41,6 +43,7 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var myViewModel: MyViewModel? = null
     private var binding: ActivityOthercityBinding? = null
     private var cityname: String? = null
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +78,14 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         binding?.viewModel = myViewModel
         binding?.clickHandler = this
 
+        val mSwipeRefreshLayout =
+            binding?.root?.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+
+        mSwipeRefreshLayout?.setOnRefreshListener {
+            refreshData()
+            mSwipeRefreshLayout.isRefreshing = false
+        }
+
         //Observe daily data, when data changes, refresh the recyclerview
         myViewModel!!.repositoryforDaily?.observe(this, Observer<ArrayList<BasicModel>> { t ->
 
@@ -106,17 +117,17 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         val temperature = myViewModel!!.repositoryforNow?.value?.get(0)?.toInt()
         val type = myViewModel!!.repositoryforNow?.value?.get(2)
         val cityCN = myViewModel!!.repositoryforNow?.value?.get(1)
-            if (cityname != null&&temperature != null&&type != null&& cityCN != null) {
-                val dataModel = DataModel(cityname!!, temperature, type)
-                myViewModel!!.updateItemsforDatabase(cityname!!, dataModel)
-            }
+        if (cityname != null && temperature != null && type != null && cityCN != null) {
+            val dataModel = DataModel(cityname!!, temperature, type)
+            myViewModel!!.updateItemsforDatabase(cityname!!, dataModel)
+        }
     }
 
     override fun onClicktoActivity(view: View) {
         val context: Context = view.context
         val intent = Intent(context, CityManagementActivity::class.java)
-        intent.putExtra("temperature",myViewModel!!.repositoryforNow?.value?.get(0))
-        intent.putExtra("weathertype",myViewModel!!.repositoryforNow?.value?.get(2))
+        intent.putExtra("temperature", myViewModel!!.repositoryforNow?.value?.get(0))
+        intent.putExtra("weathertype", myViewModel!!.repositoryforNow?.value?.get(2))
         intent.putExtra("cityname", cityname)
         context.startActivity(intent)
     }
@@ -139,5 +150,13 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         val bottomSheetDialog = BottomSheetDialog(view.context)
         bottomSheetDialog.setContentView(binding.root)
         bottomSheetDialog.show()
+    }
+
+    fun refreshData(){
+        myViewModel!!.updateNowInfo(cityname!!)
+        myViewModel!!.updateDailyInfo(cityname!!)
+        myViewModel!!.updateHourInfo(cityname!!)
+        myViewModel!!.updateAirInfo(cityname!!)
+        myViewModel!!.updateSuggestionInfo(cityname!!)
     }
 }

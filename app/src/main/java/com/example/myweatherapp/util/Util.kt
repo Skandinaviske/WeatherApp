@@ -99,6 +99,12 @@ object Util {
         //textDate?.postValue(dateFormat.format(Calendar.getInstance().time))
     }
 
+    @SuppressLint("SimpleDateFormat")
+    fun getCurrentTime(): String {
+        val currentTime = System.currentTimeMillis()
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentTime)
+    }
+
     //judge weather and return color codes
     fun judgeWeatherColor(weatherType: String): Int {
         var result: Int = 0
