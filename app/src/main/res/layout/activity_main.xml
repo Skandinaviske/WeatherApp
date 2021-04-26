@@ -74,7 +74,7 @@
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold"
-                            android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="visible"}' />
+                            android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}' />
 
 <!--                        <TextView-->
 <!--                            android:layout_width="wrap_content"-->
