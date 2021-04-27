@@ -17,14 +17,21 @@ import com.example.myweatherapp.datamodel.CitySearchModel
 import com.example.myweatherapp.datamodel.HourDataModel
 import com.example.myweatherapp.retrofit.ConnectService
 import com.example.myweatherapp.retrofit.RetrofitService
+import com.example.myweatherapp.retrofit.RetrofitServiceTest
 import com.example.myweatherapp.util.Util
 import com.example.myweatherapp.util.Util.getCurrentTime
 import com.example.myweatherapp.util.Util.giveDressingBrief
 import com.example.myweatherapp.util.Util.giveSunscreenBrief
 import com.example.myweatherapp.util.Util.judgeColor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.internal.wait
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.await
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -412,6 +419,100 @@ class Repository {
         })
         return textLiveDataforCitySearch
     }
+
+    fun getSuggestionTest(cityname: String): MutableLiveData<ArrayList<String>> {
+        GlobalScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO){
+                val response = RetrofitServiceTest.retrofitSuggestion.getStringArraySuggestion(TIANQI_API_SECRET_KEY,
+                    cityname,
+                    LANGUAGE_NAME).await()
+                if (response.result != null) {
+                    val arraylistSuggestion = ArrayList<String>()
+                    val users = response?.result
+                    val model = users[0]
+                    val suggestion = model.suggestion
+                    val airpollution = suggestion?.airpollution
+                    val airpollutionBrief = airpollution?.brief
+                    val airpollutionDetails = airpollution?.details
+
+                    val sport = suggestion?.sport
+                    val sportBrief = sport?.brief
+                    val sportDetails = sport?.details
+
+                    val carWashing = suggestion?.carWashing
+                    val carWashingBrief = carWashing?.brief
+                    val carWashingDetails = carWashing?.details
+
+                    val makeup = suggestion?.makeup
+                    val makeupBrief = makeup?.brief
+                    val makeupDetails = makeup?.details
+
+                    val sunscreen = suggestion?.sunscreen
+                    val sunscreenBrief = sunscreen?.brief?.let { giveSunscreenBrief(it) }
+                    val sunscreenDetails = sunscreen?.details
+
+                    val travel = suggestion?.travel
+                    val travelBrief = travel?.brief
+                    val travelDetails = travel?.details
+
+                    val dressing = suggestion?.dressing
+                    val dressingBrief = dressing?.brief?.let { giveDressingBrief(it) }
+                    val dressingDetails = dressing?.details
+
+                    val traffic = suggestion?.traffic
+                    val trafficBrief = traffic?.brief
+                    val trafficDetails = traffic?.details
+
+                    val flu = suggestion?.flu
+                    val fluBrief = flu?.brief
+                    val fluDetails = flu?.details
+
+                    if (airpollutionBrief != null && airpollutionDetails != null && sportBrief != null && sportDetails != null &&
+                        carWashingBrief != null && carWashingDetails != null && makeupBrief != null && makeupDetails != null &&
+                        sunscreenBrief != null && sunscreenDetails != null && travelBrief != null && travelDetails != null &&
+                        dressingBrief != null && dressingDetails != null && trafficBrief != null && trafficDetails != null &&
+                        fluBrief != null && fluDetails != null
+                    ) {
+                        arraylistSuggestion.add(airpollutionBrief)
+                        arraylistSuggestion.add(airpollutionDetails)
+
+                        arraylistSuggestion.add(sportBrief)
+                        arraylistSuggestion.add(sportDetails)
+
+                        arraylistSuggestion.add(carWashingBrief)
+                        arraylistSuggestion.add(carWashingDetails)          //5
+
+                        arraylistSuggestion.add(makeupBrief)
+                        arraylistSuggestion.add(makeupDetails)
+
+                        arraylistSuggestion.add(sunscreenBrief)
+                        arraylistSuggestion.add(sunscreenDetails)
+
+                        arraylistSuggestion.add(travelBrief)                //10
+                        arraylistSuggestion.add(travelDetails)
+
+                        arraylistSuggestion.add(dressingBrief)
+                        arraylistSuggestion.add(dressingDetails)
+
+                        arraylistSuggestion.add(trafficBrief)
+                        arraylistSuggestion.add(trafficDetails)                //15
+
+                        arraylistSuggestion.add(fluBrief)
+                        arraylistSuggestion.add(fluDetails)
+                    }
+
+                    textLiveDataforSuggestion.postValue(arraylistSuggestion)
+                    textLiveDataforOutofRequest.postValue("200")
+                } else
+                {
+                    textLiveDataforOutofRequest.postValue("503")
+                }
+            }
+        }
+        return textLiveDataforSuggestion
+        //更新ui
+    }
+
 
     // get the current life suggestions
     fun getSuggestion(cityname: String): MutableLiveData<ArrayList<String>> {

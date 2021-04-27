@@ -12,12 +12,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ProgressBar
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -38,6 +41,11 @@ import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jaeger.library.StatusBarUtil
 import com.permissionx.guolindev.PermissionX
+import me.everything.android.ui.overscroll.IOverScrollDecor
+import me.everything.android.ui.overscroll.IOverScrollState.*
+import me.everything.android.ui.overscroll.IOverScrollStateListener
+import me.everything.android.ui.overscroll.IOverScrollUpdateListener
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 
 
 /*
@@ -55,6 +63,8 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
     lateinit var mLocationOption: AMapLocationClientOption
     private var cityname: String = "上海"
     private var lastcityname: String = ""
+
+    private var isOverScrolled: Boolean = true
 
     @SuppressLint(
         "SetTextI18n", "CheckResult", "UseCompatLoadingForDrawables",
@@ -110,15 +120,51 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
 
         binding?.lifecycleOwner = this
 
-        val mSwipeRefreshLayout =
-            binding?.root?.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
-
-        mSwipeRefreshLayout?.setOnRefreshListener {
-            refreshData()
-            mSwipeRefreshLayout.isRefreshing = false
-        }
+//        val mSwipeRefreshLayout =
+//            binding?.root?.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+//
+//        mSwipeRefreshLayout?.setOnRefreshListener {
+//            refreshData()
+//            mSwipeRefreshLayout.isRefreshing = false
+//        }
 
         myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+
+        val scrollView = binding?.root?.findViewById<ScrollView>(R.id.scrollView)
+
+        val decor = OverScrollDecoratorHelper.setUpOverScroll(scrollView)
+
+//        decor.setOverScrollUpdateListener { decor, state, offset ->
+//            if (offset > 0) {
+//                isOverScrolled = true
+//                mSwipeRefreshLayout?.isRefreshing = true
+//            } else {
+//                if (isOverScrolled) {
+//                    refreshData()
+//                    mSwipeRefreshLayout?.isRefreshing = false
+//                }
+//                isOverScrolled = false
+//            }
+//        }
+
+        decor.setOverScrollStateListener { decor, oldState, newState ->
+            when (newState) {
+                STATE_IDLE -> {
+                }
+                STATE_DRAG_START_SIDE -> {
+                    val progressBar = binding?.root?.findViewById<ProgressBar>(R.id.progressbar)
+                    refreshData()
+                }
+                STATE_DRAG_END_SIDE -> {
+                }
+                STATE_BOUNCE_BACK -> if (oldState == STATE_DRAG_START_SIDE) {
+                    // Dragging stopped -- view is starting to bounce back from the *left-end* onto natural position.
+                } else {
+                    // i.e. (oldState == STATE_DRAG_END_SIDE)
+                    // View is starting to bounce back from the *right-end*.
+                }
+            }
+        }
 
         //get current location
         doLocation()
@@ -268,11 +314,12 @@ class MainActivity : OnClickHandlerInterface, AppCompatActivity() {
         bottomSheetDialog.show()
     }
 
-    fun refreshData(){
-        myViewModel!!.updateNowInfo(cityname!!)
-        myViewModel!!.updateDailyInfo(cityname!!)
-        myViewModel!!.updateHourInfo(cityname!!)
-        myViewModel!!.updateAirInfo(cityname!!)
-        myViewModel!!.updateSuggestionInfo(cityname!!)
+    private fun refreshData() {
+        myViewModel!!.updateNowInfo(cityname)
+        myViewModel!!.updateDailyInfo(cityname)
+        myViewModel!!.updateHourInfo(cityname)
+        myViewModel!!.updateAirInfo(cityname)
+        myViewModel!!.updateSuggestionInfo(cityname)
     }
+
 }

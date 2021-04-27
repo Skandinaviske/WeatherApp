@@ -45,7 +45,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         textLiveDataforDaily = repository.getDailyInfo(cityname)
         textLiveDataforHour = repository.getHourlyInfo(cityname)
         textLiveDataforAir = repository.getAirInfo(cityname)
-        textLiveDataforSuggestion = repository.getSuggestion(cityname)
+        textLiveDataforSuggestion = repository.getSuggestionTest(cityname)
         textLiveDataforOutofRequest = repository.outofRequest()
     }
 
@@ -123,7 +123,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
 
     //update data about hour
     fun updateSuggestionInfo(cityname: String){
-        repository.getSuggestion(cityname)
+        repository.getSuggestionTest(cityname)
     }
 
     //return the livedata about the current weather information

@@ -16,10 +16,10 @@
             type="com.example.myweatherapp.view.OnClickHandlerInterface" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+<!--        android:id="@+id/swipeRefreshLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/startupBackground"
@@ -33,7 +33,7 @@
                 android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}'
                 app:setWeather='@{viewModel.repositoryforNow[1]}' />
 
-            <androidx.core.widget.NestedScrollView
+            <ScrollView
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -51,6 +51,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:context=".activity.MainActivity">
+
+                        <ProgressBar
+                            android:id="@+id/progressbar"
+                            style="@android:style/Widget.Material.Light.ProgressBar.Small"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="20dp"
+                            android:indeterminateTint="@color/black"
+                            android:visibility="gone"
+                            />
 
                         <ImageView
                             android:layout_width="26dp"
@@ -610,7 +621,7 @@
                         android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}'
                         app:drawableStartCompat="@drawable/floatingcloud" />
                 </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
+            </ScrollView>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 </layout>
