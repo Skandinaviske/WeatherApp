@@ -46,6 +46,7 @@ class Repository {
     private var textLiveDataforAir = MutableLiveData<ArrayList<String>>()
     private var textLiveDataforCitySearch = MutableLiveData<ArrayList<CitySearchModel>>()
     private var textLiveDataforSuggestion = MutableLiveData<ArrayList<String>>()
+    private var textLiveDataforOutofRequest = MutableLiveData<String>()
     private var textLiveDatafromRoom = MutableLiveData<ArrayList<DataModel>>()
     private var arrayListDataModel: ArrayList<DataModel> = ArrayList<DataModel>()
 
@@ -136,6 +137,10 @@ class Repository {
                         db.DataDao().insert(dataModel)
                     }
                     textLiveDataforNow.postValue(arrayList)
+                    textLiveDataforOutofRequest.postValue("200")
+                } else
+                {
+                    textLiveDataforOutofRequest.postValue("503")
                 }
             }
 
@@ -181,6 +186,10 @@ class Repository {
                         arrayList.add(timezone_offset)
                     }
                     textLiveDataforLocation.postValue(arrayList)
+                    textLiveDataforOutofRequest.postValue("200")
+                } else
+                {
+                    textLiveDataforOutofRequest.postValue("503")
                 }
             }
 
@@ -243,6 +252,10 @@ class Repository {
                         i++
                     }
                     textLiveDataforDaily.postValue(result)
+                    textLiveDataforOutofRequest.postValue("200")
+                } else
+                {
+                    textLiveDataforOutofRequest.postValue("503")
                 }
             }
 
@@ -296,6 +309,10 @@ class Repository {
                         i++
                     }
                     textLiveDataforHourDataModel.postValue(result)
+                    textLiveDataforOutofRequest.postValue("200")
+                } else
+                {
+                    textLiveDataforOutofRequest.postValue("503")
                 }
             }
 
@@ -344,6 +361,10 @@ class Repository {
                         airModel.add(judgeColor(quality).toString())
                     }
                     textLiveDataforAir.postValue(airModel)
+                    textLiveDataforOutofRequest.postValue("200")
+                } else
+                {
+                    textLiveDataforOutofRequest.postValue("503")
                 }
             }
 
@@ -377,6 +398,10 @@ class Repository {
                         }
                     }
                     textLiveDataforCitySearch.postValue(arrayListCitySearch)
+                    textLiveDataforOutofRequest.postValue("200")
+                } else
+                {
+                    textLiveDataforOutofRequest.postValue("503")
                 }
             }
 
@@ -474,6 +499,10 @@ class Repository {
                     }
 
                     textLiveDataforSuggestion.postValue(arraylistSuggestion)
+                    textLiveDataforOutofRequest.postValue("200")
+                } else
+                {
+                    textLiveDataforOutofRequest.postValue("503")
                 }
             }
 
@@ -524,5 +553,13 @@ class Repository {
     fun updateData(application: Application, cityname: String, dataModel: DataModel) {
         val db = AppDatabase.getDatabase(application)
         db.DataDao().updateData(dataModel.city, dataModel.temperature, dataModel.type)
+    }
+
+    fun outofRequest():MutableLiveData<String>{
+        if(textLiveDataforOutofRequest.value==null)
+        {
+            textLiveDataforOutofRequest.postValue("200")
+        }
+        return textLiveDataforOutofRequest
     }
 }

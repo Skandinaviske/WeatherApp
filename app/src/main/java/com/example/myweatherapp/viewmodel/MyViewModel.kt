@@ -32,6 +32,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     private var textLiveDataforAir: MutableLiveData<ArrayList<String>>? = null
     private var textLiveDataforCitySearch: MutableLiveData<ArrayList<CitySearchModel>>? = null
     private var textLiveDataforSuggestion: MutableLiveData<ArrayList<String>>? = null
+    private var textLiveDataforOutofRequest: MutableLiveData<String>? = null
     private var repository = Repository()
 
     fun init(cityname: String) {
@@ -45,6 +46,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         textLiveDataforHour = repository.getHourlyInfo(cityname)
         textLiveDataforAir = repository.getAirInfo(cityname)
         textLiveDataforSuggestion = repository.getSuggestion(cityname)
+        textLiveDataforOutofRequest = repository.outofRequest()
     }
 
     //get the city search results
@@ -155,4 +157,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     //return the livedata about the life suggestions
     val repositoryforSuggestion: LiveData<ArrayList<String>>?
         get() = textLiveDataforSuggestion
+
+    val repositoryforOutofRequest: LiveData<String>?
+        get() = textLiveDataforOutofRequest
 }

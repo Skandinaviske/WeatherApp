@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -89,17 +90,19 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         //Observe daily data, when data changes, refresh the recyclerview
         myViewModel!!.repositoryforDaily?.observe(this, Observer<ArrayList<BasicModel>> { t ->
 
-            val temBasicModel = t[0]
-            t.removeAt(0)
-            val textView = binding?.root?.findViewById<TextView>(R.id.highandlow)
-            textView?.text = "${temBasicModel.high}℃/${temBasicModel.low}℃"
+            if (t != null) {
+                val temBasicModel = t[0]
+                t.removeAt(0)
+                val textView = binding?.root?.findViewById<TextView>(R.id.highandlow)
+                textView?.text = "${temBasicModel.high}℃/${temBasicModel.low}℃"
 
-            binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
-            binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
-            binding?.recyclerview?.setHasFixedSize(false)
-            val initProgressBar = binding?.root?.findViewById<ProgressBar>(R.id.progressbar)
-            if (initProgressBar != null) {
-                initProgressBar.visibility = View.GONE
+                binding?.recyclerview?.layoutManager = LinearLayoutManager(this)
+                binding?.recyclerview?.adapter = WeekWeatherAdapter(t)
+                binding?.recyclerview?.setHasFixedSize(false)
+                val initProgressBar = binding?.root?.findViewById<ProgressBar>(R.id.progressbar)
+                if (initProgressBar != null) {
+                    initProgressBar.visibility = View.GONE
+                }
             }
         })
 
@@ -107,12 +110,24 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         myViewModel!!.repositoryforHourDataModel?.observe(
             this,
             Observer<ArrayList<HourDataModel>> { t ->
-                val linearLayoutManager = LinearLayoutManager(this)
-                linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-                binding?.recyclerviewHour?.layoutManager = linearLayoutManager
-                binding?.recyclerviewHour?.adapter = HourWeatherAdapter(t)
-                binding?.recyclerviewHour?.setHasFixedSize(false)
+                if (t != null) {
+                    val linearLayoutManager = LinearLayoutManager(this)
+                    linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+                    binding?.recyclerviewHour?.layoutManager = linearLayoutManager
+                    binding?.recyclerviewHour?.adapter = HourWeatherAdapter(t)
+                    binding?.recyclerviewHour?.setHasFixedSize(false)
+                }
             })
+
+        myViewModel!!.repositoryforOutofRequest?.observe(this, Observer<String> { t ->
+            if (t == "503") {
+                Toast.makeText(
+                    this,
+                    "请求过多，请稍后再试",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
 
         val temperature = myViewModel!!.repositoryforNow?.value?.get(0)?.toInt()
         val type = myViewModel!!.repositoryforNow?.value?.get(2)
@@ -152,7 +167,7 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         bottomSheetDialog.show()
     }
 
-    fun refreshData(){
+    fun refreshData() {
         myViewModel!!.updateNowInfo(cityname!!)
         myViewModel!!.updateDailyInfo(cityname!!)
         myViewModel!!.updateHourInfo(cityname!!)

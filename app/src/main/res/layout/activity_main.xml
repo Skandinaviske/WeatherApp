@@ -76,13 +76,13 @@
                             android:textStyle="bold"
                             android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}' />
 
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="20dp"-->
-<!--                            android:layout_marginTop="60dp"-->
-<!--                            android:text="@={viewModel.repositoryforNow[17]}"-->
-<!--                            android:visibility="visible" />-->
+                        <!--                        <TextView-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:layout_marginStart="20dp"-->
+                        <!--                            android:layout_marginTop="60dp"-->
+                        <!--                            android:text="@={viewModel.repositoryforNow[17]}"-->
+                        <!--                            android:visibility="visible" />-->
 
                         <TextView
                             android:id="@+id/temperature"
@@ -250,8 +250,7 @@
                         android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}'
                         app:columnCount="2"
                         app:orientation="horizontal"
-                        app:rowCount="3"
-                        app:useDefaultMargins="true">
+                        app:rowCount="3">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -413,8 +412,7 @@
                         android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}'
                         app:columnCount="2"
                         app:orientation="horizontal"
-                        app:rowCount="4"
-                        app:useDefaultMargins="true">
+                        app:rowCount="4">
 
                         <LinearLayout
                             android:layout_width="0dp"

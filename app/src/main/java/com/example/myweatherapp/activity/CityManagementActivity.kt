@@ -3,8 +3,8 @@ package com.example.myweatherapp.activity
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView.OnItemClickListener
@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -33,6 +34,7 @@ import com.example.myweatherapp.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jaeger.library.StatusBarUtil
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 
 
 /*
@@ -54,6 +56,7 @@ class CityManagementActivity : OnClickHandlerInterface, AppCompatActivity() {
     private var arrayListDataModelWithVisible: ArrayList<DataModelWithVisible> = ArrayList()
     private val arrayListDeleteItem: ArrayList<String> = ArrayList()
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -76,6 +79,10 @@ class CityManagementActivity : OnClickHandlerInterface, AppCompatActivity() {
         )
 
         binding?.lifecycleOwner = this
+
+//        val recyclerView = binding?.root?.findViewById<RecyclerView>(R.id.recyclerview)
+//
+//        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL)
 
         //Set scroll action, when we slide to the bottom, the floatingActionButton will disappear
         binding?.recyclerview?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
