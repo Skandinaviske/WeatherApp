@@ -1,6 +1,7 @@
 package com.example.myweatherapp.util
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.R
 import java.text.DateFormat
@@ -21,7 +22,10 @@ object Util {
         when (weatherCode) {
             0, 2 -> result = "sunny"
             1, 3 -> result = "sunnyNight"
-            4, 5, 7 -> result = "cloudy"
+            4, 5, 7 -> result = when (judgeNight()) {
+                true -> "cloudyNight"
+                false -> "cloudy"
+            }
             6, 8 -> result = "cloudyNight"
             9, 32, 33, 34, 35, 36 -> result = "overcast"
             10, 13, 19 -> result = "lightRainy"
@@ -88,6 +92,8 @@ object Util {
         var week = calendar.get(Calendar.DAY_OF_WEEK)
         if (week < 0)
             week = 0
+        if(week == 7)
+            return weekDays[0]
         return weekDays[week]
     }
 
@@ -165,5 +171,16 @@ object Util {
             "寒冷" -> giveBrief = "穿保暖棉衣"
         }
         return giveBrief
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun judgeNight(): Boolean {
+        val date = Date()
+        val dateFormat = SimpleDateFormat("HH")
+        val hour = dateFormat.format(date).toInt()
+        if (hour in 19..24) {
+            return true
+        }
+        return false
     }
 }

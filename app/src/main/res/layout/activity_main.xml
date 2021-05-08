@@ -28,6 +28,7 @@
             android:background="@drawable/wallpaper">
 
             <com.rainy.weahter_bg_plug.WeatherBg
+                android:id="@+id/weatherBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility='@{(viewModel.repositoryforNow[0] != null &amp; viewModel.repositoryforDaily[0] != null) ? "visible" : "gone", default="gone"}'

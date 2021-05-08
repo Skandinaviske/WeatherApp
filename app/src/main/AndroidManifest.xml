@@ -24,6 +24,8 @@
 
         <activity android:name=".activity.OtherCityActivity" />
 
+        <activity android:name=".activity.EasterEggActivity" />
+
         <service android:name="com.amap.api.location.APSService" />
         <meta-data
             android:name="com.amap.api.v2.apikey"

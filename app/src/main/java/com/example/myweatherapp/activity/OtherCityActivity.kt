@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -85,6 +86,12 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
         mSwipeRefreshLayout?.setOnRefreshListener {
             refreshData()
             mSwipeRefreshLayout.isRefreshing = false
+        }
+
+        val intentToEasterEggActivity: Intent = Intent(this, EasterEggActivity::class.java)
+        val easterEgg = binding?.root?.findViewById<ImageView>(R.id.easterEgg);
+        easterEgg?.setOnClickListener {
+            startActivity(intentToEasterEggActivity)
         }
 
         //Observe daily data, when data changes, refresh the recyclerview
