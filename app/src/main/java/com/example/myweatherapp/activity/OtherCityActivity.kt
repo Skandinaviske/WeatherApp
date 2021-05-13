@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -88,10 +87,15 @@ class OtherCityActivity : OnClickHandlerInterface, AppCompatActivity() {
             mSwipeRefreshLayout.isRefreshing = false
         }
 
-        val intentToEasterEggActivity: Intent = Intent(this, EasterEggActivity::class.java)
-        val easterEgg = binding?.root?.findViewById<ImageView>(R.id.easterEgg);
+        val intentToEasterEggActivity: Intent = Intent(this, BallGameActivity::class.java)
+        val intentToSecondEasterEggActivity = Intent(this, ButterflyActivity::class.java)
+        val easterEgg = binding?.root?.findViewById<ImageView>(R.id.easterEgg)
         easterEgg?.setOnClickListener {
-            startActivity(intentToEasterEggActivity)
+            val rand = (1..2).random()
+            if (rand == 1)
+                startActivity(intentToEasterEggActivity)
+            else if (rand == 2)
+                startActivity(intentToSecondEasterEggActivity)
         }
 
         //Observe daily data, when data changes, refresh the recyclerview

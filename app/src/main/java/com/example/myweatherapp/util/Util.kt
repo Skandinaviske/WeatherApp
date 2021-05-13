@@ -57,6 +57,7 @@ object Util {
             "阴" -> result = R.drawable.overcast
             "雾" -> result = R.drawable.foggy
             "扬沙" -> result = R.drawable.dusty
+            "霾" -> result = R.drawable.haze
         }
         return result
     }

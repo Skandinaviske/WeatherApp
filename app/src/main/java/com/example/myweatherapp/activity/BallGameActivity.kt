@@ -6,7 +6,6 @@ import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.os.PersistableBundle
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.Window
@@ -18,7 +17,7 @@ import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.random.Random
 
-class EasterEggActivity : AppCompatActivity(){
+class BallGameActivity : AppCompatActivity(){
     // 屏幕的宽度
     private var tableWidth = 0f
     // 屏幕的高度
@@ -45,7 +44,7 @@ class EasterEggActivity : AppCompatActivity(){
     // 游戏是否结束的旗标
     private var isLose = false
     private lateinit var gameView: GameView
-    class MyHandler(private var gameView: WeakReference<EasterEggActivity>) : Handler()
+    class MyHandler(private var gameView: WeakReference<BallGameActivity>) : Handler()
     {
         override fun handleMessage(msg: Message)
         {

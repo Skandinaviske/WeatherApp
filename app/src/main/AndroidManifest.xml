@@ -24,7 +24,9 @@
 
         <activity android:name=".activity.OtherCityActivity" />
 
-        <activity android:name=".activity.EasterEggActivity" />
+        <activity android:name=".activity.BallGameActivity" />
+
+        <activity android:name=".activity.ButterflyActivity" />
 
         <service android:name="com.amap.api.location.APSService" />
         <meta-data
